@@ -102,10 +102,10 @@ export default function Footer() {
             <Image src="/linkedin.svg" width={24} height={24} alt='Logo Linkedin' />
           </Link>
           <Link href="https://www.facebook.com/IESTGROUP/?locale=pt_BR">
-            <Image src="/facebook.svg" width={24} height={24} alt='Logo Linkedin' />
+            <Image src="/facebook.svg" width={24} height={24} alt='Logo Facebook' />
           </Link>
           <Link href="https://www.instagram.com/iestgroup/">
-            <Image src="/instagram.svg" width={24} height={24} alt='Logo Linkedin' />
+            <Image src="/instagram.svg" width={24} height={24} alt='Logo Instagram' />
           </Link>
         </div>
       </div>
