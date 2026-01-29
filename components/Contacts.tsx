@@ -1,6 +1,5 @@
-import Image from "next/image";
 import React from "react";
-import AddressIcon from "@/assets/address.svg";
+import { AddressIcon } from "@/components/icons";
 import Button from "./Button";
 
 export default function Contacts() {
@@ -9,11 +8,7 @@ export default function Contacts() {
       <div className="flex flex-col lg:flex-row justify-between items-start max-w-7xl mx-auto py-6 md:py-10 px-4 gap-8 lg:gap-0">
         <div className="w-full lg:w-1/4 p-2.5 flex flex-col gap-5">
           <div className="flex gap-5 items-center">
-            <Image
-              src={AddressIcon}
-              alt="icone"
-              className="h-8.75 text-white fill-white w-auto"
-            />
+            <AddressIcon className="fill-white h-8.75 w-auto" />
             <h2 className="font-bold uppercase leading text-2xl md:text-[28px] lg:text-[32px]">
               Endereço
             </h2>
