@@ -5,6 +5,7 @@ import Section2Image from "@/assets/home-section2.png";
 import Link from "next/link";
 import Button from "@/components/Button";
 import { getBackgroundImage } from "@/lib/utils";
+import Contacts from "@/components/Contacts";
 
 export default function Home() {
   const {
@@ -129,8 +130,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
-      <section></section>
-      <section></section>
+      <Contacts />
     </div>
   );
 }
