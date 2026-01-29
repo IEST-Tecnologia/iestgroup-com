@@ -124,7 +124,7 @@ export default function Home() {
             Expanda sua empresa para outros mercados com o IEST Group. Nós
             sabemos o caminho!
           </h1>
-          <Link href="#" className="">
+          <Link href="/contato" className="">
             <Button variant="inverted">Saiba mais</Button>
           </Link>
         </div>
