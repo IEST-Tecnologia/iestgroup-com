@@ -4,6 +4,7 @@
   --background: #ffffff;
   --foreground: #2f2f2f;
   --primary: #274587;
+  --light-primary: #6083CF;
   --secondary: #d11b1b;
 }
 
@@ -11,6 +12,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-light-primary: var(--light-primary);
   --color-secondary: var(--secondary);
 }
 
