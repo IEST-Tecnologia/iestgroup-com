@@ -1,6 +1,7 @@
 import Image from "next/image";
 import MainImage from "@/assets/home-main.png";
 import Section1Image from "@/assets/home-section1.png";
+import Section2Image from "@/assets/home-section2.png";
 import Link from "next/link";
 import Button from "@/components/Button";
 
@@ -8,7 +9,7 @@ export default function Home() {
   return (
     <div>
       <main className="bg-white">
-        <div className="flex justify-between items-center max-w-7xl mx-auto">
+        <div className="flex justify-between items-center max-w-7xl mx-auto py-10">
           <div className="w-1/2 p-2.5 flex flex-col gap-5">
             <h2 className="font-bold uppercase leading text-primary text-[32px]">
               Nossa história
@@ -64,11 +65,36 @@ export default function Home() {
             </Link>
           </div>
           <div className="w-2/5 p-2.5">
-            <Image src={Section1Image} alt="secao" />
+            <Image src={Section1Image} alt="imagem seção 1" />
           </div>
         </div>
       </section>
-      <section></section>
+      <section className="bg-white">
+        <div className="flex justify-between items-center max-w-7xl mx-auto py-10">
+          <div className="w-1/2 p-2.5 flex flex-col gap-5">
+            <h2 className="font-bold uppercase leading text-primary text-[32px]">
+              Nosso diferencial
+            </h2>
+            <p className="text-[19px] font-medium">
+              O <strong className="font-bold">IEST Group</strong> conta com uma
+              equipe altamente experiente e qualificada para atender às demandas
+              em serviços empresariais.
+            </p>
+            <p className="text-[19px] font-medium">
+              Nossos profissionais, além de possuírem profundo conhecimento
+              técnico, são bilíngues e estão sempre atualizados com as
+              tendências e necessidades do mercado, garantindo um atendimento de
+              excelência.
+            </p>
+            <Link href="/sobre-nos">
+              <Button>Saiba mais</Button>
+            </Link>
+          </div>
+          <div className="w-3/8">
+            <Image src={Section2Image} alt="imagem seção 2" />
+          </div>
+        </div>
+      </section>
       <section></section>
       <section></section>
       <section></section>
