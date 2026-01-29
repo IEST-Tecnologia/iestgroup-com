@@ -1,11 +1,23 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import MainImage from "@/assets/home-main.png";
 import Section1Image from "@/assets/home-section1.png";
 import Section2Image from "@/assets/home-section2.png";
 import Link from "next/link";
 import Button from "@/components/Button";
+import { getBackgroundImage } from "@/lib/utils";
 
 export default function Home() {
+  const {
+    props: { srcSet },
+  } = getImageProps({
+    alt: "",
+    width: 1920,
+    height: 827,
+    src: "/home-section3.jpg",
+  });
+  const backgroundImage = getBackgroundImage(srcSet);
+  const style = { backgroundImage };
+
   return (
     <div>
       <main className="bg-white">
@@ -95,7 +107,28 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section></section>
+      <section>
+        <h2 className="font-bold uppercase leading text-primary text-[32px]">
+          Nossos Clientes
+        </h2>
+      </section>
+      <section
+        className="relative bg-center bg-no-repeat bg-cover"
+        style={style}
+      >
+        <div className="w-3/5 py-10 p-2.5 flex flex-col gap-10">
+          <p className="font-medium leading-[1.3em] text-white text-[35px]">
+            Inicie seu negócio no Brasil com o IEST Group.
+          </p>
+          <h1 className="font-medium leading-[1.3em] text-white text-[35px] ">
+            Expanda sua empresa para outros mercados com o IEST Group. Nós
+            sabemos o caminho!
+          </h1>
+          <Link href="#" className="">
+            <Button variant="inverted">Saiba mais</Button>
+          </Link>
+        </div>
+      </section>
       <section></section>
       <section></section>
     </div>
