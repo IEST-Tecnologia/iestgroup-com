@@ -2,7 +2,6 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
   --gray-text: #2f2f2f;
   --blue-iest: #274587;
 }
@@ -14,18 +13,37 @@
   --font-mono: var(--font-geist-mono);
   --color-primary: var(--gray-text);
   --color-blue-iest: var(--blue-iest);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --shadow-card: 0px 0px 40px 0px rgba(0, 0, 0, 0.24);
+  --text-md: 1rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Poppins"
+  font-family: "Poppins";
 }
 
+/* Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.hover\:rotate-y-180:hover {
+  transform: rotateY(180deg);
+}
+
+.group:hover .group-hover\:rotate-x-180 {
+  transform: rotateX(180deg);
+}
