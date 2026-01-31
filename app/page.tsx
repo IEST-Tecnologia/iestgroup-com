@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: 'Consultoria Empresarial  - IEST Group'
+}
 
 export default function Home() {
   return (

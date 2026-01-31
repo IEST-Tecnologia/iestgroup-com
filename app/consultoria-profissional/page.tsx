@@ -3,6 +3,11 @@ import PageHeroSection from "@/components/PageHeroSection";
 import BannerConsulting from "@/assets/servicos/banner-consultoria-profissional.png";
 import BannerQuemSomos from "@/assets/sobre-nos/banner-quem-somos.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Consultoria Profissional'
+}
 
 export default function page() {
   return (

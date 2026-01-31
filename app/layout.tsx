@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 
@@ -11,7 +11,10 @@ const poppins = Poppins({
 
 
 export const metadata: Metadata = {
-  title: "Consultoria Empresarial - IEST Group",
+  title: {
+    template: '%s - IEST Group',
+    default: 'IEST Group'
+  },
   description: "Consultoria empresarial especializada em negócios entre China e Brasil. Apoiamos sua empresa em áreas administrativa, legal e contratação.",
 };
 

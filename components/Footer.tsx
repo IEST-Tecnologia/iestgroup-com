@@ -90,7 +90,7 @@ export default function Footer() {
               <li>
                 <Link
                   className="hover:text-primary/80"
-                  href="/bpo-contabil-financeiro"
+                  href="/bpo-contabil-e-financeiro"
                 >
                   BPO Contábil e Financeiro
                 </Link>

@@ -4,6 +4,11 @@ import FlipCard from "@/components/FlipCard";
 import BannerPrecos from "@/assets/servicos/banner-precos.jpg";
 import BgPrecos from "@/assets/servicos/bg-precos.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Preços de Transferência'
+}
 
 export default function page() {
   return (

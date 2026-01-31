@@ -3,6 +3,11 @@ import PageHeroSection from "@/components/PageHeroSection";
 import BannerRh from "@/assets/servicos/banner-rh.png";
 import BgRh from "@/assets/servicos/bg-rh.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Recursos Humanos'
+}
 
 export default function page() {
   return (

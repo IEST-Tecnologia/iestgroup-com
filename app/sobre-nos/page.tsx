@@ -11,6 +11,11 @@ import LogoGs from "@/assets/sobre-nos/logo-gs.jpg";
 import LogoXinhua from "@/assets/sobre-nos/logo-xinhua.jpg";
 import LogoEcbr from "@/assets/sobre-nos/logo-ecbr.jpg";
 import PageHeroSection from "@/components/PageHeroSection";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Sobre Nós'
+}
 
 export default function page() {
   return (
@@ -19,7 +24,7 @@ export default function page() {
         backgroundBannerImage={BannerQuemSomos}
         secondBannerImage={BannerAboutUs}
         secondBannerAlt="Dois homens sentados em uma cadeira de escritório"
-        service={false}
+            service={false} 
         shadowbg={false}
       >
         <h1 className="w-full text-blue-iest text-3xl font-bold text-center md:text-left uppercase mb-5">

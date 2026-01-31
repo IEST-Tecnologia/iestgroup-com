@@ -3,6 +3,11 @@ import PageHeroSection from "@/components/PageHeroSection";
 import BannerParalegal from "@/assets/servicos/banner-paralegal.png";
 import BgParalegal from "@/assets/servicos/bg-paralegal.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Serviço Digital e Marketing'
+}
 
 export default function page() {
   return (

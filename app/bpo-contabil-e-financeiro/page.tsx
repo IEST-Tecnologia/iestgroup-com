@@ -4,6 +4,11 @@ import BannerBpo from "@/assets/servicos/banner-bpo.png";
 import BgBpo from "@/assets/servicos/bg-bpo.jpg";
 import SeloPQCE from "@/assets/servicos/selo-pqec.png";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'BPO Contábil e Financeiro'
+}
 
 export default function page() {
   return (
