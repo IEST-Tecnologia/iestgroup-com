@@ -1,30 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { setConsentCookie, getConsentCookie } from "@/app/actions/consent";
+import { setConsentCookie } from "@/app/actions/consent";
 import Link from "next/link";
 
-export default function ConsentPopUp() {
-  const [isVisible, setIsVisible] = useState(false);
+interface ConsentPopUpProps {
+  consent: string | undefined;
+}
+
+export default function ConsentPopUp({ consent }: ConsentPopUpProps) {
+  const [isHidden, setIsHidden] = useState(false);
+  const [prevConsent, setPrevConsent] = useState(consent);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const checkConsent = async () => {
-      const consent = await getConsentCookie();
-      if (!consent) {
-        setIsVisible(true);
-      }
-    };
-    checkConsent();
-  }, []);
+  if (consent !== prevConsent) {
+    setPrevConsent(consent);
+    if (!consent) {
+      setIsHidden(false);
+    }
+  }
 
   const handleConsent = async (value: "accepted" | "rejected") => {
     await setConsentCookie(value, pathname);
-    setIsVisible(false);
+    setIsHidden(true);
   };
 
-  if (!isVisible) return null;
+  if (consent || isHidden) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6">

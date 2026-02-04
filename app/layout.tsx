@@ -37,7 +37,7 @@ export default async function RootLayout({
             <Analytics />
           </>
         )}
-        <ConsentPopUp />
+        <ConsentPopUp consent={consent} />
       </body>
     </html>
   );

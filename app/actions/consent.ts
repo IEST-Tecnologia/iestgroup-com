@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function setConsentCookie(
   value: "accepted" | "rejected",
-  pathname: string
+  pathname: string,
 ) {
   const cookieStore = await cookies();
 
@@ -23,4 +23,12 @@ export async function setConsentCookie(
 export async function getConsentCookie() {
   const cookieStore = await cookies();
   return cookieStore.get("consent")?.value;
+}
+
+export async function removeConsentCookie(pathname: string) {
+  const cookieStore = await cookies();
+
+  cookieStore.delete("consent");
+
+  revalidatePath(pathname);
 }

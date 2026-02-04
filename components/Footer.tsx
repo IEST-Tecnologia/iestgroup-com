@@ -1,9 +1,16 @@
+"use client";
+
+import { removeConsentCookie } from "@/app/actions/consent";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+
+  const pathname = usePathname();
+
   return (
     <div className="bg-white flex justify-center">
       <div className="max-w-7xl flex flex-col py-8">
@@ -141,6 +148,16 @@ export default function Footer() {
               </li>
               <li>
                 <p className="hover:text-primary/80">dpo@iestgroup.com</p>
+              </li>
+              <li>
+                <p
+                  className="hover:text-primary/80 cursor-pointer"
+                  onClick={async () => {
+                    await removeConsentCookie(pathname);
+                  }}
+                >
+                  Gerenciar cookies
+                </p>
               </li>
             </ul>
           </div>
