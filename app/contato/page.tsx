@@ -1,9 +1,66 @@
 import { getBackgroundImage } from "@/lib/utils";
 import { getImageProps } from "next/image";
-import React from "react";
-import { EmailIcon, PhoneIcon } from "@/components/icons";
-
-export default function page() {
+import React, { ReactNode } from "react";
+import { AddressIcon, EmailIcon, PhoneIcon } from "@/components/icons";
+import Button from "@/components/Button";
+function Textarea({
+  required,
+  name,
+  label,
+  rows = 4,
+}: {
+  required?: boolean;
+  name: string;
+  label: ReactNode;
+  rows?: number;
+}) {
+  return (
+    <label className="flex flex-col">
+      <span
+        className={
+          required ? "after:content-['*'] after:text-red-700 after:ml-1" : ""
+        }
+      >
+        {label}
+      </span>
+      <textarea
+        className="bg-white border-[#D5D7DA] rounded-[7px] border p-3"
+        name={name}
+        rows={rows}
+      />
+    </label>
+  );
+}
+function Input({
+  required,
+  name,
+  label,
+  placeholder = "",
+}: {
+  required?: boolean;
+  name: string;
+  label: ReactNode;
+  placeholder?: string;
+}) {
+  return (
+    <label className="flex flex-col">
+      <span
+        className={
+          required ? "after:content-['*'] after:text-red-700 after:ml-1" : ""
+        }
+      >
+        {label}
+      </span>
+      <input
+        className="bg-white border-[#D5D7DA] rounded-[7px] border p-3 font-medium"
+        name={name}
+        required={required}
+        placeholder={placeholder}
+      />
+    </label>
+  );
+}
+export default async function page() {
   const {
     props: { srcSet },
   } = getImageProps({
@@ -21,7 +78,7 @@ export default function page() {
         className="relative bg-center bg-no-repeat bg-cover px-4 min-h-[50vh] -z-10"
         style={style}
       ></div>
-      <section className="z-10 grid grid-cols-2 max-w-7xl mx-auto -mt-17.5">
+      <main className="z-10 grid grid-cols-1 lg:grid-cols-2 max-w-7xl mx-auto -mt-17.5 ">
         <div className="p-7.5 mt-17.5 flex flex-col gap-10">
           <div className="gap-5 flex flex-col">
             <h1 className="text-3xl font-bold text-primary">
@@ -55,15 +112,78 @@ export default function page() {
           </div>
         </div>
         <div className="p-7.5 ">
-          <div className="z-20 bg-white rounded-[29px] shadow-[0px_0px_40px_0px_rgba(0,0,0,0.24)] pt-[15%] pr-[7%] pb-[10%] pl-[7%]">
-            <form className="grid grid-cols-2">
+          <div className="z-20  rounded-[29px] shadow-[0px_0px_40px_0px_rgba(0,0,0,0.24)] pt-[15%] pr-[7%] pb-[10%] pl-[7%] bg-neutral-50">
+            <form
+              className="flex flex-col gap-4"
+              action={async (formData) => {
+                "use server";
+                console.log(formData);
+              }}
+            >
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 md:gap-3">
+                <Input
+                  label="Nome"
+                  name="first_name"
+                  required
+                  placeholder="Seu nome"
+                />
+                <Input
+                  label="Sobrenome"
+                  name="last_name"
+                  required
+                  placeholder="Seu sobrenome"
+                />
+              </div>
+              <Input
+                label="E-mail"
+                name="email"
+                required
+                placeholder="seuemail@email.com"
+              />
+              <Input
+                label="Telefone"
+                name="phone"
+                required
+                placeholder="(00) 00000-0000"
+              />
+              <Textarea label="Mensagem" name="message" />
+              <label>
+                <input className="mr-1" type="checkbox" />
+                Você concorda com nossa politica de privacidade.
+              </label>
               <div>
-                <label className="flex flex-col">
-                  Nome
-                  <input className="bg-white border-[#D5D7DA] rounded-[7px] border p-3" />
-                </label>
+                <Button>Enviar</Button>
               </div>
             </form>
+          </div>
+        </div>
+      </main>
+      <section className="bg-neutral-50 mt-12.5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 max-w-7xl mx-auto">
+          <div className="p-2.5 col-span-2">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7313.673051995317!2d-46.637425!3d-23.574314!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce596e11f7ee37%3A0xb6f8e0c49f5f729d!2sR.%20do%20Para%C3%ADso%2C%20595%20-%20Para%C3%ADso%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2004103-001%2C%20Brazil!5e0!3m2!1sen!2sus!4v1770260434328!5m2!1sen!2sus"
+              className="w-full"
+              height={450}
+              style={{ border: 0 }}
+              allowFullScreen={false}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+          <div className="p-2.5">
+            <div className="flex flex-col mx-10 p-2.5 h-full justify-between">
+              <h2 className="text-[59px] leading-[1.3em] font-semibold text-primary ">
+                Onde Estamos
+              </h2>
+              <div className="flex flex-col">
+                <AddressIcon className="w-6 h-6 mb-2 text-primary" />
+                <p className="font-bold">IEST GROUP</p>
+                <p>Rua do Paraíso</p>
+                <p>595 - 11º andar</p>
+                <p>São Paulo/SP</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
