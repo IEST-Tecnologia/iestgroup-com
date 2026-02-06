@@ -36,11 +36,14 @@ const navigationItems: NavItem[] = [
     label: "Serviços",
     dropdown: [
       { label: "Consultoria Profissional", href: "/consultoria-profissional" },
-      { label: "BPO Contábil e Financeiro", href: "/bpo" },
+      {
+        label: "BPO Contábil e Financeiro",
+        href: "/bpo-contabil-e-financeiro",
+      },
       { label: "Recursos Humanos", href: "/recursos-humanos" },
       { label: "Paralegal", href: "/paralegal" },
       { label: "Preços de Transferência", href: "/precos-de-transferencia" },
-      { label: "Serviços Digitais", href: "/servicos-digitais" },
+      { label: "Serviços Digitais", href: "/servico-digital-e-marketing" },
     ],
   },
   {
@@ -55,7 +58,7 @@ const navigationItems: NavItem[] = [
     label: "Carreiras",
     dropdown: [
       { label: "Vagas", href: "/vagas" },
-      { label: "Trabalhe Conosco", href: "/trabalhe-conosco" },
+      { label: "Trabalhe Conosco", href: "/carreira-iest" },
     ],
   },
 ];
@@ -184,28 +187,25 @@ export default function Header({
             >
               <LinkedInIcon className="h-4.25 w-4.25" />
             </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/we-chat"
               className="flex h-8.5 w-8.5 items-center justify-center rounded-full border border-primary bg-white text-primary transition-all duration-300 hover:bg-primary hover:text-white"
-              aria-label="WeChat"
             >
               <WeChatIcon className="h-4.25 w-4.25" />
-            </a>
+            </Link>
           </div>
 
           {/* Language Switcher */}
           <div className="flex items-center gap-3 border-l border-gray-300 pl-4">
             <Link
-              href="/pt"
+              href="#"
               className="transition-opacity hover:opacity-70"
               aria-label="Português"
             >
               <BrazilFlag className="h-8.25 w-8.25 rounded-full" />
             </Link>
             <Link
-              href="/zh"
+              href="https://iestgroup.com"
               className="transition-opacity hover:opacity-70"
               aria-label="中文"
             >

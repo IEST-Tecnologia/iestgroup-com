@@ -49,7 +49,7 @@ export default function page() {
           </p>
           <p>Confira abaixo todos os nossos serviços de BPO.</p>
         </div>
-        <div className="max-w-164 z-20 bg-blue-iest py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
+        <div className="max-w-164 z-20 bg-primary py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
           <div>
             <p className="text-xl font-semibold text-white">
               Segue abaixo demonstrativo de todos os serviços que nós prestamos

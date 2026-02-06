@@ -38,7 +38,7 @@ export default function FlipCard({ frontText, backText }: FlipCardProps) {
           </h3>
         </div>
         {/* Back */}
-        <div className="absolute inset-0 p-12 flex justify-center items-center bg-blue-iest backface-hidden rotate-x-180">
+        <div className="absolute inset-0 p-12 flex justify-center items-center bg-primary backface-hidden rotate-x-180">
           <h3 className="text-3xl font-semibold text-white text-center">
             &gt;&gt; {backText}
           </h3>

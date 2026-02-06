@@ -34,7 +34,7 @@ export default function ConsentPopUp({ consent }: ConsentPopUpProps) {
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 bg-blue-iest/10 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-5 h-5 text-primary"
@@ -75,7 +75,7 @@ export default function ConsentPopUp({ consent }: ConsentPopUpProps) {
             </button>
             <button
               onClick={() => handleConsent("accepted")}
-              className="px-6 py-3 text-sm font-medium text-white bg-blue-iest rounded-xl hover:bg-blue-iest/90 transition-colors duration-200 cursor-pointer"
+              className="px-6 py-3 text-sm font-medium text-white bg-primary rounded-xl hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
             >
               Aceitar cookies
             </button>
