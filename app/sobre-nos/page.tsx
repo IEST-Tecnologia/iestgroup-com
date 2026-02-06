@@ -14,8 +14,8 @@ import PageHeroSection from "@/components/PageHeroSection";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Sobre Nós'
-}
+  title: "Sobre Nós",
+};
 
 export default function page() {
   return (
@@ -24,17 +24,17 @@ export default function page() {
         backgroundBannerImage={BannerQuemSomos}
         secondBannerImage={BannerAboutUs}
         secondBannerAlt="Dois homens sentados em uma cadeira de escritório"
-            service={false} 
+        service={false}
         shadowbg={false}
       >
-        <h1 className="w-full text-blue-iest text-3xl font-bold text-center md:text-left uppercase mb-5">
+        <h1 className="w-full text-primary text-3xl font-bold text-center md:text-left uppercase mb-5">
           Nossa História
         </h1>
         <h2 className="text-black text-xl md:text-3xl text-center md:text-left font-bold mb-10">
           Somos o IEST Group, uma empresa especializada em facilitar e otimizar
           os processos de negócios internacionais no Brasil.
         </h2>
-        <div className="text-lg text-primary font-base md:columns-2 md:gap-12.5 [&>p]:mb-6">
+        <div className="text-lg font-base md:columns-2 md:gap-12.5 [&>p]:mb-6">
           <p>
             Nossa história começou em 2012, com a missão de auxiliar empresas
             chinesas a se estabelecerem no Brasil, oferecendo soluções completas
@@ -95,16 +95,16 @@ export default function page() {
             />
           </div>
           <div className="w-full md:w-3/5 flex flex-col items-start gap-5 text-center md:text-left px-3 md:px-0">
-            <h2 className="w-full text-blue-iest text-3xl font-bold uppercase">
+            <h2 className="w-full text-primary text-3xl font-bold uppercase">
               Missão
             </h2>
-            <p className="text-lg text-primary font-base">
+            <p className="text-lg font-base">
               Usar nossas expertises para reduzir barreiras
             </p>
-            <p className="text-lg text-primary font-base">
+            <p className="text-lg font-base">
               Facilitar e promover conexões estratégicas entre empresas.
             </p>
-            <p className="text-lg text-primary font-base">
+            <p className="text-lg font-base">
               Buscar e fornecer soluções empresariais que atendam às
               necessidades de nossos clientes com eficiência e qualidade.
             </p>
@@ -121,7 +121,7 @@ export default function page() {
             />
           </div>
           <div className="w-full md:w-3/5 flex flex-col items-start gap-5 text-center md:text-left px-3 md:px-0">
-            <h2 className="w-full text-blue-iest text-3xl font-bold uppercase">
+            <h2 className="w-full text-primary text-3xl font-bold uppercase">
               Visão
             </h2>
             <p className="text-lg text-white font-base">
@@ -143,10 +143,10 @@ export default function page() {
             />
           </div>
           <div className="w-full md:w-3/5 flex flex-col items-start gap-5 text-center md:text-left px-3 md:px-0">
-            <h2 className="w-full text-blue-iest text-3xl font-bold uppercase">
+            <h2 className="w-full text-primary text-3xl font-bold uppercase">
               Valores
             </h2>
-            <p className="w-full text-lg text-primary font-base">
+            <p className="w-full text-lg font-base">
               – Agir com Integridade; <br />
               – Busca por Excelência; <br />
               – Diversidade Cultural; <br />– Satisfação do Cliente
@@ -156,10 +156,10 @@ export default function page() {
       </section>
       <section className="w-full py-16">
         <div className="max-w-7xl mx-auto flex flex-col px-3 md:px-0">
-          <h2 className="text-blue-iest text-3xl font-bold uppercase text-center mb-10 ">
+          <h2 className="text-primary text-3xl font-bold uppercase text-center mb-10 ">
             Serviços
           </h2>
-          <p className="text-lg text-primary font-base text-center md:text-left">
+          <p className="text-lg font-base text-center md:text-left">
             Além dos diversos serviços informados acima, a empresa possui um
             ótimo relacionamento na comunidade chinesa, sendo uma das empresas
             mais reconhecidas da plataforma Wechat, a qual possui mais de 15.000
@@ -170,7 +170,7 @@ export default function page() {
       </section>
       <section className="w-full py-16">
         <div className="max-w-7xl mx-auto flex flex-col">
-          <h2 className="text-blue-iest text-3xl font-bold uppercase text-center mb-10">
+          <h2 className="text-primary text-3xl font-bold uppercase text-center mb-10">
             Nossos clientes
           </h2>
           <div className="w-full h-135"></div>
@@ -178,7 +178,7 @@ export default function page() {
       </section>
       <section className="w-full py-16">
         <div className="max-w-275 mx-auto flex flex-col">
-          <h2 className="text-blue-iest text-3xl font-bold uppercase text-center mb-10">
+          <h2 className="text-primary text-3xl font-bold uppercase text-center mb-10">
             Parceiros
           </h2>
           <div className="flex flex-wrap justify-center items-center gap-10">

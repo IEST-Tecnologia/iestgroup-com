@@ -7,8 +7,8 @@ import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'BPO Contábil e Financeiro'
-}
+  title: "BPO Contábil e Financeiro",
+};
 
 export default function page() {
   return (
@@ -20,7 +20,7 @@ export default function page() {
         service={true}
         shadowbg={true}
       >
-        <h1 className="w-full text-blue-iest text-3xl font-bold text-center md:text-left uppercase mb-5">
+        <h1 className="w-full text-primary text-3xl font-bold text-center md:text-left uppercase mb-5">
           BPO Contábil e Financeiro
         </h1>
         <h2 className="text-black text-xl md:text-2xl text-center md:text-left font-semibold mb-10">
@@ -29,7 +29,7 @@ export default function page() {
           contábeis, fiscais e trabalhistas, o que demanda grande volume de
           trabalho e podem causar imensos problemas para as empresas.
         </h2>
-        <div className="text-lg text-primary font-base mb-8 text-justify md:text-left">
+        <div className="text-lg font-base mb-8 text-justify md:text-left">
           <p>
             A contratação de serviços de BPO (Business Process Outsourcing)
             oferece diversas vantagens estratégicas para empresas que buscam
@@ -49,7 +49,7 @@ export default function page() {
           </p>
           <p>Confira abaixo todos os nossos serviços de BPO.</p>
         </div>
-        <div className="max-w-164 z-20 bg-blue-iest py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
+        <div className="max-w-164 z-20 bg-primary py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
           <div>
             <p className="text-xl font-semibold text-white">
               Segue abaixo demonstrativo de todos os serviços que nós prestamos
@@ -68,23 +68,23 @@ export default function page() {
       <div className="flex flex-col gap-10 my-10">
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               1) BPO Contábil
             </h2>
             <div className="flex flex-col gap-6">
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Aplicação dos dispositivos legais vigentes, sejam federais,
                 estaduais ou municipais;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Elaboração das demonstrações contábeis (Balancetes, Balanços
                 Patrimoniais, Demonstração do Resultado do Exercício);
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Elaboração das obrigações acessórias conforme as
                 características da apuração do lucro da empresa (SPED Contábil);
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Todo suporte exigido pela legislação vigente.
               </p>
             </div>
@@ -92,23 +92,23 @@ export default function page() {
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               2) BPO Fiscal
             </h2>
             <div className="flex flex-col gap-6">
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Aplicação dos dispositivos legais vigentes, federais,
                 estaduais e municipais;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Escrituração dos registros fiscais dos tributos e elaboração
                 das guias de informação e de recolhimento dos tributos devidos;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Elaboração das obrigações acessórias conforme as
                 características da apuração do lucro da empresa (SPED);
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Atendimento das demais exigências previstas em atos
                 normativos.
               </p>
@@ -117,33 +117,33 @@ export default function page() {
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               3) BPO Departamento pessoal
             </h2>
             <div className="flex flex-col gap-6">
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Registro e controle de documentos funcionais;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Elaboração das demonstrações contábeis (Balancetes, Balanços
                 Patrimoniais, Demonstração do Resultado do Exercício);
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Preparo de folha de pagamento;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Preparo de guias de recolhimento de encargos sociais;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Controle de informações trabalhistas para órgãos públicos;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Execução de rotinas trabalhistas;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Controle e administração de benefícios sociais;
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 ● Aplicação da legislação vigente.
               </p>
             </div>
@@ -153,10 +153,10 @@ export default function page() {
           <div className="max-w-7xl mx-auto shadow-card flex flex-col md:flex-row">
             <div className="w-full md:w-1/2 flex flex-col items-center justify-center">
               <div className="max-w-125 flex flex-col justify-center items-center p-4 md:p-0">
-                <h2 className="text-blue-iest text-3xl font-bold mb-4 text-left w-full">
+                <h2 className="text-primary text-3xl font-bold mb-4 text-left w-full">
                   Certificação
                 </h2>
-                <p className="text-md text-primary font-light">
+                <p className="text-md font-light">
                   A IEST Serviços Contábeis é certificada pelo{" "}
                   <strong className="font-bold">
                     PQEC – Programa de Qualidade

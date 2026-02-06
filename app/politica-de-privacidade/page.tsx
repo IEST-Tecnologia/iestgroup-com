@@ -18,7 +18,7 @@ function SectionComponent({
     <div
       className={`flex flex-col gap-6 font-light pb-6 leading-6 px-4 md:px-0 ${last ? "mb-0" : " mb-6"}`}
     >
-      <h2 className="text-primary font-bold text-3xl">{title}</h2>
+      <h2 className="font-bold text-3xl">{title}</h2>
       <div className="flex flex-col gap-6">{children}</div>
     </div>
   );
@@ -29,12 +29,10 @@ export default function page() {
     <main>
       <div className="max-w-7xl mx-auto flex flex-col">
         <div className="mb-6 px-4 md:px-0">
-          <h1 className="text-3xl text-primary font-semibold">
-            Política de Privacidade
-          </h1>
+          <h1 className="text-3xl font-semibold">Política de Privacidade</h1>
         </div>
         <SectionComponent title="I. INTRODUÇÃO E OBJETIVO">
-          <p className="text-primary text-md">
+          <p className="text-md">
             A Política de Segurança da Informação apresentada tem como objetivo
             orientar sobre o gerenciamento, em amplo aspecto, das atividades e
             operações de tratamento de dados pessoais existentes nas empresas
@@ -77,14 +75,14 @@ export default function page() {
           </p>
         </SectionComponent>
         <SectionComponent title="II. TERMOS E DEFINIÇÕES">
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">DADOS PESSOAIS:</strong>{" "}
             Informação relacionada a pessoa natural identificada ou
             identificável. Também são considerados dados pessoais aqueles
             utilizados para formação do perfil comportamental de determinada
             pessoa natural.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">DADOS PESSOAIS SENSÍVEIS:</strong>{" "}
             Dado pessoal sobre origem racial ou étnica, convicção religiosa,
             opinião política, filiação a sindicato ou a organização de caráter
@@ -92,7 +90,7 @@ export default function page() {
             sexual, dado genético ou biométrico quando vinculado a pessoa
             natural.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               AUTORIDADE NACIONAL DE PROTEÇÃO DE DADOS (&quot;ANPD&quot;):
             </strong>{" "}
@@ -105,7 +103,7 @@ export default function page() {
             indireta, submetida a regime autárquico especial e vinculada à
             Presidência da República.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               LEI GERAL DE PROTEÇÃO DE DADOS (&quot;LGPD&quot;):
             </strong>{" "}
@@ -118,27 +116,27 @@ export default function page() {
             harmonizando a proteção da pessoa humana com o desenvolvimento
             tecnológico e econômico.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               AGENTES DE TRATAMENTO DE DADOS PESSOAIS:
             </strong>{" "}
             O controlador e o operador de dados pessoais.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               CONTROLADOR DE DADOS PESSOAIS:
             </strong>{" "}
             Pessoa física ou jurídica, de direito público ou privado, a quem
             competem as decisões referentes ao tratamento de dados pessoais.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               OPERADOR DE DADOS PESSOAIS:
             </strong>{" "}
             Pessoa física ou jurídica, de direito público ou privado, que
             realiza o tratamento de dados pessoais em nome do Controlador.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               TRATAMENTO DE DADOS PESSOAIS (&quot;TRATAMENTO&quot;):
             </strong>{" "}
@@ -148,21 +146,21 @@ export default function page() {
             armazenamento, eliminação, avaliação, controle da informação,
             modificação, comunicação, transferência, difusão ou extração.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">ANONIMIZAÇÃO:</strong> Utilização
             de meios técnicos, razoáveis e disponíveis no momento do tratamento
             de dados pessoais, por meio dos quais um dado perde a possibilidade
             de associação, direta ou indireta, a um indivíduo. O dado
             anonimizado não é considerado dado pessoal para os fins da LGPD.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               TITULAR DE DADOS PESSOAIS (&quot;TITULAR&quot;):
             </strong>{" "}
             Pessoa natural a quem se referem os dados pessoais que são objeto de
             tratamento.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               ENCARREGADO OU DATA PROTECTION OFFICER (&quot;DPO&quot;):
             </strong>{" "}
@@ -170,7 +168,7 @@ export default function page() {
             atuar como canal de comunicação entre o Controlador, os titulares de
             dados e a Autoridade Nacional de Proteção de Dados.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">FORNECEDORES:</strong> No contexto
             da (IEST GROUP) são considerados fornecedores os outros terceiros
             contratados e subcontratados, pessoa física ou jurídica, não
@@ -179,7 +177,7 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="III. ABRANGÊNCIA">
-          <p className="text-primary text-md">
+          <p className="text-md">
             A presente Política de Privacidade e Proteção de Dados Pessoais se
             aplica (i) aos empregados da IEST GROUP; (ii) a todos os terceiros,
             sejam eles pessoas físicas ou jurídicas, que atuam para ou em nome
@@ -197,66 +195,66 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="IV. PRINCÍPIOS DE PRIVACIDADE E PROTEÇÃO DE DADOS PESSOAIS">
-          <p className="text-primary text-md">
+          <p className="text-md">
             Nos termos da LGPD, a IEST GROUP cumprirá com os seguintes
             princípios de proteção de dados pessoais quando do tratamento deles:
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">FINALIDADE:</strong> a IEST GROUP
             realizará o tratamento de dados pessoais apenas para propósitos
             legítimos, específicos, explícitos e informados ao titular de dados
             pessoais, sem possibilidade de tratamento posterior de forma
             incompatível com essas finalidades;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">ADEQUAÇÃO:</strong> a IEST GROUP
             realizará o tratamento de dados pessoais de forma compatível com as
             finalidades informadas ao titular de dados, e de acordo com o
             contexto do tratamento;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">NECESSIDADE:</strong> o tratamento
             de dados pessoais realizado pela IEST GROUP será limitado ao mínimo
             necessário para a realização de suas finalidades, com abrangência
             dos dados pertinentes, proporcionais e não excessivos em relação às
             finalidades do tratamento;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">LIVRE ACESSO:</strong> a IEST
             GROUP garantirá aos titulares de dados pessoais a consulta
             facilitada e gratuita sobre a forma e a duração do tratamento, bem
             como sobre a integralidade de seus dados;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">QUALIDADE DOS DADOS:</strong> a
             IEST GROUP garantirá, aos titulares de dados pessoais, a exatidão,
             clareza, relevância e atualização dos dados, de acordo com a
             necessidade e para o cumprimento da finalidade de seu tratamento;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">TRANSPARÊNCIA:</strong> a IEST
             GROUP garantirá aos titulares de dados pessoais informações claras,
             precisas e facilmente acessíveis sobre a realização do tratamento e
             os respectivos agentes de tratamento de dados pessoais, observados
             os segredos comercial e industrial;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">SEGURANÇA:</strong> a IEST GROUP
             utilizará medidas técnicas e administrativas aptas a proteger os
             dados pessoais de acessos não autorizados e de situações acidentais
             ou ilícitas de destruição, perda, alteração, comunicação ou difusão;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">PREVENÇÃO:</strong> a IEST GROUP
             adotará medidas para prevenir a ocorrência de danos em virtude do
             tratamento de dados pessoais;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">NÃO DISCRIMINAÇÃO:</strong> a IEST
             GROUP garantirá a impossibilidade de realização do tratamento de
             dados pessoais para fins discriminatórios ilícitos ou abusivos;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               RESPONSABILIZAÇÃO E PRESTAÇÃO DE CONTAS:
             </strong>{" "}
@@ -267,37 +265,33 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="V. DIRETRIZES">
-          <p className="text-primary text-md font-semibold">
-            1. Disposições iniciais
-          </p>
-          <p className="text-primary text-md">
+          <p className="text-md font-semibold">1. Disposições iniciais</p>
+          <p className="text-md">
             1.1. Esta Política visa demonstrar o compromisso da IEST GROUP em:
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             1.1.1. Zelar pela privacidade e proteção dos dados pessoais
             coletados dos clientes, dos colaboradores e dos parceiros, em função
             do desempenho de suas atividades;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             1.1.2. Adotar diretrizes que assegurem o cumprimento, de forma
             abrangente, de normas e boas práticas relativas à privacidade e
             proteção de dados pessoais;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             1.1.3. Promover a transparência sobre a forma pela qual a IEST GROUP
             trata dados pessoais; e
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             1.1.4. Adotar medidas de proteção em relação a risco de incidente de
             segurança que envolva dados pessoais.
           </p>
-          <p className="text-primary text-md font-semibold">
+          <p className="text-md font-semibold">
             2. Informações sujeitas à Política
           </p>
-          <p className="text-primary text-md">
-            2.1. Estão sujeitas à esta Política:
-          </p>
-          <p className="text-primary text-md">
+          <p className="text-md">2.1. Estão sujeitas à esta Política:</p>
+          <p className="text-md">
             2.1.1. Todas os dados e informações fornecidas ou coletadas no
             contexto da prestação dos serviços pela IEST GROUP aos seus clientes
             para todos os serviços prestados pela IEST GROUP, contábeis,
@@ -305,27 +299,27 @@ export default function page() {
             pela IEST GROUP, além da emissão da Nota Fiscal respectiva e
             publicidade; e
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             2.1.2. Todas as informações de colaboradores e parceiros coletadas
             no contexto de obrigação contratual ou legal.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             2.2. Quanto à sua natureza, as informações fornecidas pelo titular
             do dado são aquelas inseridas ou encaminhadas por ele ou seu
             representante legal, decorrentes do contato, cadastro e/ou
             contratação junto à IEST GROUP como: nome completo, CPF, endereço
             completo, dados bancários, endereço de e-mail e número de telefone.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             2.3. As práticas de privacidade específicas em relação a outros
             produtos e serviços que a IEST GROUP vier a disponibilizar aos seus
             clientes estarão associadas à aceitação pelo cliente ou terceiro de
             cada serviço.
           </p>
-          <p className="text-primary text-md font-semibold">
+          <p className="text-md font-semibold">
             3. Dados Coletados, forma e finalidade da coleta
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             3.1. As informações serão coletadas por meios éticos e legais e
             armazenadas em ambiente seguro e controlado, pelo prazo exigido na
             regulamentação vigente. A IEST GROUP compromete-se a tomar todas as
@@ -338,25 +332,25 @@ export default function page() {
             sendo-lhe vedado ceder e/ou permitir acesso por terceiros a tais
             informações, ressalvadas as hipóteses descritas nesta Política.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             3.2. O acesso de terceiros às informações coletadas pela IEST GROUP
             se dá exclusivamente para atendimento das finalidades informadas
             nesta Política e dentro do limite necessário ao desempenho das
             atividades relativas ao curso normal dos seus negócios, incluindo:
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             3.3. Ao aceitar esta política, o titular de dados está ciente e
             autoriza que todas as empresas do grupo econômico que utilizam a
             marca e nome fantasia IEST GROUP compartilhem entre si os dados
             pessoais e informações coletados de seus clientes para fins de
             cadastro e publicidade.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             3.4. A IEST GROUP poderá compartilhar informações de forma agregada,
             publicamente e/ou com seus parceiros, desde que tais informações não
             sejam pessoalmente identificáveis.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             3.5. Solicitamos seu consentimento para utilizar os dados fornecidos
             com o objetivo de criar &quot;públicos semelhantes&quot; em
             plataformas de publicidade, como LinkedIn Ads e Meta Ads. Isso
@@ -366,7 +360,7 @@ export default function page() {
             acessar, corrigir, excluir e transferir seus dados, além de revogar
             este consentimento a qualquer momento.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             3.6. Sempre que se fizer necessária a utilização das informações
             coletadas pela IEST GROUP para outros fins que não os definidos
             nesta Política ou aquele expressamente autorizado pelo titular dos
@@ -374,46 +368,44 @@ export default function page() {
             esta nova finalidade e, quando necessário, coletará (nova)
             autorização.
           </p>
-          <p className="text-primary text-md font-semibold">
+          <p className="text-md font-semibold">
             4. Relacionamento com terceiros
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             4.1. A IEST GROUP exige a todos os terceiros que mantenham a
             confidencialidade das informações a eles compartilhadas ou que
             tenham acesso em virtude do exercício da sua atividade, bem como que
             utilizem tais informações exclusivamente para os fins expressamente
             permitidos.
           </p>
-          <p className="text-primary text-md font-semibold">
-            5. Segurança das informações
-          </p>
-          <p className="text-primary text-md">
+          <p className="text-md font-semibold">5. Segurança das informações</p>
+          <p className="text-md">
             5.1. Visando a segurança das informações fornecidas pelos clientes,
             a IEST GROUP dispõe de processos de segurança físicos, lógicos,
             técnicos e administrativos compatíveis com a sensibilidade das
             informações coletadas, cuja eficiência é periodicamente avaliada por
             auditoria independente.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             5.2. A IEST GROUP implementa novos procedimentos e melhorias
             tecnológicas contínuas para proteger todos os dados pessoais
             coletados dos clientes e terceiros.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             5.3. No tratamento das informações coletadas a IEST GROUP utiliza de
             sistemas estruturados de forma a atender aos requisitos de segurança
             e transparência, aos padrões de boas práticas e de governança e aos
             princípios gerais estabelecidos na Lei nº 13.709/2018 Lei Geral de
             Proteção de Dados Pessoais (&quot;LGPD&quot;).
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             5.4. Todas as tecnologias utilizadas respeitarão sempre a legislação
             vigente e os termos desta Política.
           </p>
-          <p className="text-primary text-md font-semibold">
+          <p className="text-md font-semibold">
             6. Cooperação com autoridades reguladoras
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             6.1. Nas hipóteses em que se fizerem necessárias a divulgação dos
             dados pessoais de clientes, terceiros, colaboradores ou parceiros,
             seja em razão de cumprimento de lei, determinação judicial ou de
@@ -424,8 +416,8 @@ export default function page() {
             possível, serão notificados sobre tal divulgação, para que tomem as
             medidas protetivas ou reparadoras apropriadas.
           </p>
-          <p className="text-primary text-md font-semibold">7. Alterações</p>
-          <p className="text-primary text-md">
+          <p className="text-md font-semibold">7. Alterações</p>
+          <p className="text-md">
             7.1. A presente Política de Privacidade e Proteção de Dados poderá
             ser modificada a qualquer momento, conforme a finalidade ou
             necessidade para adequação e conformidade de disposição de
@@ -439,7 +431,7 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="VI. POLÍTICA DE COOKIES">
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">O que são Cookies?</strong>{" "}
             Cookies são pequenos arquivos de texto que são armazenados no
             dispositivo do usuário quando ele visita um site. Esses arquivos
@@ -447,7 +439,7 @@ export default function page() {
             navegação, como preferências ou dados de login, e ajudam a melhorar
             a experiência do usuário.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">Como usamos os Cookies?</strong> A
             IEST GROUP utiliza cookies para melhorar a experiência do usuário em
             nossos sites, coletar dados analíticos, personalizar conteúdos e
@@ -455,28 +447,28 @@ export default function page() {
             a entender como os visitantes interagem com nosso site, o que nos
             permite otimizar e aprimorar o conteúdo e os serviços oferecidos.
           </p>
-          <p className="text-primary text-md font-semibold">
+          <p className="text-md font-semibold">
             Tipos de Cookies que Utilizamos
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               Cookies Estritamente Necessários:
             </strong>{" "}
             São essenciais para o funcionamento do site, permitindo funções
             básicas como navegação e acesso às áreas seguras do site.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">Cookies Funcionais:</strong>{" "}
             Permitem que o site se lembre das escolhas feitas pelo usuário e
             forneçam funcionalidades personalizadas.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">Cookies de Desempenho:</strong>{" "}
             Coletam informações sobre como os visitantes utilizam o site, por
             exemplo, páginas visitadas ou se há erros nas páginas. Esses cookies
             não coletam informações pessoais.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               Cookies de Publicidade e Marketing:
             </strong>{" "}
@@ -489,7 +481,7 @@ export default function page() {
             marketing e publicidade. Você pode revogar esse consentimento a
             qualquer momento, sem prejuízo do acesso aos nossos serviços.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">Como Gerenciar os Cookies</strong>{" "}
             O usuário pode ajustar as configurações de cookies diretamente em
             seu navegador. Caso o usuário deseje, ele pode desativar todos os
@@ -497,7 +489,7 @@ export default function page() {
             desativar cookies essenciais, a funcionalidade de algumas áreas do
             site poderá ser afetada.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               Consentimento para o Uso de Cookies
             </strong>{" "}
@@ -509,7 +501,7 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="VII. GESTÃO DE CONSEQUÊNCIAS">
-          <p className="text-primary text-md">
+          <p className="text-md">
             Colaboradores, fornecedores ou outros stakeholders/públicos de
             interesse que observarem quaisquer desvios às diretrizes desta
             Política, poderão relatar o fato ao seguinte e-mail:
@@ -524,7 +516,7 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="VIII. DIREITOS DOS TITULARES">
-          <p className="text-primary text-md">
+          <p className="text-md">
             Você pode sempre solicitar a correção ou remoção de seus dados e
             informações pessoais ou relatar eventual uso indevido por meio do
             e-mail rcorinti@iestgroup.com. Em caso de obrigações legais,
@@ -537,7 +529,7 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="IX. RESPONSABILIDADES">
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               Cumpre aos administradores, colaboradores e terceiros:
             </strong>{" "}
@@ -547,34 +539,34 @@ export default function page() {
             conflito com esta Política ou mediante a ocorrência de situações
             nela descritas.
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             <strong className="font-semibold">
               Cumpre a Comitê Gestor de Proteção de Dados Pessoais (Encarregado
               / DPO):
             </strong>
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             – Manter atualizada esta Política, de forma a garantir que quaisquer
             alterações regulatórias/legais das diretrizes e regras gerais aqui
             estabelecidas sejam observadas;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             – Esclarecer dúvidas relativas a esta Política e à sua aplicação;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             – Aceitar reclamações e comunicações dos titulares dos dados,
             prestar esclarecimentos e adotar providências;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             – Receber comunicações da Autoridade Nacional de Proteção de Dados
             (&quot;ANPD&quot;) e adotar providências;
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             – Orientar os colaboradores e os terceiros da IEST GROUP a respeito
             das práticas a serem tomadas em relação à proteção de dados
             pessoais; e
           </p>
-          <p className="text-primary text-md">
+          <p className="text-md">
             – Adotar iniciativas para compartilhamento de informações sobre
             incidentes contendo dados pessoais com a ANPD e com os titulares dos
             dados, quando necessário.
@@ -582,7 +574,7 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="X. DOCUMENTAÇÃO COMPLEMENTAR">
-          <p className="text-primary text-md">
+          <p className="text-md">
             Artigo 5º da Constituição Federal de 1988; Política Geral de
             Segurança da Informação e Anexos da IEST GROUP; Regimento Interno de
             Criação do Comitê Gestor de Proteção de Dados Pessoais da IEST
@@ -594,14 +586,14 @@ export default function page() {
         </SectionComponent>
 
         <SectionComponent title="XI. DISPOSIÇÕES GERAIS" last>
-          <p className="text-primary text-md">
+          <p className="text-md">
             É competência do Comitê Gestor de Proteção de Dados Pessoais alterar
             esta Política sempre que se fizer necessário. Esta Política entra em
             vigor na data de sua aprovação pelos Comitê Gestor de Proteção de
             Dados Pessoais da IEST GROUP e revoga quaisquer documentos em
             contrário.
           </p>
-          <p className="text-primary text-md font-semibold mt-6">
+          <p className="text-md font-semibold mt-6">
             São Paulo, 28 de março de 2025.
           </p>
         </SectionComponent>

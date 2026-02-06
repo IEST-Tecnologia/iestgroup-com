@@ -2,17 +2,20 @@
 
 :root {
   --background: #ffffff;
-  --gray-text: #2f2f2f;
-  --blue-iest: #274587;
+  --foreground: #2f2f2f;
+  --primary: #274587;
+  --light-primary: #6083cf;
+  --secondary: #d11b1b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-light-primary: var(--light-primary);
+  --color-secondary: var(--secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-primary: var(--gray-text);
-  --color-blue-iest: var(--blue-iest);
   --shadow-card: 0px 0px 40px 0px rgba(0, 0, 0, 0.24);
   --shadow-card-job: 0px 0px 8px 0px rgba(0, 0, 0, 0.24);
   --text-md: 1rem;
@@ -21,6 +24,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-size: 16px;
   font-family: "Poppins";
 }
 

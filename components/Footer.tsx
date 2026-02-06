@@ -22,7 +22,7 @@ export default function Footer() {
               height={52}
               alt="Logo da IEST"
             />
-            <p className="text-md text-primary">
+            <p className="text-md ">
               Desde 2012, o IEST Group auxilia multinacionais a se estabelecerem
               no Brasil. Somos especialistas no oferecimento de serviços
               empresais completos para empresas brasileiras e estrangeiras.
@@ -37,58 +37,60 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col items-start w-full md:w-2/3">
-                <p className="text-primary text-md font-semibold">
-                  Certificação PQEC
-                </p>
-                <p className="text-primary text-md font-light">
+                <p className=" text-md font-semibold">Certificação PQEC</p>
+                <p className=" text-md font-light">
                   Programa de Qualificação em Excelencia contínua
                 </p>
               </div>
             </div>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className="text-primary text-lg uppercase font-semibold">
+            <h5 className=" text-lg uppercase font-semibold">
               SOBRE O IEST GROUP
             </h5>
-            <ul className="flex flex-col items-center md:items-start text-primary gap-2">
+            <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
-                <Link className="hover:text-primary/80" href="/sobre-nos">
+                <Link className="hover:text-foreground/80" href="/sobre-nos">
                   Sobre Nós
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary/80"
+                  className="hover:text-foreground/80"
                   href="www.china2brazil.com.br"
                 >
                   Notícias
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-primary/80" href="/carreira-iest">
+                <Link
+                  className="hover:text-foreground/80"
+                  href="/carreira-iest"
+                >
                   Carreira
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-primary/80" href="/contato">
+                <Link className="hover:text-foreground/80" href="/contato">
                   Entre em contato
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-primary/80" href="/codigo-de-etica">
+                <Link
+                  className="hover:text-foreground/80"
+                  href="/codigo-de-etica"
+                >
                   Código de ética
                 </Link>
               </li>
             </ul>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className="text-primary text-lg uppercase font-semibold">
-              SERVIÇOS
-            </h5>
-            <ul className="flex flex-col items-center md:items-start text-primary gap-2">
+            <h5 className=" text-lg uppercase font-semibold">SERVIÇOS</h5>
+            <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link
-                  className="hover:text-primary/80"
+                  className="hover:text-foreground/80"
                   href="/consultoria-profissional"
                 >
                   Consultoria Profissional
@@ -96,7 +98,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  className="hover:text-primary/80"
+                  className="hover:text-foreground/80"
                   href="/bpo-contabil-e-financeiro"
                 >
                   BPO Contábil e Financeiro
@@ -104,20 +106,20 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  className="hover:text-primary/80"
+                  className="hover:text-foreground/80"
                   href="/recursos-humanos"
                 >
                   Recursos Humanos
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-primary/80" href="/paralegal">
+                <Link className="hover:text-foreground/80" href="/paralegal">
                   Paralegal
                 </Link>
               </li>
               <li>
                 <Link
-                  className="hover:text-primary/80"
+                  className="hover:text-foreground/80"
                   href="/precos-de-transferencia"
                 >
                   Transferência
@@ -125,7 +127,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  className="hover:text-primary/80"
+                  className="hover:text-foreground/80"
                   href="/servico-digital-e-marketing"
                 >
                   Digitais
@@ -134,24 +136,22 @@ export default function Footer() {
             </ul>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className="text-primary text-lg uppercase font-semibold">
-              LGPD
-            </h5>
-            <ul className="flex flex-col items-center md:items-start text-primary gap-2">
+            <h5 className=" text-lg uppercase font-semibold">LGPD</h5>
+            <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link
-                  className="hover:text-primary/80"
+                  className="hover:text-foreground/80"
                   href="/politica-de-privacidade"
                 >
                   Política de Privacidade
                 </Link>
               </li>
               <li>
-                <p className="hover:text-primary/80">dpo@iestgroup.com</p>
+                <p className="hover:text-foreground/80">dpo@iestgroup.com</p>
               </li>
               <li>
                 <p
-                  className="hover:text-primary/80 cursor-pointer"
+                  className="hover:text-foreground/80 cursor-pointer"
                   onClick={async () => {
                     await removeConsentCookie(pathname);
                   }}
@@ -165,7 +165,7 @@ export default function Footer() {
         <div className="w-full  bg-gray-300 h-0.5 my-5"></div>
         <div className="w-full flex flex-col md:flex-row items-center justify-between px-4">
           <div>
-            <p className="text-sm text-primary">
+            <p className="text-sm ">
               Grupo IEST - {year} © All Rights Reserved.
             </p>
           </div>

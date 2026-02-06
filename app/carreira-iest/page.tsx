@@ -19,10 +19,10 @@ export default function page() {
       <main className="py-8">
         <div className="max-w-7xl mx-auto flex flex-col gap-6 px-4">
           <div className="flex flex-col gap-4">
-            <h1 className="text-3xl text-blue-iest font-semibold">
+            <h1 className="text-3xl text-primary font-semibold">
               Por que trabalhar na IEST?
             </h1>
-            <p className="text-md text-primary font-extralight">
+            <p className="text-md font-extralight">
               No Grupo IEST, acreditamos que o sucesso de uma empresa é
               construído por pessoas talentosas e apaixonadas pelo que fazem.
               Fundado em São Paulo em 2012, o Grupo IEST se dedica a auxiliar
@@ -32,10 +32,10 @@ export default function page() {
             </p>
           </div>
           <div className="flex flex-col gap-4">
-            <h2 className="text-3xl text-blue-iest font-semibold">
+            <h2 className="text-3xl text-primary font-semibold">
               Sua Carreira acontece aqui
             </h2>
-            <p className="text-md text-primary font-extralight">
+            <p className="text-md font-extralight">
               No Grupo IEST, sua carreira realmente acontece. Valorizamos o
               crescimento e o desenvolvimento de nossos colaboradores,
               proporcionando um ambiente de trabalho dinâmico e desafiador, onde
@@ -46,27 +46,27 @@ export default function page() {
             </p>
           </div>
           <div className="flex flex-col gap-4">
-            <h2 className="text-3xl text-blue-iest font-semibold">
+            <h2 className="text-3xl text-primary font-semibold">
               Porque você deveria fazer parte do nosso time?
             </h2>
 
-            <div className="text-md text-primary font-extralight">
+            <div className="text-md font-extralight">
               <ul className="list-disc ml-6 md:ml-12">
-                <li className="text-primary text-md">
+                <li className="text-md">
                   <strong className="font-semibold">
                     Desafios que Inspiram:
                   </strong>{" "}
                   Buscamos pessoas que gostam de desafios e estão sempre prontas
                   para superar obstáculos e encontrar soluções inovadoras.
                 </li>
-                <li className="text-primary text-md">
+                <li className="text-md">
                   <strong className="font-semibold">
                     Ambiente Colaborativo:
                   </strong>{" "}
                   Incentivamos a colaboração e o trabalho em equipe, acreditando
                   que as melhores soluções surgem da união de talentos diversos.
                 </li>
-                <li className="text-primary text-md">
+                <li className="text-md">
                   <strong className="font-semibold">
                     Desenvolvimento Contínuo:
                   </strong>{" "}
@@ -75,13 +75,13 @@ export default function page() {
                   oportunidades de aprendizado que ajudam a expandir suas
                   habilidades e conhecimentos.
                 </li>
-                <li className="text-primary text-md">
+                <li className="text-md">
                   <strong className="font-semibold">Impacto Real:</strong>{" "}
                   Trabalhando conosco, você terá a oportunidade de causar um
                   impacto real nas operações de empresas multinacionais,
                   contribuindo para o sucesso de grandes negócios no Brasil.
                 </li>
-                <li className="text-primary text-md">
+                <li className="text-md">
                   <strong className="font-semibold">
                     Cultura de Inovação:
                   </strong>{" "}
@@ -93,21 +93,21 @@ export default function page() {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <h2 className="text-3xl text-blue-iest font-semibold">
+            <h2 className="text-3xl text-primary font-semibold">
               Junte-se a nós
             </h2>
-            <p className="text-md text-primary font-extralight">
+            <p className="text-md font-extralight">
               Se você é uma pessoa que busca desafios, gosta de aprender e
               crescer continuamente, e deseja fazer parte de uma equipe que
               valoriza o talento e a dedicação, o Grupo IEST é o lugar certo
               para você. Venha construir uma carreira de sucesso conosco e faça
               a diferença no mundo dos negócios.
             </p>
-            <p className="text-md text-primary font-semibold">
+            <p className="text-md font-semibold">
               Envie seu currículo e junte-se ao nosso banco de talentos. Estamos
               ansiosos para conhecer você!
             </p>
-            <p className="text-md text-primary font-extralight">
+            <p className="text-md font-extralight">
               <strong className="font-semibold">Grupo IEST –</strong>{" "}
               Transformando desafios em oportunidades, juntos!
             </p>

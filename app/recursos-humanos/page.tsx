@@ -6,8 +6,8 @@ import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Recursos Humanos'
-}
+  title: "Recursos Humanos",
+};
 
 export default function page() {
   return (
@@ -19,14 +19,14 @@ export default function page() {
         service={true}
         shadowbg={true}
       >
-        <h1 className="w-full text-blue-iest text-3xl font-bold text-center md:text-left uppercase mb-5">
+        <h1 className="w-full text-primary text-3xl font-bold text-center md:text-left uppercase mb-5">
           Recursos Humanos
         </h1>
         <h2 className="text-black text-xl md:text-2xl text-center md:text-left font-semibold mb-10">
           Se sua empresa busca crescer no Brasil ou na China com uma equipe de
           mão de obra especializada, o IEST Group tem a solução!
         </h2>
-        <div className="text-lg text-primary font-base mb-8 text-justify md:text:left">
+        <div className="text-lg font-base mb-8 text-justify md:text:left">
           <p>
             Contamos com uma equipe altamente qualificada em Gestão de Recursos
             Humanos, preparada para oferecer serviços de excelência e atender às
@@ -35,7 +35,7 @@ export default function page() {
             qualidade.
           </p>
         </div>
-        <div className="max-w-164 z-20 bg-blue-iest py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
+        <div className="max-w-164 z-20 bg-primary py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
           <div>
             <p className="text-xl font-semibold text-white">
               Segue abaixo o demonstrativo dos nossos serviços de RH:
@@ -53,25 +53,25 @@ export default function page() {
       <div className="flex flex-col gap-10 my-10">
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               1) Recrutamento
             </h2>
             <div className="flex flex-col gap-6">
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 Auxiliamos empresas chinesas a encontrar colaboradores que
                 atendam aos perfis desejados, através de plataformas para busca
                 de profissionais bilíngues Português-Mandarim. Além disso,
                 contamos com a parceria de empresas especializadas em
                 headhunting, que nos apoiam na busca por profissionais.
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 Desde de 2016, organizamos a Feira de Recrutamento de Empresas
                 Chinesas. Em todas as edições o evento contou com a participação
                 de diversas multinacionais chinesas, incluindo empresas
                 renomadas como Three Gorges, State Grid, Huawei, ZTE, CNOOC,
                 XCMG, Nuctech, BYD, 99, entre outras.
               </p>
-              <p className="text-sm md:text-md text-primary font-light">
+              <p className="text-sm md:text-md font-light">
                 Esses eventos demonstram a eficácia do IEST Group na área de
                 recrutamento, fortalecendo nossa capacidade de auxiliar no
                 recrutamento de profissionais altamente qualificados.
@@ -81,10 +81,10 @@ export default function page() {
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               2) Global Mobility Services
             </h2>
-            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md text-primary font-light">
+            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
                 <strong className="font-bold">Emissão de Vistos:</strong>{" "}
                 Suporte completo para a obtenção de vistos, incluindo categorias
@@ -102,10 +102,10 @@ export default function page() {
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               3) Consultoria Trabalhista
             </h2>
-            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md text-primary font-light">
+            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
                 <strong className="font-bold">
                   Elaboração e Revisão de Contratos:
@@ -133,20 +133,20 @@ export default function page() {
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               4) Terceirização.
             </h2>
-            <p className="text-sm md:text-md text-primary font-light mb-8">
+            <p className="text-sm md:text-md font-light mb-8">
               Com a reforma da legislação trabalhista no Brasil, que permitiu a
               terceirização de atividades-fim, passamos a oferecer serviços
               especializados de terceirização de Recursos Humanos (RH). Essa
               solução se tornou uma alternativa viável para empresas que ainda
               não possuem uma subsidiária no país.
             </p>
-            <p className="text-sm md:text-md text-primary font-light">
+            <p className="text-sm md:text-md font-light">
               Entre os serviços que disponibilizamos estão:
             </p>
-            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md text-primary font-light">
+            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
                 <strong className="font-bold">
                   Elaboração e Revisão de Contratos:
@@ -174,15 +174,15 @@ export default function page() {
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
-            <h2 className="text-blue-iest text-xl md:text-2xl font-semibold mb-4 ">
+            <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
               5) Departamento Pessoal
             </h2>
-            <p className="text-sm md:text-md text-primary font-light mb-4">
+            <p className="text-sm md:text-md font-light mb-4">
               Oferecemos serviços completos e especializados na gestão de
               Departamento Pessoal, garantindo eficiência e conformidade com a
               legislação trabalhista vigente. Nossos serviços incluem:
             </p>
-            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md text-primary font-light">
+            <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
                 <strong className="font-bold">Administração de Pessoal:</strong>{" "}
                 Gestão completa de processos relacionados aos colaboradores,

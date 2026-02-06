@@ -7,7 +7,7 @@ import React, { useTransition } from "react";
 export default function JobForm() {
   const [isPending, startTransition] = useTransition();
   return (
-    <section className="w-full bg-blue-iest py-8">
+    <section className="w-full bg-primary py-8">
       <div className="max-w-7xl mx-auto flex flex-col justify-center items-center px-4">
         <h3 className="text-xl md:text-3xl text-white font-semibold text-center mb-6">
           Quero registrar meu currículo
@@ -52,7 +52,7 @@ export default function JobForm() {
             </p>
             <div>
               <input
-                className="w-full md:2/3 file:bg-white file:rounded-full file:px-4 file:py-2 file:text-blue-iest file:mr-2 text-white"
+                className="w-full md:2/3 file:bg-white file:rounded-full file:px-4 file:py-2 file:text-primary file:mr-2 text-white"
                 type="file"
                 name="resume"
                 required
@@ -80,7 +80,7 @@ export default function JobForm() {
           <div className="w-full ">
             <button
               type="submit"
-              className={`w-full bg-blue-iest border py-2 cursor-pointer ${isPending ? "bg-white/50 text-blue-iest" : "text-white border-white hover:bg-white hover:text-blue-iest "}`}
+              className={`w-full bg-primary border py-2 cursor-pointer ${isPending ? "bg-white/50 text-primary" : "text-white border-white hover:bg-white hover:text-primary "}`}
               disabled={isPending}
             >
               {isPending ? "Enviando..." : "Enviar"}
