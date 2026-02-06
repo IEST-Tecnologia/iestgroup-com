@@ -6,6 +6,11 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import { getBackgroundImage } from "@/lib/utils";
 import Contacts from "@/components/Contacts";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Consultoria Empresarial",
+};
 
 export default function Home() {
   const {

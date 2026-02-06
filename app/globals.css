@@ -4,7 +4,7 @@
   --background: #ffffff;
   --foreground: #2f2f2f;
   --primary: #274587;
-  --light-primary: #6083CF;
+  --light-primary: #6083cf;
   --secondary: #d11b1b;
 }
 
@@ -14,17 +14,40 @@
   --color-primary: var(--primary);
   --color-light-primary: var(--light-primary);
   --color-secondary: var(--secondary);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --shadow-card: 0px 0px 40px 0px rgba(0, 0, 0, 0.24);
+  --text-md: 1rem;
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-size: 16px;
+  font-family: "Poppins";
+}
+
+/* Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.hover\:rotate-y-180:hover {
+  transform: rotateY(180deg);
+}
+
+.group:hover .group-hover\:rotate-x-180 {
+  transform: rotateX(180deg);
 }
