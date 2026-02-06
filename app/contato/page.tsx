@@ -117,7 +117,24 @@ export default async function page() {
               className="flex flex-col gap-4"
               action={async (formData) => {
                 "use server";
-                console.log(formData);
+                const res = await fetch(
+                  process.env.NEXT_PUBLIC_BACKEND_URL + "/contact",
+
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      nome: formData.get("first_name"),
+                      sobrenome: formData.get("last_name"),
+                      email: formData.get("email"),
+                      telefone: formData.get("phone"),
+                      mensagem: formData.get("message"),
+                    }),
+                  },
+                );
+                // TODO: Add return message
               }}
             >
               <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 md:gap-3">
