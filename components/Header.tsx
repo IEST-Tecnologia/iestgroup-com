@@ -57,7 +57,7 @@ const navigationItems: NavItem[] = [
   {
     label: "Carreiras",
     dropdown: [
-      { label: "Vagas", href: "/vagas" },
+      { label: "Vagas", href: "/vagas-iest" },
       { label: "Trabalhe Conosco", href: "/carreira-iest" },
     ],
   },
