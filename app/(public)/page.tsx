@@ -42,7 +42,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-1/4 mt-6 lg:mt-0">
-            <Image src={MainImage} alt="globo" />
+            <Image src={MainImage} alt="globo" width={720} height={1080} />
           </div>
         </div>
       </main>
