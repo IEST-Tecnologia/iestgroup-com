@@ -72,7 +72,7 @@ function clearTokenCookies(response: NextResponse): void {
   response.cookies.delete("kc_refresh_token");
 }
 
-export async function middleware(request: NextRequest): Promise<NextResponse> {
+export async function proxy(request: NextRequest): Promise<NextResponse> {
   const { pathname } = request.nextUrl;
   const accessToken = request.cookies.get("kc_access_token")?.value;
   const refreshToken = request.cookies.get("kc_refresh_token")?.value;
