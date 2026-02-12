@@ -9,7 +9,7 @@ export interface Banner {
 
 export interface Client {
   id: string;
-  logo: string;
+  logoUrl: string;
   createdAt: string;
 }
 
@@ -24,7 +24,7 @@ export interface BannerDTO {
 
 export interface ClientDTO {
   id: string;
-  logo: string;
+  logo_url: string;
   created_at: string;
 }
 

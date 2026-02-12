@@ -7,7 +7,6 @@ import { Input } from "@/components/Input";
 import { FileInput } from "@/components/FileInput";
 
 import { getBanner, updateBanner } from "@/lib/admin/store";
-import { requireAdmin } from "@/lib/admin/actions";
 
 export default async function page({
   params,
@@ -20,7 +19,6 @@ export default async function page({
     <Form
       action={async (formData) => {
         "use server";
-        await requireAdmin();
         const id = formData.get("id") as string;
         await updateBanner(id, formData);
         redirect("/admin/banners");

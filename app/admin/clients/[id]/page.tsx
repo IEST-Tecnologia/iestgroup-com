@@ -6,29 +6,36 @@ import Button from "@/components/Button";
 import { Input } from "@/components/Input";
 import { FileInput } from "@/components/FileInput";
 
-import { createBanner } from "@/lib/admin/store";
+import { getClient, updateClient } from "@/lib/admin/store";
 
-export default async function page() {
+export default async function page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const client = await getClient(id);
   return (
     <Form
       action={async (formData) => {
         "use server";
-        await createBanner(formData);
-        redirect("/admin/banners");
+        const id = formData.get("id") as string;
+        await updateClient(id, formData);
+        redirect("/admin/clients");
       }}
       className="space-y-4 p-5"
     >
-      <h1 className="text-2xl font-bold">Adicionar Banner</h1>
-      <Input
-        type="url"
-        label="URL de destino"
+      <h1 className="text-2xl font-bold">Adicionar Client</h1>
+      <input hidden name="id" value={id} readOnly />
+      <FileInput
+        accept="image/*"
+        label="Logo"
         required
-        placeholder="https://example.com"
-        name="url"
+        name="image"
+        defaultValue={client.logoUrl}
       />
-      <FileInput accept="image/*" label="Imagem" required name="image" />
       <div className="flex justify-end gap-3 pt-2">
-        <Link href="/admin/banners">
+        <Link href="/admin/clients">
           <Button type="button" variant="inverted">
             Cancelar
           </Button>

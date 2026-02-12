@@ -1,3 +1,4 @@
+import { requireAdminServer } from "./actions";
 import type {
   BackendResponse,
   Banner,
@@ -45,7 +46,7 @@ function toBanner(dto: BannerDTO): Banner {
 function toClient(dto: ClientDTO): Client {
   return {
     id: dto.id,
-    logo: dto.logo,
+    logoUrl: dto.logo_url,
     createdAt: dto.created_at,
   };
 }
@@ -65,6 +66,8 @@ export async function listBanners(): Promise<Banner[]> {
 }
 
 export async function createBanner(formData: FormData): Promise<Banner> {
+  await requireAdminServer();
+  console.log("test");
   const res = await apiFetch("/api/v1/banners", {
     method: "POST",
     body: formData,
@@ -76,6 +79,8 @@ export async function updateBanner(
   id: string,
   formData: FormData,
 ): Promise<Banner | null> {
+  await requireAdminServer();
+
   const res = await apiFetch(`/api/v1/banners/${id}`, {
     method: "PUT",
     body: formData,
@@ -92,6 +97,12 @@ export async function deleteBanner(id: string): Promise<boolean> {
 
 // --- Client CRUD ---
 
+export async function getClient(id: string): Promise<Client> {
+  const res = await apiFetch(`/api/v1/clients/${id}`);
+  const dto = await unwrap<ClientDTO>(res);
+  return toClient(dto);
+}
+
 export async function listClients(): Promise<Client[]> {
   const res = await apiFetch("/api/v1/clients");
   const dtos = await unwrap<ClientDTO[]>(res);
@@ -99,6 +110,7 @@ export async function listClients(): Promise<Client[]> {
 }
 
 export async function createClient(formData: FormData): Promise<Client> {
+  await requireAdminServer();
   const res = await apiFetch("/api/v1/clients", {
     method: "POST",
     body: formData,
@@ -110,6 +122,7 @@ export async function updateClient(
   id: string,
   formData: FormData,
 ): Promise<Client | null> {
+  await requireAdminServer();
   const res = await apiFetch(`/api/v1/clients/${id}`, {
     method: "PUT",
     body: formData,

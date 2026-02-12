@@ -1,4 +1,3 @@
-import { requireAdmin } from "@/lib/admin/actions";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Button from "@/components/Button";
@@ -6,15 +5,13 @@ import Image from "next/image";
 import { deleteBanner, listBanners } from "@/lib/admin/store";
 import Form from "next/form";
 import { revalidatePath } from "next/cache";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser, requireAdmin } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = { title: "Banners" };
 
 export default async function BannersPage() {
-  const user = await getCurrentUser();
-  if (!user) redirect("/api/auth/login");
-  if (!user.allRoles.includes("admin")) redirect("/");
+  await requireAdmin();
   const banners = await listBanners();
   return (
     <div className="p-6">

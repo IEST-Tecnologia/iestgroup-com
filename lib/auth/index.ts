@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getAccessToken, getRefreshToken } from "./cookies";
 import { decodeAccessToken, buildAuthUser, isTokenExpired } from "./jwt";
 import type { AuthUser } from "./jwt";
@@ -47,4 +48,9 @@ export async function hasValidRefreshToken(): Promise<boolean> {
   return !isTokenExpired(refreshToken, 0);
 }
 
+export async function requireAdmin() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/api/auth/login");
+  if (!user.allRoles.includes("admin")) redirect("/");
+}
 export type { AuthUser } from "./jwt";
