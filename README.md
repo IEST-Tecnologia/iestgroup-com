@@ -38,3 +38,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## Tests
 
 Esse repositório usa Vitest para testes unitários
+
+## Authentication
+
+To redirect the user for the authenticate page, just use a Link with href="/api/auth/login"
