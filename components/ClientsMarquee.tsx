@@ -45,6 +45,7 @@ function MarqueeRow({
               alt=""
               width={150}
               height={150}
+              style={{ width: "150px", height: "150px" }}
               className="max-w-37.5 max-h-37.5 rounded-lg object-contain"
             />
           </div>
