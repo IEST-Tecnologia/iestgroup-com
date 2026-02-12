@@ -13,7 +13,6 @@ export const metadata: Metadata = { title: "Clients" };
 export default async function ClientsPage() {
   await requireAdmin();
   const clients = await listClients();
-  console.log(clients);
   return (
     <div className="p-6">
       <div>

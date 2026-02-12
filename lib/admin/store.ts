@@ -67,7 +67,6 @@ export async function listBanners(): Promise<Banner[]> {
 
 export async function createBanner(formData: FormData): Promise<Banner> {
   await requireAdminServer();
-  console.log("test");
   const res = await apiFetch("/api/v1/banners", {
     method: "POST",
     body: formData,
@@ -134,6 +133,5 @@ export async function updateClient(
 export async function deleteClient(id: string): Promise<boolean> {
   const res = await apiFetch(`/api/v1/clients/${id}`, { method: "DELETE" });
   if (res.status === 404) return false;
-  await unwrap<unknown>(res);
   return true;
 }

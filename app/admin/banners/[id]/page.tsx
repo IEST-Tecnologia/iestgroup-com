@@ -25,7 +25,7 @@ export default async function page({
       }}
       className="space-y-4 p-5"
     >
-      <h1 className="text-2xl font-bold">Adicionar Banner</h1>
+      <h1 className="text-2xl font-bold">Editar Banner</h1>
       <input hidden name="id" value={id} readOnly />
       <Input
         type="url"
