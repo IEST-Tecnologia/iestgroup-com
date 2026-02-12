@@ -1,11 +1,13 @@
 import { ReactNode } from "react";
 
 export function Input({
+  type,
   required,
   name,
   label,
   placeholder = "",
 }: {
+  type?: string;
   required?: boolean;
   name: string;
   label: ReactNode;
@@ -21,6 +23,7 @@ export function Input({
         {label}
       </span>
       <input
+        type={type}
         className="bg-white border-[#D5D7DA] rounded-[7px] border p-3 font-medium"
         name={name}
         required={required}
