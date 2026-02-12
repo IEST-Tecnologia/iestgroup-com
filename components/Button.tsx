@@ -1,6 +1,6 @@
 import React from "react";
 
-type ButtonVariant = "primary" | "inverted";
+type ButtonVariant = "primary" | "inverted" | "destructive";
 type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -10,9 +10,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary hover:bg-secondary",
+  primary: "bg-primary hover:bg-secondary text-white ",
   inverted:
-    "bg-transparent border-white border hover:bg-white hover:text-primary",
+    "bg-transparent border-white border text-white  hover:bg-white hover:text-primary",
+  destructive:
+    "text-secondary border border-secondary rounded hover:bg-secondary hover:text-white transition-colors",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -31,7 +33,7 @@ export default function Button({
   const buttonClasses = `
     ${variantStyles[variant]}
     ${sizeStyles[size]}
-    transition-colors duration-300 text-white font-semibold cursor-pointer uppercase
+    transition-colors duration-300 font-semibold cursor-pointer uppercase
     ${className}
   `
     .trim()

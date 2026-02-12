@@ -58,19 +58,31 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive({ textAlign: "left" }) ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
-        <Image className="w-5 h-5" src={IconAlignLeft} alt="Ícone de alinhar à esquerda" />
+        <Image
+          className="w-5 h-5"
+          src={IconAlignLeft}
+          alt="Ícone de alinhar à esquerda"
+        />
       </button>
       <button
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive({ textAlign: "center" }) ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
-        <Image className="w-5 h-5" src={IconAlignCenter} alt="Ícone de alinhar ao centro" />
+        <Image
+          className="w-5 h-5"
+          src={IconAlignCenter}
+          alt="Ícone de alinhar ao centro"
+        />
       </button>
       <button
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive({ textAlign: "right" }) ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
-        <Image className="w-5 h-5" src={IconAlignRight} alt="Ícone de alinhar à direita" />
+        <Image
+          className="w-5 h-5"
+          src={IconAlignRight}
+          alt="Ícone de alinhar à direita"
+        />
       </button>
       <button
         onClick={() => {
@@ -87,7 +99,11 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
   );
 };
 
-const Tiptap = ({ onChange }: { onChange?: (content: JSONContent) => void }) => {
+const RichText = ({
+  onChange,
+}: {
+  onChange?: (content: JSONContent) => void;
+}) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -100,10 +116,10 @@ const Tiptap = ({ onChange }: { onChange?: (content: JSONContent) => void }) => 
     ],
     editorProps: {
       attributes: {
-        class: "p-3",
+        class: "p-3 min-h-[200px]",
       },
     },
-    content: "<p>Hello World! 🌎️</p>",
+    content: "",
     onUpdate: ({ editor }) => {
       onChange?.(editor.getJSON());
     },
@@ -113,11 +129,11 @@ const Tiptap = ({ onChange }: { onChange?: (content: JSONContent) => void }) => 
   });
 
   return (
-    <div className="border border-gray-800 rounded-md ">
+    <div className="border border-gray-800 rounded-md overflow-hidden">
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
     </div>
   );
 };
 
-export default Tiptap;
+export default RichText;

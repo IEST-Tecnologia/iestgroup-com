@@ -1,4 +1,9 @@
-import type { Banner, Client, BackendResponse } from "./types";
+import type {
+  Banner,
+  Client,
+  BackendResponse,
+  JobResponse,
+} from "./types";
 
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8080";
 
@@ -23,6 +28,18 @@ async function unwrap<T>(res: Response): Promise<T> {
     throw new Error(body.error);
   }
   return body.data;
+}
+
+export async function listJobs(page = 1, pageSize = 10): Promise<JobResponse> {
+  const res = await apiFetch(`/api/v1/jobs?page=${page}&page_size=${pageSize}`);
+  return unwrap<JobResponse>(res);
+}
+
+export async function deleteJob(id: string): Promise<boolean> {
+  const res = await apiFetch(`/api/v1/jobs/${id}`, { method: "DELETE" });
+  if (res.status === 404) return false;
+  await unwrap<unknown>(res);
+  return true;
 }
 
 // --- Banner CRUD ---

@@ -2,6 +2,7 @@
 
 import { getCurrentUser } from "@/lib/auth";
 import {
+  listJobs as storeListJob,
   listBanners as storeListBanners,
   createBanner as storeCreateBanner,
   updateBanner as storeUpdateBanner,
@@ -18,12 +19,18 @@ import type {
   UpdateBannerInput,
   CreateClientInput,
   UpdateClientInput,
+  JobResponse,
 } from "./types";
 
 async function requireAdmin(): Promise<void> {
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized");
   if (!user.allRoles.includes("admin")) throw new Error("Forbidden");
+}
+
+export async function listJobs(page = 1, pageSize = 10): Promise<JobResponse> {
+  await requireAdmin();
+  return storeListJob(page, pageSize);
 }
 
 // --- Banner actions ---

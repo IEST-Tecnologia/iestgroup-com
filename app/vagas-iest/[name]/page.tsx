@@ -9,6 +9,13 @@ import IconRank from "@/assets/vagas/rank.svg";
 import IconMoney from "@/assets/vagas/money.svg";
 import InfoItem from "@/components/InfoItem";
 import JobForm from "@/components/JobForm";
+import TiptapContent from "@/components/TiptapContent";
+import {
+  MOCK_JOB,
+  WORK_MODEL_LABELS,
+  CONTRACT_TYPE_LABELS,
+  WORK_SCHEDULE_LABELS,
+} from "@/lib/mocks/jobs";
 
 export default async function page({
   params,
@@ -17,6 +24,10 @@ export default async function page({
 }) {
   const { name } = await params;
   console.log(name);
+
+  // TODO: Substituir pelo fetch real do backend usando o slug (name)
+  const job = MOCK_JOB;
+
   return (
     <>
       <section
@@ -25,7 +36,7 @@ export default async function page({
       >
         <div className="min-h-65 max-w-7xl mx-auto flex items-center">
           <h1 className="text-3xl font-bold text-white uppercase">
-            Representante Comercial
+            {job.name}
           </h1>
         </div>
       </section>
@@ -38,44 +49,46 @@ export default async function page({
                 icon={IconCompany}
                 iconAlt="Icone de empresa"
                 label="Empresa"
-                value="IEST Group"
+                value={job.company}
               />
               <InfoItem
                 icon={IconLocation}
                 iconAlt="Icone de localização"
                 label="Localidade"
-                value="Campinas, SP"
+                value={job.locality}
               />
               <InfoItem
                 icon={IconUserLocation}
                 iconAlt="Icone de modelo de trabalho"
                 label="Modelo de trabalho"
-                value="Presencial"
+                value={WORK_MODEL_LABELS[job.work_model]}
               />
               <InfoItem
                 icon={IconBriefcase}
                 iconAlt="Icone de maleta"
                 label="Tipo de contrato"
-                value="CLT"
+                value={CONTRACT_TYPE_LABELS[job.contract_type]}
               />
               <InfoItem
                 icon={IconTimer}
                 iconAlt="Icone de relógio"
                 label="Jornada"
-                value="Integral"
+                value={WORK_SCHEDULE_LABELS[job.work_schedule]}
               />
               <InfoItem
                 icon={IconTarget}
                 iconAlt="Icone de alvo"
                 label="Área de atuação"
-                value="Consultoria empresarial"
+                value={job.area}
               />
-              <InfoItem
-                icon={IconRank}
-                iconAlt="Icone de nível"
-                label="Nível"
-                value="Especialista"
-              />
+              {job.nivel && ( // teste
+                <InfoItem
+                  icon={IconRank}
+                  iconAlt="Icone de nível"
+                  label="Nível"
+                  value={job.nivel}
+                />
+              )}
               <InfoItem
                 icon={IconMoney}
                 iconAlt="Icone de dinheiro"
@@ -85,93 +98,49 @@ export default async function page({
             </div>
           </div>
           <div className="py-8 border-t border-b border-gray-300">
+            <h2 className="text-2xl font-semibold mb-3">Sobre a empresa</h2>
+            <p>{job.about_company}</p>
+          </div>
+          <div className="py-8 border-t border-b border-gray-300">
             <h2 className="text-2xl font-semibold mb-3">
               Sobre a oportunidade
             </h2>
-            <p className="text-md font-extralight">
-              Estamos apoiando uma empresa multinacional em fase de estruturação
-              no Brasil na contratação de um(a) profissional para atuar na área
-              financeira, com foco em organização de processos, controle de
-              pagamentos e apoio à consolidação da operação local.
-            </p>
+            <TiptapContent
+              content={job.about_opportunity}
+              className="prose prose-sm max-w-none font-extralight"
+            />
           </div>
           <div className="py-8 border-b border-gray-300">
             <h2 className="text-2xl font-semibold mb-3">
               Principais responsabilidades
             </h2>
-            <ul className="list-disc ml-12 gap-1 flex flex-col font-extralight">
-              <li>
-                Desenvolver novos negócios e executar vendas no mercado
-                brasileiro de agroquímicos;
-              </li>
-              <li>
-                Prospectar ativamente novos clientes (distribuidores,
-                cooperativas e produtores);
-              </li>
-              <li>Realizar visitas comerciais presenciais e remotas;</li>
-              <li>
-                Construir e manter relacionamento com decisores (compras,
-                proprietários e influenciadores);
-              </li>
-              <li>
-                Identificar necessidades dos clientes, negociar condições
-                comerciais e fechar pedidos;
-              </li>
-              <li>Elaborar relatórios de visitas e reuniões em até 48h;</li>
-              <li>
-                Preparar relatórios semanais de atividades, resultados, desafios
-                e planos de ação;
-              </li>
-              <li>Realizar pesquisas de mercado e análise de concorrência;</li>
-              <li>
-                Apoiar a identificação de produtos com potencial para o mercado
-                brasileiro;
-              </li>
-              <li>
-                Atuar no pós-venda, interfaceando com a matriz em temas
-                comerciais e operacionais;
-              </li>
-              <li>
-                Apoiar clientes em processos de comércio exterior, logística e
-                desembaraço aduaneiro.
-              </li>
-            </ul>
+            <TiptapContent
+              content={job.main_responsabilities}
+              className="prose prose-sm max-w-none font-extralight"
+            />
           </div>
           <div className="py-8 border-b border-gray-300">
             <h2 className="text-2xl font-semibold mb-3">
               Requisitos obrigatórios
             </h2>
-            <ul className="list-disc ml-12 gap-1 flex flex-col font-extralight">
-              <li>
-                Experiência comprovada em vendas de agroquímicos (herbicidas,
-                inseticidas e/ou fungicidas);
-              </li>
-              <li>
-                Vivência comercial com distribuidores, cooperativas e grandes
-                clientes do agro;
-              </li>
-              <li>
-                Forte perfil comercial, com foco em prospecção, negociação e
-                fechamento;
-              </li>
-              <li>Disponibilidade para viagens frequentes em todo o Brasil;</li>
-              <li>
-                Capacidade de atuação autônoma, com organização e foco em
-                resultados;
-              </li>
-              <li>
-                Inglês fluente, para comunicação e reportes diários à matriz.
-              </li>
-            </ul>
+            <TiptapContent
+              content={job.mandatory_requirements}
+              className="prose prose-sm max-w-none font-extralight"
+            />
+          </div>
+          <div className="py-8 border-b border-gray-300">
+            <h2 className="text-2xl font-semibold mb-3">Diferenciais</h2>
+            <TiptapContent
+              content={job.differences}
+              className="prose prose-sm max-w-none font-extralight"
+            />
           </div>
           <div className="py-8 border-b border-gray-300">
             <h2 className="text-2xl font-semibold mb-3">Benefícios</h2>
-            <ul className="list-disc ml-12 gap-1 flex flex-col font-extralight">
-              <li>VR/VA</li>
-              <li>Vale Transporte</li>
-              <li>Seguro de Vida</li>
-              <li>TotalPass</li>
-            </ul>
+            <TiptapContent
+              content={job.benefits}
+              className="prose prose-sm max-w-none font-extralight"
+            />
           </div>
           <div className="py-8 border-gray-300">
             <h2 className="text-2xl font-semibold mb-3">

@@ -9,8 +9,9 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Banners", href: "/admin/banners" },
-  { label: "Clientes", href: "/admin/clients" },
+  { label: "Vagas", href: "/gestao/vagas" },
+  { label: "Banners", href: "/gestao/banners" },
+  { label: "Clientes", href: "/gestao/clientes" },
 ];
 
 export default function AdminSidebar() {
