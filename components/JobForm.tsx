@@ -1,6 +1,7 @@
 "use client";
 
-import { sendForm } from "@/app/carreira-iest/action";
+// TODO: change dependency
+import { sendForm } from "@/app/(public)/carreira-iest/action";
 import Link from "next/link";
 import React, { useTransition } from "react";
 
