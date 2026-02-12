@@ -52,6 +52,12 @@ function toClient(dto: ClientDTO): Client {
 
 // --- Banner CRUD ---
 
+export async function getBanner(id: string): Promise<Banner> {
+  const res = await apiFetch(`/api/v1/banners/${id}`);
+  const dto = await unwrap<BannerDTO>(res);
+  return toBanner(dto);
+}
+
 export async function listBanners(): Promise<Banner[]> {
   const res = await apiFetch("/api/v1/banners");
   const dtos = await unwrap<BannerDTO[]>(res);
@@ -81,7 +87,6 @@ export async function updateBanner(
 export async function deleteBanner(id: string): Promise<boolean> {
   const res = await apiFetch(`/api/v1/banners/${id}`, { method: "DELETE" });
   if (res.status === 404) return false;
-  await unwrap<unknown>(res);
   return true;
 }
 

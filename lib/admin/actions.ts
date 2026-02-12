@@ -12,8 +12,9 @@ import {
   deleteClient as storeDeleteClient,
 } from "./store";
 import type { Banner, Client } from "./types";
+import { redirect } from "next/navigation";
 
-async function requireAdmin(): Promise<void> {
+export async function requireAdmin(): Promise<void> {
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized");
   if (!user.allRoles.includes("admin")) throw new Error("Forbidden");
@@ -21,22 +22,16 @@ async function requireAdmin(): Promise<void> {
 
 // --- Banner actions ---
 
-export async function listBanners(): Promise<Banner[]> {
+export async function createBanner(formData: FormData): Promise<void> {
   await requireAdmin();
-  return storeListBanners();
+  await storeCreateBanner(formData);
+  redirect("/admin/banners");
 }
 
-export async function createBanner(formData: FormData): Promise<Banner> {
+export async function updateBanner(formData: FormData): Promise<void> {
+  const id = formData.get("id") as string;
   await requireAdmin();
-  return storeCreateBanner(formData);
-}
-
-export async function updateBanner(
-  id: string,
-  formData: FormData,
-): Promise<Banner | null> {
-  await requireAdmin();
-  return storeUpdateBanner(id, formData);
+  await storeUpdateBanner(id, formData);
 }
 
 export async function deleteBanner(id: string): Promise<boolean> {
