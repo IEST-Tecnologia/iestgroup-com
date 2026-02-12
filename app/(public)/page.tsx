@@ -6,13 +6,17 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import { getBackgroundImage } from "@/lib/utils";
 import Contacts from "@/components/Contacts";
+import BannerCarousel from "@/components/BannerCarousel";
+import { listBanners } from "@/lib/admin/store";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Consultoria Empresarial",
 };
 
-export default function Home() {
+export default async function Home() {
+  const banners = await listBanners();
+
   const {
     props: { srcSet },
   } = getImageProps({
@@ -26,6 +30,7 @@ export default function Home() {
 
   return (
     <div>
+      <BannerCarousel banners={banners} />
       <main className="bg-white">
         <div className="flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
           <div className="w-full lg:w-1/2 p-2.5 flex flex-col gap-5">
