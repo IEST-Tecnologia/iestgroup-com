@@ -3,7 +3,12 @@
 import { useState, useCallback } from "react";
 import AdminModal from "./AdminModal";
 import ClientForm from "./ClientForm";
-import type { Client, CreateClientInput } from "@/lib/admin/types";
+import {
+  createClient,
+  updateClient,
+  deleteClient,
+} from "@/lib/admin/actions";
+import type { Client } from "@/lib/admin/types";
 
 interface ClientsClientProps {
   initialClients: Client[];
@@ -35,36 +40,19 @@ export default function ClientsClient({ initialClients }: ClientsClientProps) {
   }, []);
 
   const handleSubmit = useCallback(
-    async (values: CreateClientInput) => {
+    async (formData: FormData) => {
       setIsSubmitting(true);
       setError(null);
       try {
         if (editingClient) {
-          const res = await fetch(`/api/admin/clients/${editingClient.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
-          });
-          if (!res.ok) {
-            const body = (await res.json()) as { error?: string };
-            throw new Error(body.error ?? "Erro ao atualizar");
-          }
-          const { data } = (await res.json()) as { data: Client };
+          const updated = await updateClient(editingClient.id, formData);
+          if (!updated) throw new Error("Cliente não encontrado");
           setClients((prev) =>
-            prev.map((c) => (c.id === data.id ? data : c)),
+            prev.map((c) => (c.id === updated.id ? updated : c)),
           );
         } else {
-          const res = await fetch("/api/admin/clients", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
-          });
-          if (!res.ok) {
-            const body = (await res.json()) as { error?: string };
-            throw new Error(body.error ?? "Erro ao criar");
-          }
-          const { data } = (await res.json()) as { data: Client };
-          setClients((prev) => [...prev, data]);
+          const created = await createClient(formData);
+          setClients((prev) => [...prev, created]);
         }
         closeModal();
       } catch (err) {
@@ -79,17 +67,14 @@ export default function ClientsClient({ initialClients }: ClientsClientProps) {
   const handleDelete = useCallback(async (id: string) => {
     if (!confirm("Tem certeza que deseja excluir este cliente?")) return;
     try {
-      const res = await fetch(`/api/admin/clients/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok && res.status !== 204) {
-        const body = (await res.json()) as { error?: string };
-        alert(body.error ?? "Erro ao excluir");
+      const deleted = await deleteClient(id);
+      if (!deleted) {
+        alert("Cliente não encontrado");
         return;
       }
       setClients((prev) => prev.filter((c) => c.id !== id));
     } catch {
-      alert("Erro de rede ao excluir");
+      alert("Erro ao excluir");
     }
   }, []);
 
@@ -183,7 +168,7 @@ export default function ClientsClient({ initialClients }: ClientsClientProps) {
           </p>
         )}
         <ClientForm
-          initialValues={editingClient ? { logo: editingClient.logo } : {}}
+          initialValues={editingClient ? { logoUrl: editingClient.logo } : {}}
           onSubmit={handleSubmit}
           onCancel={closeModal}
           isSubmitting={isSubmitting}

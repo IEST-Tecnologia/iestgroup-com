@@ -1,4 +1,3 @@
-import React from "react";
 import { AddressIcon } from "@/components/icons";
 import Button from "./Button";
 

@@ -4,7 +4,6 @@ import { removeConsentCookie } from "@/app/actions/consent";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 export default function Footer() {
   const year = new Date().getFullYear();

@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import type { CreateClientInput } from "@/lib/admin/types";
+import { useState, useRef } from "react";
 
 interface ClientFormProps {
-  initialValues?: Partial<CreateClientInput>;
-  onSubmit: (values: CreateClientInput) => Promise<void>;
+  initialValues?: { logoUrl?: string };
+  onSubmit: (formData: FormData) => Promise<void>;
   onCancel: () => void;
   isSubmitting: boolean;
 }
@@ -16,11 +15,28 @@ export default function ClientForm({
   onCancel,
   isSubmitting,
 }: ClientFormProps) {
-  const [logo, setLogo] = useState(initialValues.logo ?? "");
+  const [preview, setPreview] = useState<string | null>(
+    initialValues.logoUrl ?? null,
+  );
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    } else {
+      setPreview(initialValues.logoUrl ?? null);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await onSubmit({ logo: logo.trim() });
+    const formData = new FormData();
+    const file = fileInputRef.current?.files?.[0];
+    if (file) {
+      formData.append("logo", file);
+    }
+    await onSubmit(formData);
   }
 
   const inputClass =
@@ -30,20 +46,20 @@ export default function ClientForm({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block text-sm font-medium text-foreground mb-1">
-          URL do logo
+          Logo
         </label>
         <input
-          type="url"
-          value={logo}
-          onChange={(e) => setLogo(e.target.value)}
-          required
-          placeholder="https://cdn.example.com/logo.png"
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          required={!initialValues.logoUrl}
           className={inputClass}
         />
-        {logo && (
+        {preview && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={logo}
+            src={preview}
             alt="Preview"
             className="mt-2 h-16 object-contain border border-gray-200 rounded"
           />

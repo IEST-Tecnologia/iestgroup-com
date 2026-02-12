@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import type { CreateBannerInput } from "@/lib/admin/types";
+import { useState, useRef } from "react";
 
 interface BannerFormProps {
-  initialValues?: Partial<CreateBannerInput>;
-  onSubmit: (values: CreateBannerInput) => Promise<void>;
+  initialValues?: { url?: string; imageUrl?: string };
+  onSubmit: (formData: FormData) => Promise<void>;
   onCancel: () => void;
   isSubmitting: boolean;
 }
@@ -17,11 +16,29 @@ export default function BannerForm({
   isSubmitting,
 }: BannerFormProps) {
   const [url, setUrl] = useState(initialValues.url ?? "");
-  const [imageUrl, setImageUrl] = useState(initialValues.imageUrl ?? "");
+  const [preview, setPreview] = useState<string | null>(
+    initialValues.imageUrl ?? null,
+  );
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    } else {
+      setPreview(initialValues.imageUrl ?? null);
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await onSubmit({ url: url.trim(), imageUrl: imageUrl.trim() });
+    const formData = new FormData();
+    formData.append("url", url.trim());
+    const file = fileInputRef.current?.files?.[0];
+    if (file) {
+      formData.append("image", file);
+    }
+    await onSubmit(formData);
   }
 
   const inputClass =
@@ -44,20 +61,20 @@ export default function BannerForm({
       </div>
       <div>
         <label className="block text-sm font-medium text-foreground mb-1">
-          URL da imagem
+          Imagem
         </label>
         <input
-          type="url"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-          required
-          placeholder="https://cdn.example.com/banner.jpg"
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          required={!initialValues.imageUrl}
           className={inputClass}
         />
-        {imageUrl && (
+        {preview && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={imageUrl}
+            src={preview}
             alt="Preview"
             className="mt-2 h-20 object-contain border border-gray-200 rounded"
           />

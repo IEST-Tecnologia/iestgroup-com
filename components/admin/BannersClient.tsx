@@ -3,7 +3,8 @@
 import { useState, useCallback } from "react";
 import AdminModal from "./AdminModal";
 import BannerForm from "./BannerForm";
-import type { Banner, CreateBannerInput } from "@/lib/admin/types";
+import { createBanner, updateBanner, deleteBanner } from "@/lib/admin/actions";
+import type { Banner } from "@/lib/admin/types";
 
 interface BannersClientProps {
   initialBanners: Banner[];
@@ -35,34 +36,19 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
   }, []);
 
   const handleSubmit = useCallback(
-    async (values: CreateBannerInput) => {
+    async (formData: FormData) => {
       setIsSubmitting(true);
       setError(null);
       try {
         if (editingBanner) {
-          const res = await fetch(`/api/admin/banners/${editingBanner.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
-          });
-          if (!res.ok) {
-            const body = (await res.json()) as { error?: string };
-            throw new Error(body.error ?? "Erro ao atualizar");
-          }
-          const { data } = (await res.json()) as { data: Banner };
-          setBanners((prev) => prev.map((b) => (b.id === data.id ? data : b)));
+          const updated = await updateBanner(editingBanner.id, formData);
+          if (!updated) throw new Error("Banner não encontrado");
+          setBanners((prev) =>
+            prev.map((b) => (b.id === updated.id ? updated : b)),
+          );
         } else {
-          const res = await fetch("/api/admin/banners", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
-          });
-          if (!res.ok) {
-            const body = (await res.json()) as { error?: string };
-            throw new Error(body.error ?? "Erro ao criar");
-          }
-          const { data } = (await res.json()) as { data: Banner };
-          setBanners((prev) => [...prev, data]);
+          const created = await createBanner(formData);
+          setBanners((prev) => [...prev, created]);
         }
         closeModal();
       } catch (err) {
@@ -77,20 +63,17 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
   const handleDelete = useCallback(async (id: string) => {
     if (!confirm("Tem certeza que deseja excluir este banner?")) return;
     try {
-      const res = await fetch(`/api/admin/banners/${id}`, {
-        method: "DELETE",
-      });
-      if (!res.ok && res.status !== 204) {
-        const body = (await res.json()) as { error?: string };
-        alert(body.error ?? "Erro ao excluir");
+      const deleted = await deleteBanner(id);
+      if (!deleted) {
+        alert("Banner não encontrado");
         return;
       }
       setBanners((prev) => prev.filter((b) => b.id !== id));
     } catch {
-      alert("Erro de rede ao excluir");
+      alert("Erro ao excluir");
     }
   }, []);
-
+  console.log(banners);
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -124,10 +107,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
           <tbody className="divide-y divide-gray-100">
             {banners.length === 0 && (
               <tr>
-                <td
-                  colSpan={4}
-                  className="px-4 py-8 text-center text-gray-400"
-                >
+                <td colSpan={4} className="px-4 py-8 text-center text-gray-400">
                   Nenhum banner cadastrado
                 </td>
               </tr>

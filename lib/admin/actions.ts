@@ -11,14 +11,7 @@ import {
   updateClient as storeUpdateClient,
   deleteClient as storeDeleteClient,
 } from "./store";
-import type {
-  Banner,
-  Client,
-  CreateBannerInput,
-  UpdateBannerInput,
-  CreateClientInput,
-  UpdateClientInput,
-} from "./types";
+import type { Banner, Client } from "./types";
 
 async function requireAdmin(): Promise<void> {
   const user = await getCurrentUser();
@@ -33,17 +26,17 @@ export async function listBanners(): Promise<Banner[]> {
   return storeListBanners();
 }
 
-export async function createBanner(input: CreateBannerInput): Promise<Banner> {
+export async function createBanner(formData: FormData): Promise<Banner> {
   await requireAdmin();
-  return storeCreateBanner(input);
+  return storeCreateBanner(formData);
 }
 
 export async function updateBanner(
   id: string,
-  input: UpdateBannerInput,
+  formData: FormData,
 ): Promise<Banner | null> {
   await requireAdmin();
-  return storeUpdateBanner(id, input);
+  return storeUpdateBanner(id, formData);
 }
 
 export async function deleteBanner(id: string): Promise<boolean> {
@@ -58,17 +51,17 @@ export async function listClients(): Promise<Client[]> {
   return storeListClients();
 }
 
-export async function createClient(input: CreateClientInput): Promise<Client> {
+export async function createClient(formData: FormData): Promise<Client> {
   await requireAdmin();
-  return storeCreateClient(input);
+  return storeCreateClient(formData);
 }
 
 export async function updateClient(
   id: string,
-  input: UpdateClientInput,
+  formData: FormData,
 ): Promise<Client | null> {
   await requireAdmin();
-  return storeUpdateClient(id, input);
+  return storeUpdateClient(id, formData);
 }
 
 export async function deleteClient(id: string): Promise<boolean> {

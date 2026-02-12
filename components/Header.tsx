@@ -110,7 +110,7 @@ export default function Header({
               >
                 {item.dropdown ? (
                   <span
-                    className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-[16px]"} ${devHover ? "text-primary" : "text-gray-600 hover:text-primary"}`}
+                    className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-md"} ${devHover ? "text-primary" : "text-gray-600 hover:text-primary"}`}
                   >
                     {item.label}
 
@@ -124,7 +124,7 @@ export default function Header({
                   <Link
                     href={item.href}
                     onClick={() => setActiveItem(item.href!)}
-                    className={`relative block whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-[16px]"} ${
+                    className={`relative block whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-md"} ${
                       activeItem === item.href
                         ? "text-primary"
                         : devHover
