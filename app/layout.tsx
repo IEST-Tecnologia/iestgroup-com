@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ConsentPopUp from "@/components/ConsentPopUp";
-import { getConsentCookie } from "./actions/consent";
-import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -22,25 +17,14 @@ export const metadata: Metadata = {
     "Consultoria empresarial especializada em negócios entre China e Brasil. Apoiamos sua empresa em áreas administrativa, legal e contratação.",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const consent = await getConsentCookie();
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>
-        <Header />
-        {children}
-        <Footer />
-        {consent === "accepted" && (
-          <>
-            <Analytics />
-          </>
-        )}
-        <ConsentPopUp consent={consent} />
-      </body>
+      <body className={`${poppins.variable} antialiased`}>{children}</body>
     </html>
   );
 }
