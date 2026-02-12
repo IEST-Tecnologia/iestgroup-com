@@ -3,63 +3,8 @@ import { getImageProps } from "next/image";
 import React, { ReactNode } from "react";
 import { AddressIcon, EmailIcon, PhoneIcon } from "@/components/icons";
 import Button from "@/components/Button";
-function Textarea({
-  required,
-  name,
-  label,
-  rows = 4,
-}: {
-  required?: boolean;
-  name: string;
-  label: ReactNode;
-  rows?: number;
-}) {
-  return (
-    <label className="flex flex-col">
-      <span
-        className={
-          required ? "after:content-['*'] after:text-red-700 after:ml-1" : ""
-        }
-      >
-        {label}
-      </span>
-      <textarea
-        className="bg-white border-[#D5D7DA] rounded-[7px] border p-3"
-        name={name}
-        rows={rows}
-      />
-    </label>
-  );
-}
-function Input({
-  required,
-  name,
-  label,
-  placeholder = "",
-}: {
-  required?: boolean;
-  name: string;
-  label: ReactNode;
-  placeholder?: string;
-}) {
-  return (
-    <label className="flex flex-col">
-      <span
-        className={
-          required ? "after:content-['*'] after:text-red-700 after:ml-1" : ""
-        }
-      >
-        {label}
-      </span>
-      <input
-        className="bg-white border-[#D5D7DA] rounded-[7px] border p-3 font-medium"
-        name={name}
-        required={required}
-        placeholder={placeholder}
-      />
-    </label>
-  );
-}
+import { Input } from "@/components/Input";
+import { Textarea } from "@/components/TextArea";
 export default async function page() {
   const {
     props: { srcSet },
