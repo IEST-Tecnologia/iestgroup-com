@@ -8,21 +8,16 @@ export function FileInput({
   name,
   label,
   accept,
+  defaultValue,
 }: {
   required?: boolean;
   name: string;
   label: ReactNode;
   accept: string;
+  defaultValue?: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [file, setFile] = useState<File | null>(null);
-  const preview = useMemo(() => {
-    if (file) {
-      return URL.createObjectURL(file);
-    } else {
-      return "";
-    }
-  }, [file]);
+  const [preview, setPreview] = useState(defaultValue);
   return (
     <label className="flex flex-col">
       <span
@@ -37,13 +32,15 @@ export function FileInput({
 
       <input
         onChange={(e) => {
-          if (e.currentTarget.files && e.currentTarget.files.length > 0)
-            setFile(e.currentTarget.files[0]);
+          if (e.currentTarget.files && e.currentTarget.files.length > 0) {
+            setPreview(URL.createObjectURL(e.currentTarget.files[0]));
+          }
         }}
         ref={inputRef}
         type="file"
         accept={accept}
         name={name}
+        required={!defaultValue}
         hidden
       />
       <div>

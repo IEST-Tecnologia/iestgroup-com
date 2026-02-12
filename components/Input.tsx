@@ -6,12 +6,14 @@ export function Input({
   name,
   label,
   placeholder = "",
+  defaultValue,
 }: {
   type?: string;
   required?: boolean;
   name: string;
   label: ReactNode;
   placeholder?: string;
+  defaultValue?: string;
 }) {
   return (
     <label className="flex flex-col">
@@ -28,6 +30,7 @@ export function Input({
         name={name}
         required={required}
         placeholder={placeholder}
+        defaultValue={defaultValue}
       />
     </label>
   );
