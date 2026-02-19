@@ -2,25 +2,73 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2f2f2f;
+  --primary: #274587;
+  --light-primary: #6083cf;
+  --secondary: #d11b1b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-light-primary: var(--light-primary);
+  --color-secondary: var(--secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --shadow-card: 0px 0px 40px 0px rgba(0, 0, 0, 0.24);
+  --shadow-card-job: 0px 0px 4px 0px rgba(0, 0, 0, 0.24);
+  --shadow-card-job-hover: 0px 0px 8px 0px rgba(0, 0, 0, 0.24);
+  --text-md: 1rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-family: "Poppins";
+}
+
+li::marker {
+  color: var(--primary);
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+.tiptap ul {
+  list-style-type: disc;
+  margin-left: 48px;
+}
+
+.tiptap ol {
+  list-style-type: decimal;
+  margin-left: 48px;
+}
+
+/* Flip Card Utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.hover\:rotate-y-180:hover {
+  transform: rotateY(180deg);
+}
+
+.group:hover .group-hover\:rotate-x-180 {
+  transform: rotateX(180deg);
 }

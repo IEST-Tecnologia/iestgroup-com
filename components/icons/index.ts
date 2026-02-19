@@ -1,0 +1,10 @@
+export { default as AddressIcon } from "./AddressIcon";
+export { default as EmailIcon } from "./EmailIcon";
+export { default as PhoneIcon } from "./PhoneIcon";
+export { default as ChevronDownIcon } from "./ChevronDownIcon";
+export { default as LinkedInIcon } from "./LinkedInIcon";
+export { default as WeChatIcon } from "./WeChatIcon";
+export { default as BrazilFlagIcon } from "./BrazilFlagIcon";
+export { default as ChinaFlagIcon } from "./ChinaFlagIcon";
+export { default as LogoIcon } from "./LogoIcon";
+export { default as MenuIcon } from "./MenuIcon";
