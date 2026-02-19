@@ -16,8 +16,16 @@ const SORT_OPTIONS = [
   { label: "Nome (Z-A)", sort_by: "name", sort_dir: "desc" },
   { label: "Status (Abertos primeiro)", sort_by: "status", sort_dir: "asc" },
   { label: "Status (Fechados primeiro)", sort_by: "status", sort_dir: "desc" },
-  { label: "Atualização (Mais recente)", sort_by: "updated_at", sort_dir: "desc" },
-  { label: "Atualização (Mais antiga)", sort_by: "updated_at", sort_dir: "asc" },
+  {
+    label: "Atualização (Mais recente)",
+    sort_by: "updated_at",
+    sort_dir: "desc",
+  },
+  {
+    label: "Atualização (Mais antiga)",
+    sort_by: "updated_at",
+    sort_dir: "asc",
+  },
   { label: "Área (A-Z)", sort_by: "area", sort_dir: "asc" },
   { label: "Área (Z-A)", sort_by: "area", sort_dir: "desc" },
 ] as const;
@@ -55,6 +63,11 @@ export default function JobsClient({
   totalPages,
 }: JobsClientProps) {
   const [jobs, setJobs] = useState<Job[]>(initialJobs.jobs);
+
+  useEffect(() => {
+    setJobs(initialJobs.jobs);
+  }, [initialJobs]);
+
   const currentPage = initialJobs.page;
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -124,7 +137,8 @@ export default function JobsClient({
   };
 
   const getColumnSortDir = (column: SortableColumn): "asc" | "desc" | null => {
-    if (currentSortBy === column) return (currentSortDir as "asc" | "desc") || null;
+    if (currentSortBy === column)
+      return (currentSortDir as "asc" | "desc") || null;
     return null;
   };
 
@@ -193,8 +207,18 @@ export default function JobsClient({
               }}
               className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           )}
@@ -277,7 +301,7 @@ export default function JobsClient({
                         : "bg-gray-100 text-gray-600"
                     }`}
                   >
-                    {job.status === "open" ? "Aberto" : "Fechado"}
+                    {job.status === "open" ? "Em Aberto" : "Finalizado"}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-gray-500 max-w-xs">

@@ -33,8 +33,8 @@ const JOB_TYPE_OPTIONS = [
 ];
 
 const JOB_STATUS_OPTIONS = [
-  { label: "Aberta", value: "open" },
-  { label: "Fechada", value: "closed" },
+  { label: "Em aberto", value: "open" },
+  { label: "Finalizado", value: "closed" },
 ];
 
 interface JobFormValues {

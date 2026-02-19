@@ -1,9 +1,12 @@
+import { requireAdminServer } from "./actions";
 import type {
-  Banner,
-  Client,
-  BackendResponse,
   JobResponse,
   Job,
+  BackendResponse,
+  Banner,
+  BannerDTO,
+  Client,
+  ClientDTO,
 } from "./types";
 
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8080";
@@ -47,7 +50,12 @@ export async function getJobBySlug(slug: string): Promise<Job> {
 export async function listJobs(
   page = 1,
   pageSize = 10,
-  filters?: { search?: string; status?: string; sort_by?: string; sort_dir?: string },
+  filters?: {
+    search?: string;
+    status?: string;
+    sort_by?: string;
+    sort_dir?: string;
+  },
 ): Promise<JobResponse> {
   const params = new URLSearchParams({
     page: String(page),
@@ -58,7 +66,8 @@ export async function listJobs(
   if (filters?.sort_by) params.set("sort_by", filters.sort_by);
   if (filters?.sort_dir) params.set("sort_dir", filters.sort_dir);
   const res = await apiFetch(`/api/v1/jobs?${params.toString()}`);
-  return unwrap<JobResponse>(res);
+  const data = await unwrap<JobResponse>(res);
+  return { ...data, jobs: data.jobs ?? [] };
 }
 
 export async function updateJob(id: number, formData: FormData): Promise<Job> {
@@ -76,77 +85,106 @@ export async function deleteJob(id: string): Promise<boolean> {
   return true;
 }
 
+// --- DTO → Model conversion ---
+
+function toBanner(dto: BannerDTO): Banner {
+  return {
+    id: dto.id,
+    url: dto.url,
+    imageUrl: dto.image_url,
+    createdAt: dto.created_at,
+  };
+}
+
+function toClient(dto: ClientDTO): Client {
+  return {
+    id: dto.id,
+    logoUrl: dto.logo_url,
+    createdAt: dto.created_at,
+  };
+}
+
 // --- Banner CRUD ---
+
+export async function getBanner(id: string): Promise<Banner> {
+  const res = await apiFetch(`/api/v1/banners/${id}`);
+  const dto = await unwrap<BannerDTO>(res);
+  return toBanner(dto);
+}
 
 export async function listBanners(): Promise<Banner[]> {
   const res = await apiFetch("/api/v1/banners");
-  return unwrap<Banner[]>(res);
+  const dtos = await unwrap<BannerDTO[]>(res);
+  return dtos.map(toBanner);
 }
 
-export async function createBanner(input: {
-  url: string;
-  imageUrl: string;
-}): Promise<Banner> {
+export async function createBanner(formData: FormData): Promise<Banner> {
+  await requireAdminServer();
   const res = await apiFetch("/api/v1/banners", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: formData,
   });
-  return unwrap<Banner>(res);
+  return toBanner(await unwrap<BannerDTO>(res));
 }
 
 export async function updateBanner(
   id: string,
-  input: { url?: string; imageUrl?: string },
+  formData: FormData,
 ): Promise<Banner | null> {
+  await requireAdminServer();
+
   const res = await apiFetch(`/api/v1/banners/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: formData,
   });
   if (res.status === 404) return null;
-  return unwrap<Banner>(res);
+  return toBanner(await unwrap<BannerDTO>(res));
 }
 
 export async function deleteBanner(id: string): Promise<boolean> {
   const res = await apiFetch(`/api/v1/banners/${id}`, { method: "DELETE" });
   if (res.status === 404) return false;
-  await unwrap<unknown>(res);
   return true;
 }
 
 // --- Client CRUD ---
 
-export async function listClients(): Promise<Client[]> {
-  const res = await apiFetch("/api/v1/clients");
-  return unwrap<Client[]>(res);
+export async function getClient(id: string): Promise<Client> {
+  const res = await apiFetch(`/api/v1/clients/${id}`);
+  const dto = await unwrap<ClientDTO>(res);
+  return toClient(dto);
 }
 
-export async function createClient(input: { logo: string }): Promise<Client> {
+export async function listClients(): Promise<Client[]> {
+  const res = await apiFetch("/api/v1/clients");
+  const dtos = await unwrap<ClientDTO[]>(res);
+  return dtos.map(toClient);
+}
+
+export async function createClient(formData: FormData): Promise<Client> {
+  await requireAdminServer();
   const res = await apiFetch("/api/v1/clients", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: formData,
   });
-  return unwrap<Client>(res);
+  return toClient(await unwrap<ClientDTO>(res));
 }
 
 export async function updateClient(
   id: string,
-  input: { logo?: string },
+  formData: FormData,
 ): Promise<Client | null> {
+  await requireAdminServer();
   const res = await apiFetch(`/api/v1/clients/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(input),
+    body: formData,
   });
   if (res.status === 404) return null;
-  return unwrap<Client>(res);
+  return toClient(await unwrap<ClientDTO>(res));
 }
 
 export async function deleteClient(id: string): Promise<boolean> {
   const res = await apiFetch(`/api/v1/clients/${id}`, { method: "DELETE" });
   if (res.status === 404) return false;
-  await unwrap<unknown>(res);
   return true;
 }

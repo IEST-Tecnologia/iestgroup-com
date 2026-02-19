@@ -33,7 +33,7 @@ export default async function JobPage({ searchParams }: JobPageProps) {
 
   return (
     <div className="p-6">
-      <JobsClient key={`${page}-${search}-${status}-${sort_by}-${sort_dir}`} initialJobs={data} totalPages={totalPages} />
+      <JobsClient key={`${page}-${status}-${sort_by}-${sort_dir}`} initialJobs={data} totalPages={totalPages} />
     </div>
   );
 }

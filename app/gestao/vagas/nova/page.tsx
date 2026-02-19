@@ -31,13 +31,14 @@ const JOB_TYPE_OPTIONS = [
 ];
 
 const JOB_STATUS_OPTIONS = [
-  { label: "Aberta", value: "open" },
-  { label: "Fechada", value: "closed" },
+  { label: "Em Aberto", value: "open" },
+  { label: "Finalizado", value: "closed" },
 ];
 
 interface JobFormValues {
   name: string;
   company: string;
+  area: string;
   nivel: string;
   locality: string;
   id_job: string;
@@ -95,6 +96,7 @@ export default function Page() {
         .replace(/^-+|-+$/g, ""),
     );
     formData.append("company", data.company);
+    formData.append("area", data.area);
     formData.append("nivel", data.nivel);
     formData.append("locality", data.locality);
     formData.append("id_job", data.id_job);
@@ -150,6 +152,17 @@ export default function Page() {
                   error={errors.company?.message}
                 />
                 <TextField
+                  label="Area de atuação"
+                  placeholder="Marketing, RH, Financeiro..."
+                  type="text"
+                  id="area"
+                  fullWidth
+                  {...register("area", { required: REQUIRED_MSG })}
+                  error={errors.area?.message}
+                />
+              </div>
+              <div className="flex justify-between gap-4">
+                <TextField
                   label="Nivel de Experiência"
                   placeholder="Especialista, Analista, Sênior..."
                   type="text"
@@ -158,8 +171,6 @@ export default function Page() {
                   {...register("nivel", { required: REQUIRED_MSG })}
                   error={errors.nivel?.message}
                 />
-              </div>
-              <div className="flex justify-between gap-4">
                 <TextField
                   label="Local"
                   placeholder="São Paulo, SP"

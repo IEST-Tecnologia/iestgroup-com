@@ -1,65 +1,7 @@
 import { getBackgroundImage } from "@/lib/utils";
 import { getImageProps } from "next/image";
-import React, { ReactNode } from "react";
 import { AddressIcon, EmailIcon, PhoneIcon } from "@/components/icons";
-import Button from "@/components/Button";
-function Textarea({
-  required,
-  name,
-  label,
-  rows = 4,
-}: {
-  required?: boolean;
-  name: string;
-  label: ReactNode;
-  rows?: number;
-}) {
-  return (
-    <label className="flex flex-col">
-      <span
-        className={
-          required ? "after:content-['*'] after:text-red-700 after:ml-1" : ""
-        }
-      >
-        {label}
-      </span>
-      <textarea
-        className="bg-white border-[#D5D7DA] rounded-[7px] border p-3"
-        name={name}
-        rows={rows}
-      />
-    </label>
-  );
-}
-function Input({
-  required,
-  name,
-  label,
-  placeholder = "",
-}: {
-  required?: boolean;
-  name: string;
-  label: ReactNode;
-  placeholder?: string;
-}) {
-  return (
-    <label className="flex flex-col">
-      <span
-        className={
-          required ? "after:content-['*'] after:text-red-700 after:ml-1" : ""
-        }
-      >
-        {label}
-      </span>
-      <input
-        className="bg-white border-[#D5D7DA] rounded-[7px] border p-3 font-medium"
-        name={name}
-        required={required}
-        placeholder={placeholder}
-      />
-    </label>
-  );
-}
+import ContactForm from "@/components/ContactForm";
 export default async function page() {
   const {
     props: { srcSet },
@@ -112,66 +54,8 @@ export default async function page() {
           </div>
         </div>
         <div className="p-7.5 ">
-          <div className="z-20  rounded-[29px] shadow-[0px_0px_40px_0px_rgba(0,0,0,0.24)] pt-[15%] pr-[7%] pb-[10%] pl-[7%] bg-neutral-50">
-            <form
-              className="flex flex-col gap-4"
-              action={async (formData) => {
-                "use server";
-                const res = await fetch(
-                  process.env.NEXT_PUBLIC_BACKEND_URL + "/contact",
-
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      nome: formData.get("first_name"),
-                      sobrenome: formData.get("last_name"),
-                      email: formData.get("email"),
-                      telefone: formData.get("phone"),
-                      mensagem: formData.get("message"),
-                    }),
-                  },
-                );
-                // TODO: Add return message
-              }}
-            >
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 md:gap-3">
-                <Input
-                  label="Nome"
-                  name="first_name"
-                  required
-                  placeholder="Seu nome"
-                />
-                <Input
-                  label="Sobrenome"
-                  name="last_name"
-                  required
-                  placeholder="Seu sobrenome"
-                />
-              </div>
-              <Input
-                label="E-mail"
-                name="email"
-                required
-                placeholder="seuemail@email.com"
-              />
-              <Input
-                label="Telefone"
-                name="phone"
-                required
-                placeholder="(00) 00000-0000"
-              />
-              <Textarea label="Mensagem" name="message" />
-              <label>
-                <input className="mr-1" type="checkbox" />
-                Você concorda com nossa politica de privacidade.
-              </label>
-              <div>
-                <Button>Enviar</Button>
-              </div>
-            </form>
+          <div className="z-20  rounded-[29px] shadow-card pt-[15%] pr-[7%] pb-[10%] pl-[7%] bg-neutral-50">
+            <ContactForm />
           </div>
         </div>
       </main>

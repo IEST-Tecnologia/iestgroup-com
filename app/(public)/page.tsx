@@ -6,13 +6,18 @@ import Link from "next/link";
 import Button from "@/components/Button";
 import { getBackgroundImage } from "@/lib/utils";
 import Contacts from "@/components/Contacts";
+import BannerCarousel from "@/components/BannerCarousel";
+import ClientsMarquee from "@/components/ClientsMarquee";
+import { listBanners, listClients } from "@/lib/admin/store";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Consultoria Empresarial",
 };
 
-export default function Home() {
+export default async function Home() {
+  const [banners, clients] = await Promise.all([listBanners(), listClients()]);
+
   const {
     props: { srcSet },
   } = getImageProps({
@@ -26,6 +31,7 @@ export default function Home() {
 
   return (
     <div>
+      <BannerCarousel banners={banners} />
       <main className="bg-white">
         <div className="flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
           <div className="w-full lg:w-1/2 p-2.5 flex flex-col gap-5">
@@ -113,10 +119,13 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="px-4 py-6 md:py-10">
-        <h2 className="font-bold uppercase leading text-primary text-2xl md:text-[28px] lg:text-[32px]">
-          Nossos Clientes
-        </h2>
+      <section className="bg-white">
+        <div className="flex flex-col justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
+          <h2 className="px-4 font-bold uppercase leading text-primary text-2xl md:text-[28px] lg:text-[32px]">
+            Nossos Clientes
+          </h2>
+          <ClientsMarquee clients={clients} />
+        </div>
       </section>
       <section
         className="relative bg-center bg-no-repeat bg-cover px-4"

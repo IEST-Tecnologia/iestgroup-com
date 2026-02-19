@@ -49,8 +49,23 @@ export interface Banner {
 
 export interface Client {
   id: string;
-  logo: string;
+  logoUrl: string;
   createdAt: string;
+}
+
+// --- Backend DTOs (snake_case) ---
+
+export interface BannerDTO {
+  id: string;
+  url: string;
+  image_url: string;
+  created_at: string;
+}
+
+export interface ClientDTO {
+  id: string;
+  logo_url: string;
+  created_at: string;
 }
 
 export interface CreateBannerInput {
