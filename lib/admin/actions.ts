@@ -11,16 +11,10 @@ import {
   updateClient as storeUpdateClient,
   deleteClient as storeDeleteClient,
 } from "./store";
-import type {
-  Banner,
-  Client,
-  CreateBannerInput,
-  UpdateBannerInput,
-  CreateClientInput,
-  UpdateClientInput,
-} from "./types";
+import type { Banner, Client } from "./types";
+import { redirect } from "next/navigation";
 
-async function requireAdmin(): Promise<void> {
+export async function requireAdminServer(): Promise<void> {
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized");
   if (!user.allRoles.includes("admin")) throw new Error("Forbidden");
@@ -28,50 +22,44 @@ async function requireAdmin(): Promise<void> {
 
 // --- Banner actions ---
 
-export async function listBanners(): Promise<Banner[]> {
-  await requireAdmin();
-  return storeListBanners();
+export async function createBanner(formData: FormData): Promise<void> {
+  await requireAdminServer();
+  await storeCreateBanner(formData);
+  redirect("/admin/banners");
 }
 
-export async function createBanner(input: CreateBannerInput): Promise<Banner> {
-  await requireAdmin();
-  return storeCreateBanner(input);
-}
-
-export async function updateBanner(
-  id: string,
-  input: UpdateBannerInput,
-): Promise<Banner | null> {
-  await requireAdmin();
-  return storeUpdateBanner(id, input);
+export async function updateBanner(formData: FormData): Promise<void> {
+  const id = formData.get("id") as string;
+  await requireAdminServer();
+  await storeUpdateBanner(id, formData);
 }
 
 export async function deleteBanner(id: string): Promise<boolean> {
-  await requireAdmin();
+  await requireAdminServer();
   return storeDeleteBanner(id);
 }
 
 // --- Client actions ---
 
 export async function listClients(): Promise<Client[]> {
-  await requireAdmin();
+  await requireAdminServer();
   return storeListClients();
 }
 
-export async function createClient(input: CreateClientInput): Promise<Client> {
-  await requireAdmin();
-  return storeCreateClient(input);
+export async function createClient(formData: FormData): Promise<Client> {
+  await requireAdminServer();
+  return storeCreateClient(formData);
 }
 
 export async function updateClient(
   id: string,
-  input: UpdateClientInput,
+  formData: FormData,
 ): Promise<Client | null> {
-  await requireAdmin();
-  return storeUpdateClient(id, input);
+  await requireAdminServer();
+  return storeUpdateClient(id, formData);
 }
 
 export async function deleteClient(id: string): Promise<boolean> {
-  await requireAdmin();
+  await requireAdminServer();
   return storeDeleteClient(id);
 }

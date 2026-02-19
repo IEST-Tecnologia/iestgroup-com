@@ -1,8 +1,27 @@
-import React from "react";
+"use client";
+
+import { useActionState, useEffect, useRef, useState } from "react";
 import { AddressIcon } from "@/components/icons";
 import Button from "./Button";
+import { submitContact, type ContactState } from "@/app/actions/contact";
+import Toast from "@/components/Toast";
 
 export default function Contacts() {
+  const [state, formAction, pending] = useActionState<ContactState, FormData>(
+    submitContact,
+    null,
+  );
+  const [toast, setToast] = useState<ContactState>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    if (!state) return;
+    setToast(state);
+    if (state.success) {
+      formRef.current?.reset();
+    }
+  }, [state]);
+
   return (
     <section className="bg-primary text-white">
       <div className="flex flex-col lg:flex-row justify-between items-start max-w-7xl mx-auto py-6 md:py-10 px-4 gap-8 lg:gap-0">
@@ -28,30 +47,57 @@ export default function Contacts() {
           <div className="mb-5">
             Preencha seus dados abaixo e esclareça suas dúvidas:
           </div>
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form
+            ref={formRef}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            action={formAction}
+          >
             <input
-              className="px-5 py-2 col-span-1 md:col-span-2 border border-white"
+              className="px-5 py-2 border border-white"
               placeholder="Nome"
+              name="first_name"
+              required
+            />
+            <input
+              className="px-5 py-2 border border-white"
+              placeholder="Sobrenome"
+              name="last_name"
+              required
             />
             <input
               className="px-5 py-2 border border-white"
               placeholder="E-mail"
+              name="email"
+              required
             />
             <input
               className="px-5 py-2 border border-white"
               placeholder="Telefone"
+              name="phone"
+              required
             />
             <textarea
               className="px-5 py-2 col-span-1 md:col-span-2 border border-white"
               placeholder="Mensagem"
+              name="message"
               rows={4}
             />
             <div>
-              <Button variant="inverted">Enviar</Button>
+              <Button variant="inverted" disabled={pending}>
+                {pending ? "Enviando..." : "Enviar"}
+              </Button>
             </div>
           </form>
         </div>
       </div>
+
+      {toast && (
+        <Toast
+          message={toast.message}
+          variant={toast.success ? "success" : "error"}
+          onClose={() => setToast(null)}
+        />
+      )}
     </section>
   );
 }
