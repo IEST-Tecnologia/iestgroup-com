@@ -3,6 +3,7 @@ import type {
   Client,
   BackendResponse,
   JobResponse,
+  Job,
 } from "./types";
 
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8080";
@@ -30,9 +31,42 @@ async function unwrap<T>(res: Response): Promise<T> {
   return body.data;
 }
 
-export async function listJobs(page = 1, pageSize = 10): Promise<JobResponse> {
-  const res = await apiFetch(`/api/v1/jobs?page=${page}&page_size=${pageSize}`);
+export async function createJob(formData: FormData): Promise<Job> {
+  const res = await apiFetch("/api/v1/jobs", {
+    method: "POST",
+    body: formData,
+  });
+  return unwrap<Job>(res);
+}
+
+export async function getJobBySlug(slug: string): Promise<Job> {
+  const res = await apiFetch(`/api/v1/jobs/slug/${slug}`);
+  return unwrap<Job>(res);
+}
+
+export async function listJobs(
+  page = 1,
+  pageSize = 10,
+  filters?: { search?: string; status?: string; sort_by?: string; sort_dir?: string },
+): Promise<JobResponse> {
+  const params = new URLSearchParams({
+    page: String(page),
+    page_size: String(pageSize),
+  });
+  if (filters?.search) params.set("search", filters.search);
+  if (filters?.status) params.set("status", filters.status);
+  if (filters?.sort_by) params.set("sort_by", filters.sort_by);
+  if (filters?.sort_dir) params.set("sort_dir", filters.sort_dir);
+  const res = await apiFetch(`/api/v1/jobs?${params.toString()}`);
   return unwrap<JobResponse>(res);
+}
+
+export async function updateJob(id: number, formData: FormData): Promise<Job> {
+  const res = await apiFetch(`/api/v1/jobs/${id}`, {
+    method: "PUT",
+    body: formData,
+  });
+  return unwrap<Job>(res);
 }
 
 export async function deleteJob(id: string): Promise<boolean> {

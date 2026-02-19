@@ -20,25 +20,25 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 
   return (
     <div className="w-full flex gap-3 bg-gray-100 p-3 shadow-sm">
-      <button
+      <p
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={`border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive("bold") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
+        className={`flex items-center justify-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive("bold") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
         B
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={`border border-gray-500 rounded-md font-bold italic w-8 h-8 ${editor.isActive("italic") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
+        className={`flex items-center justify-center border border-gray-500 rounded-md font-bold italic w-8 h-8 ${editor.isActive("italic") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
         I
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold italic w-8 h-8 ${editor.isActive("bulletList") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
         <Image className="w-5 h-5" src={IconBulletList} alt="Ícone de lista" />
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold italic w-8 h-8 ${editor.isActive("orderedList") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
@@ -47,14 +47,14 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
           src={IconDecimalList}
           alt="Ícone de lista de números"
         />
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive("blockquote") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
         <Image className="w-5 h-5" src={IconQuote} alt="Ícone de citação" />
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive({ textAlign: "left" }) ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
@@ -63,8 +63,8 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
           src={IconAlignLeft}
           alt="Ícone de alinhar à esquerda"
         />
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => editor.chain().focus().setTextAlign("center").run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive({ textAlign: "center" }) ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
@@ -73,8 +73,8 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
           src={IconAlignCenter}
           alt="Ícone de alinhar ao centro"
         />
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => editor.chain().focus().setTextAlign("right").run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive({ textAlign: "right" }) ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
@@ -83,8 +83,8 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
           src={IconAlignRight}
           alt="Ícone de alinhar à direita"
         />
-      </button>
-      <button
+      </p>
+      <p
         onClick={() => {
           const url = window.prompt("URL do link:");
           if (url) {
@@ -94,15 +94,17 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive("link") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
         <Image className="w-5 h-5" src={IconLink} alt="Ícone de link" />
-      </button>
+      </p>
     </div>
   );
 };
 
 const RichText = ({
   onChange,
+  initialContent,
 }: {
   onChange?: (content: JSONContent) => void;
+  initialContent?: JSONContent;
 }) => {
   const editor = useEditor({
     extensions: [
@@ -119,7 +121,7 @@ const RichText = ({
         class: "p-3 min-h-[200px]",
       },
     },
-    content: "",
+    content: initialContent ?? "",
     onUpdate: ({ editor }) => {
       onChange?.(editor.getJSON());
     },

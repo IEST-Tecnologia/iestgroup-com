@@ -16,17 +16,20 @@ import {
   CONTRACT_TYPE_LABELS,
   WORK_SCHEDULE_LABELS,
 } from "@/lib/mocks/jobs";
+import { getJobBySlug } from "@/lib/admin/actions";
+import { redirect } from "next/navigation";
 
 export default async function page({
   params,
 }: {
-  params: Promise<{ name: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { name } = await params;
-  console.log(name);
+  const { slug } = await params;
+  const job = await getJobBySlug(slug);
+  if (!job) redirect("/vagas-iest");
 
   // TODO: Substituir pelo fetch real do backend usando o slug (name)
-  const job = MOCK_JOB;
+  // const job = MOCK_JOB;
 
   return (
     <>

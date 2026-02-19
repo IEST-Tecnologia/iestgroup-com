@@ -6,7 +6,9 @@ import RadioGroup from "@/components/RadioGroup";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
 import RichText from "@/components/Tiptap";
-import { createJob } from "@/lib/admin/actions";
+import { updateJob } from "@/lib/admin/actions";
+import type { Job } from "@/lib/admin/types";
+import Link from "next/link";
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },
@@ -73,13 +75,32 @@ function getErrorMsg(error: unknown): string | undefined {
   return undefined;
 }
 
-export default function Page() {
+export default function JobEditForm({ job }: { job: Job }) {
   const {
     register,
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<JobFormValues>();
+  } = useForm<JobFormValues>({
+    defaultValues: {
+      name: job.name,
+      company: job.company,
+      nivel: job.nivel,
+      locality: job.locality,
+      id_job: job.id_job,
+      about_company: job.about_company,
+      about_opportunity: job.about_opportunity,
+      main_responsabilities: job.main_responsabilities,
+      mandatory_requirements: job.mandatory_requirements,
+      differences: job.differences,
+      benefits: job.benefits,
+      work_model: job.work_model,
+      contract_type: job.contract_type,
+      work_schedule: job.work_schedule,
+      job_type: job.type,
+      status: job.status,
+    },
+  });
 
   const onSubmit = async (data: JobFormValues) => {
     const formData = new FormData();
@@ -119,13 +140,12 @@ export default function Page() {
     formData.append("differences", JSON.stringify(data.differences));
     formData.append("benefits", JSON.stringify(data.benefits));
 
-    await createJob(formData);
+    await updateJob(job.id, formData);
   };
 
   return (
     <div className="w-full px-6 py-8">
-      <h1 className="text-xl font-semibold mb-4">Adicionar Nova Vaga</h1>
-      {/* todo: depois de finalizar o desenvolvimento inserir autoComplete="off" no formulário */}
+      <h1 className="text-xl font-semibold mb-4">Editar Vaga</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Nome da vaga"
@@ -135,13 +155,24 @@ export default function Page() {
           {...register("name", { required: REQUIRED_MSG })}
           error={errors.name?.message}
         />
+        <div className="flex gap-1 mt-2 ml-2">
+          <p className="text-sm text-foreground font-semibold">
+            Link permanente:
+          </p>
+          <Link
+            className="text-sm text-primary underline"
+            href={`/vagas-iest/${job.slug}`}
+          >
+            https://iestgroup.com.br/vagas-iest/{job.slug}
+          </Link>
+        </div>
         <div className="w-full flex justify-between items-start gap-6 mt-4">
           <div className="w-4/5 bg-white border border-gray-300 rounded-sm p-4">
             <h2 className="text-lg font-semibold">Informações gerais</h2>
             <div className="mt-8">
               <div className="flex justify-between gap-4 mb-4">
                 <TextField
-                  label="Empresa"
+                  label="Tipo de empresa"
                   placeholder="Multinacional no setor..."
                   type="text"
                   id="company"
@@ -206,7 +237,12 @@ export default function Page() {
                   rules={{
                     validate: (v) => !isRichTextEmpty(v) || REQUIRED_MSG,
                   }}
-                  render={({ field }) => <RichText onChange={field.onChange} />}
+                  render={({ field }) => (
+                    <RichText
+                      onChange={field.onChange}
+                      initialContent={job.about_opportunity}
+                    />
+                  )}
                 />
                 {getErrorMsg(errors.about_opportunity) && (
                   <p className="mt-1 text-xs text-secondary">
@@ -225,7 +261,12 @@ export default function Page() {
                   rules={{
                     validate: (v) => !isRichTextEmpty(v) || REQUIRED_MSG,
                   }}
-                  render={({ field }) => <RichText onChange={field.onChange} />}
+                  render={({ field }) => (
+                    <RichText
+                      onChange={field.onChange}
+                      initialContent={job.main_responsabilities}
+                    />
+                  )}
                 />
                 {getErrorMsg(errors.main_responsabilities) && (
                   <p className="mt-1 text-xs text-secondary">
@@ -244,7 +285,12 @@ export default function Page() {
                   rules={{
                     validate: (v) => !isRichTextEmpty(v) || REQUIRED_MSG,
                   }}
-                  render={({ field }) => <RichText onChange={field.onChange} />}
+                  render={({ field }) => (
+                    <RichText
+                      onChange={field.onChange}
+                      initialContent={job.mandatory_requirements}
+                    />
+                  )}
                 />
                 {getErrorMsg(errors.mandatory_requirements) && (
                   <p className="mt-1 text-xs text-secondary">
@@ -261,7 +307,12 @@ export default function Page() {
                   rules={{
                     validate: (v) => !isRichTextEmpty(v) || REQUIRED_MSG,
                   }}
-                  render={({ field }) => <RichText onChange={field.onChange} />}
+                  render={({ field }) => (
+                    <RichText
+                      onChange={field.onChange}
+                      initialContent={job.differences}
+                    />
+                  )}
                 />
                 {getErrorMsg(errors.differences) && (
                   <p className="mt-1 text-xs text-secondary">
@@ -278,7 +329,12 @@ export default function Page() {
                   rules={{
                     validate: (v) => !isRichTextEmpty(v) || REQUIRED_MSG,
                   }}
-                  render={({ field }) => <RichText onChange={field.onChange} />}
+                  render={({ field }) => (
+                    <RichText
+                      onChange={field.onChange}
+                      initialContent={job.benefits}
+                    />
+                  )}
                 />
                 {getErrorMsg(errors.benefits) && (
                   <p className="mt-1 text-xs text-secondary">
@@ -368,7 +424,7 @@ export default function Page() {
                     options={JOB_STATUS_OPTIONS}
                     value={field.value}
                     onChange={field.onChange}
-                    error={errors.job_type?.message}
+                    error={errors.status?.message}
                   />
                 )}
               />
@@ -379,7 +435,7 @@ export default function Page() {
               type="submit"
               disabled={isSubmitting}
             >
-              Publicar
+              Salvar
             </Button>
           </div>
         </div>

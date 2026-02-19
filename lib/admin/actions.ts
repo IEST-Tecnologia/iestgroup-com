@@ -3,6 +3,9 @@
 import { getCurrentUser } from "@/lib/auth";
 import {
   listJobs as storeListJob,
+  createJob as storeCreateJob,
+  getJobBySlug as storeGetJobBySlug,
+  updateJob as storeUpdateJob,
   listBanners as storeListBanners,
   createBanner as storeCreateBanner,
   updateBanner as storeUpdateBanner,
@@ -20,7 +23,9 @@ import type {
   CreateClientInput,
   UpdateClientInput,
   JobResponse,
+  Job,
 } from "./types";
+import { redirect } from "next/navigation";
 
 async function requireAdmin(): Promise<void> {
   const user = await getCurrentUser();
@@ -28,9 +33,30 @@ async function requireAdmin(): Promise<void> {
   if (!user.allRoles.includes("admin")) throw new Error("Forbidden");
 }
 
-export async function listJobs(page = 1, pageSize = 10): Promise<JobResponse> {
+export async function listJobs(
+  page = 1,
+  pageSize = 10,
+  filters?: { search?: string; status?: string; sort_by?: string; sort_dir?: string },
+): Promise<JobResponse> {
   await requireAdmin();
-  return storeListJob(page, pageSize);
+  return storeListJob(page, pageSize, filters);
+}
+
+export async function createJob(formData: FormData): Promise<Job> {
+  await requireAdmin();
+  const job = await storeCreateJob(formData);
+  return redirect(`/gestao/vagas/${job.slug}`);
+}
+
+export async function updateJob(id: number, formData: FormData): Promise<Job> {
+  await requireAdmin();
+  const job = await storeUpdateJob(id, formData);
+  return redirect(`/gestao/vagas/${job.slug}`);
+}
+
+export async function getJobBySlug(slug: string): Promise<Job> {
+  await requireAdmin();
+  return storeGetJobBySlug(slug);
 }
 
 // --- Banner actions ---
