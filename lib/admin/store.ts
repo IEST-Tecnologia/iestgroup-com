@@ -1,4 +1,5 @@
 import { requireAdminServer } from "./actions";
+import { getAccessToken } from "@/lib/auth/cookies";
 import type {
   JobResponse,
   Job,
@@ -12,9 +13,14 @@ import type {
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8080";
 
 async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
+  const token = await getAccessToken();
   return fetch(`${BACKEND_URL}${path}`, {
     ...init,
     cache: "no-store",
+    headers: {
+      ...(init?.headers as Record<string, string>),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
   });
 }
 

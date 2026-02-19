@@ -83,7 +83,7 @@ export default function JobsClient({
   const navigate = useCallback(
     (overrides: Record<string, string>) => {
       const params = new URLSearchParams(searchParams.toString());
-      // Reset page to 1 when any filter changes (unless page itself is being set)
+
       if (!("page" in overrides)) {
         params.set("page", "1");
       }
@@ -128,7 +128,6 @@ export default function JobsClient({
 
   const handleColumnSort = (column: SortableColumn) => {
     if (currentSortBy === column) {
-      // Toggle direction
       const newDir = currentSortDir === "asc" ? "desc" : "asc";
       navigate({ sort_by: column, sort_dir: newDir });
     } else {
@@ -175,10 +174,8 @@ export default function JobsClient({
         </Link>
       </div>
 
-      {/* Filters bar */}
       <div className="flex flex-wrap items-center gap-4 mb-4">
-        {/* Search */}
-        <div className="relative flex-1 min-w-[200px] max-w-sm">
+        <div className="relative flex-1 min-w-50 max-w-sm">
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
             fill="none"

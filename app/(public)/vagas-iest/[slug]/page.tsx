@@ -11,12 +11,11 @@ import InfoItem from "@/components/InfoItem";
 import JobForm from "@/components/JobForm";
 import TiptapContent from "@/components/TiptapContent";
 import {
-  MOCK_JOB,
   WORK_MODEL_LABELS,
   CONTRACT_TYPE_LABELS,
   WORK_SCHEDULE_LABELS,
 } from "@/lib/mocks/jobs";
-import { getJobBySlug } from "@/lib/admin/actions";
+import { getJobBySlug } from "@/lib/public/actions";
 import { redirect } from "next/navigation";
 
 export default async function page({

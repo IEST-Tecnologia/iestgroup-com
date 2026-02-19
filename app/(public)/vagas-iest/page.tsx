@@ -4,8 +4,12 @@ import IconBriefcase from "@/assets/vagas/briefcase.svg";
 import IconUserLocation from "@/assets/vagas/user-location.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { listJobs } from "@/lib/public/actions";
+import { formatRelativeDate } from "@/lib/utils";
 
-export default function page() {
+export default async function page() {
+  const { jobs } = await listJobs();
+
   return (
     <>
       <section
@@ -16,121 +20,56 @@ export default function page() {
       </section>
       <main className="w-full py-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between gap-6">
-            <Link
-              href="/vagas-iest/representante-comercial"
-              className="rounded-xl shadow-card-job p-4 border border-gray-200 flex flex-col max-w-full md:max-w-1/3 gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-card-job-hover"
-            >
-              <p className="text-xs">Campinas, SP</p>
-              <p className="text-lg font-semibold text-primary">
-                Representante comercial
-              </p>
-              <div className="flex gap-2">
-                <div className="flex gap-2">
-                  <Image
-                    className="w-5 h-5"
-                    src={IconBriefcase}
-                    alt="Icone de maleta"
-                  />
-                  <p className="text-sm">CLT</p>
+          <div className="grid grid-cols-3 justify-between gap-6">
+            {jobs.map((job) => (
+              <Link
+                key={job.id}
+                href={`/vagas-iest/${job.slug}`}
+                className="rounded-xl shadow-card-job p-4 border border-gray-200 flex flex-col justify-between w-full max-w-full min-h-60 gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-card-job-hover"
+              >
+                <div className="flex flex-col gap-2">
+                  <p className="text-xs">{job.locality}</p>
+                  <p className="text-lg font-semibold text-primary">
+                    {job.name}
+                  </p>
+                  <div className="flex gap-2">
+                    <div className="flex gap-2">
+                      <Image
+                        className="w-5 h-5"
+                        src={IconBriefcase}
+                        alt="Icone de maleta"
+                      />
+                      <p className="text-sm">
+                        {job.contract_type === "clt"
+                          ? "CLT"
+                          : job.contract_type === "pj"
+                            ? "PJ"
+                            : "Temporário"}
+                      </p>
+                    </div>
+                    <div className="w-0.5 h-full bg-foreground"></div>
+                    <div className="flex gap-1">
+                      <Image
+                        className="w-5 h-5"
+                        src={IconUserLocation}
+                        alt="Icone de localização"
+                      />
+                      <p className="text-sm">
+                        {job.work_model === "hybrid"
+                          ? "Híbrido"
+                          : job.work_model === "remote"
+                            ? "Remoto"
+                            : "Presencial"}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm line-clamp-3">{job.about_company}</p>
                 </div>
-                <div className="w-0.5 h-full bg-foreground"></div>
-                <div className="flex gap-1">
-                  <Image
-                    className="w-5 h-5"
-                    src={IconUserLocation}
-                    alt="Icone de localização"
-                  />
-                  <p className="text-sm">Presencial</p>
+                <div className="flex items-center justify-between mt-4">
+                  <p className="text-sm">{formatRelativeDate(job.created_at)}</p>
                 </div>
-              </div>
-              <p className="text-sm line-clamp-3">
-                Estamos apoiando uma empresa multinacional em fase de
-                estruturação no Brasil na contratação de um(a) profissional para
-                atuar na área financeira, com foco em organização de processos,
-                controle de pagamentos e apoio à consolidação da operação local.
-              </p>
-              <div className="flex items-center justify-between mt-4">
-                <p className="text-sm">3 dias atrás</p>
-                <p className="text-lg font-semibold text-primary">Externa</p>
-              </div>
-            </Link>
-            <Link
-              href="/vagas-iest/representante-comercial"
-              className="rounded-xl shadow-card-job p-4 border border-gray-200 flex flex-col max-w-full md:max-w-1/3 gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-card-job-hover"
-            >
-              <p className="text-xs">Campinas, SP</p>
-              <p className="text-lg font-semibold text-primary">
-                Representante comercial
-              </p>
-              <div className="flex gap-2">
-                <div className="flex gap-2">
-                  <Image
-                    className="w-5 h-5"
-                    src={IconBriefcase}
-                    alt="Icone de maleta"
-                  />
-                  <p className="text-sm">CLT</p>
-                </div>
-                <div className="w-0.5 h-full bg-foreground"></div>
-                <div className="flex gap-1">
-                  <Image
-                    className="w-5 h-5"
-                    src={IconUserLocation}
-                    alt="Icone de localização"
-                  />
-                  <p className="text-sm">Presencial</p>
-                </div>
-              </div>
-              <p className="text-sm line-clamp-3">
-                Estamos apoiando uma empresa multinacional em fase de
-                estruturação no Brasil na contratação de um(a) profissional para
-                atuar na área financeira, com foco em organização de processos,
-                controle de pagamentos e apoio à consolidação da operação local.
-              </p>
-              <div className="flex items-center justify-between mt-4">
-                <p className="text-sm">3 dias atrás</p>
-                <p className="text-lg font-semibold text-primary">Externa</p>
-              </div>
-            </Link>
-            <Link
-              href="/vagas-iest/representante-comercial"
-              className="rounded-xl shadow-card-job p-4 border border-gray-200 flex flex-col max-w-full md:max-w-1/3 gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-card-job-hover"
-            >
-              <p className="text-xs">Campinas, SP</p>
-              <p className="text-lg font-semibold text-primary">
-                Representante comercial
-              </p>
-              <div className="flex gap-2">
-                <div className="flex gap-2">
-                  <Image
-                    className="w-5 h-5"
-                    src={IconBriefcase}
-                    alt="Icone de maleta"
-                  />
-                  <p className="text-sm">CLT</p>
-                </div>
-                <div className="w-0.5 h-full bg-foreground"></div>
-                <div className="flex gap-1">
-                  <Image
-                    className="w-5 h-5"
-                    src={IconUserLocation}
-                    alt="Icone de localização"
-                  />
-                  <p className="text-sm">Presencial</p>
-                </div>
-              </div>
-              <p className="text-sm line-clamp-3">
-                Estamos apoiando uma empresa multinacional em fase de
-                estruturação no Brasil na contratação de um(a) profissional para
-                atuar na área financeira, com foco em organização de processos,
-                controle de pagamentos e apoio à consolidação da operação local.
-              </p>
-              <div className="flex items-center justify-between mt-4">
-                <p className="text-sm">3 dias atrás</p>
-                <p className="text-lg font-semibold text-primary">Externa</p>
-              </div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </main>
