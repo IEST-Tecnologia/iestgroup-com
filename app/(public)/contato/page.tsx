@@ -2,6 +2,14 @@ import { getBackgroundImage } from "@/lib/utils";
 import { getImageProps } from "next/image";
 import { AddressIcon, EmailIcon, PhoneIcon } from "@/components/icons";
 import ContactForm from "@/components/ContactForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contato",
+  description:
+    "Conte conosco para o que precisar! Sua empresa necessita de auxílio ou consultoria para iniciar o negócio no mercado chinês ou brasileiro? Saiba como nos",
+};
+
 export default async function page() {
   const {
     props: { srcSet },

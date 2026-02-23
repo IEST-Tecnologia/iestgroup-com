@@ -8,6 +8,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "BPO Contábil e Financeiro",
+  description:
+    "Faça o BPO Contábil e Financeiro da sua empresa com quem entende do assunto. Sua empresa é chinesa ou faz negócios com a China. Acesse",
 };
 
 export default function page() {

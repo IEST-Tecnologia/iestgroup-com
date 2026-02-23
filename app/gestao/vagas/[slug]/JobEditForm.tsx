@@ -9,6 +9,7 @@ import RichText from "@/components/Tiptap";
 import { updateJob } from "@/lib/admin/actions";
 import type { Job } from "@/lib/admin/types";
 import Link from "next/link";
+import LeftArrow from "@/components/icons/LeftArrow";
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },
@@ -145,7 +146,12 @@ export default function JobEditForm({ job }: { job: Job }) {
 
   return (
     <div className="w-full px-6 py-8">
-      <h1 className="text-xl font-semibold mb-4">Editar Vaga</h1>
+      <div className="flex flex-row items-center gap-2 mb-4">
+        <Link className="hover:text-primary" href="/gestao/vagas">
+          <LeftArrow className="w-4 h-4" />
+        </Link>
+        <h1 className="text-xl font-semibold ">Editar Vaga</h1>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Nome da vaga"

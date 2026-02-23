@@ -133,7 +133,9 @@ const RichText = ({
   return (
     <div className="border border-gray-800 rounded-md overflow-hidden">
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} />
+      <div className="max-h-100 overflow-y-auto">
+        <EditorContent editor={editor} />
+      </div>
     </div>
   );
 };

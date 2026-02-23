@@ -7,6 +7,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Recursos Humanos",
+  description:
+    "Recursos Humanos para empresas que precisam contratar chineses ou que tenham a fluência na língua chinesa. Saiba Mais.",
 };
 
 export default function page() {

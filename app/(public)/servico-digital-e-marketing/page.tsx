@@ -7,6 +7,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Serviço Digital e Marketing",
+  description:
+    "Desenvolvemos soluções completas para plataformas de comércio eletrônico, otimizando a experiência do usuário e maximizando as vendas através do Alibaba.",
 };
 
 export default function page() {

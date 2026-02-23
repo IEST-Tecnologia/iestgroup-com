@@ -8,6 +8,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Preços de Transferência",
+  description:
+    "Preparados para os preços de transferência de qualquer pessoa física ou jurídica. Apoiamos você na transferência de dinheiro, Brasil e China.",
 };
 
 export default function page() {

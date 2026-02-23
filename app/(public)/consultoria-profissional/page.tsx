@@ -7,6 +7,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Consultoria Profissional",
+  description:
+    "Realizamos pesquisas e análises da jurisprudência tributária brasileira, identificando riscos e oportunidades de maneira eficiente, fornecendo informações",
 };
 
 export default function page() {

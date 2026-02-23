@@ -8,6 +8,7 @@ import { listJobs, listJobFilterOptions } from "@/lib/public/actions";
 import { formatRelativeDate } from "@/lib/utils";
 import JobsFilters from "@/components/public/JobsFilters";
 import type { Job } from "@/lib/admin/types";
+import { Metadata } from "next";
 
 const PAGE_SIZE = 20;
 
@@ -21,6 +22,12 @@ const CONTRACT_TYPE_LABELS: Record<string, string> = {
   clt: "CLT",
   pj: "PJ",
   temporary: "Temporário",
+};
+
+export const metadata: Metadata = {
+  title: "Vagas",
+  description:
+    "Explore vagas internas e externas reunidas em um só lugar. Oportunidades em diversas áreas, modelos de trabalho e regimes de contratação. Encontre a posição ideal e dê o próximo passo na sua carreira.",
 };
 
 function JobCard({ job }: { job: Job }) {
@@ -44,14 +51,22 @@ function JobCard({ job }: { job: Job }) {
         )}
         <div className="flex gap-2 flex-wrap items-center">
           <div className="flex gap-1.5 items-center">
-            <Image className="w-4 h-4" src={IconBriefcase} alt="Tipo de contrato" />
+            <Image
+              className="w-4 h-4"
+              src={IconBriefcase}
+              alt="Tipo de contrato"
+            />
             <p className="text-sm">
               {CONTRACT_TYPE_LABELS[job.contract_type] ?? job.contract_type}
             </p>
           </div>
           <div className="w-px h-4 bg-gray-200" />
           <div className="flex gap-1.5 items-center">
-            <Image className="w-4 h-4" src={IconUserLocation} alt="Modelo de trabalho" />
+            <Image
+              className="w-4 h-4"
+              src={IconUserLocation}
+              alt="Modelo de trabalho"
+            />
             <p className="text-sm">
               {WORK_MODEL_LABELS[job.work_model] ?? job.work_model}
             </p>
@@ -63,10 +78,14 @@ function JobCard({ job }: { job: Job }) {
             </>
           )}
         </div>
-        <p className="text-sm line-clamp-3 text-gray-600">{job.about_company}</p>
+        <p className="text-sm line-clamp-3 text-gray-600">
+          {job.about_company}
+        </p>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <p className="text-sm text-gray-400">{formatRelativeDate(job.created_at)}</p>
+        <p className="text-sm text-gray-400">
+          {formatRelativeDate(job.created_at)}
+        </p>
         <span className="text-xs font-medium text-primary">Ver vaga →</span>
       </div>
     </Link>
@@ -86,11 +105,14 @@ function Pagination({
 
   return (
     <div className="flex items-center justify-center gap-2 mt-10">
-      {page > 1 && (
-        <PaginationLink page={page - 1} label="← Anterior" />
-      )}
+      {page > 1 && <PaginationLink page={page - 1} label="← Anterior" />}
       {pages.map((p) => (
-        <PaginationLink key={p} page={p} label={String(p)} current={p === page} />
+        <PaginationLink
+          key={p}
+          page={p}
+          label={String(p)}
+          current={p === page}
+        />
       ))}
       {page < totalPages && (
         <PaginationLink page={page + 1} label="Próximo →" />

@@ -5,6 +5,8 @@ import JobForm from "@/components/JobForm";
 
 export const metadata: Metadata = {
   title: "Carreira Iest",
+  description:
+    "No Grupo IEST, acreditamos que o sucesso de uma empresa é construído por pessoas talentosas e apaixonadas pelo que fazem. Fundado em São Paulo em 2012.",
 };
 
 export default function page() {

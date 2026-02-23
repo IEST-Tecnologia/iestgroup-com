@@ -7,6 +7,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Paralegal",
+  description:
+    "Oferecemos expertise e suporte completo no processo de abertura de empresas, com soluções personalizadas que atendem às necessidades específicas de cada",
 };
 
 export default function page() {

@@ -15,6 +15,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sobre Nós",
+  description:
+    "Além dos diversos serviços informados acima, a empresa possui um ótimo relacionamento na comunidade chinesa, sendo uma das empresas mais reconhecidas da",
 };
 
 export default function page() {

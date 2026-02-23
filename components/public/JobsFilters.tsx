@@ -127,7 +127,7 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
           params.delete(key);
         }
       }
-      router.push(`/vagas-iest?${params.toString()}`);
+      router.push(`/vagas-iest?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
   );
@@ -165,7 +165,7 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
 
   const clearAll = () => {
     setSearchValue("");
-    router.push("/vagas-iest");
+    router.push("/vagas-iest", { scroll: false });
   };
 
   return (
