@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
-import { BannerImageEditor } from "@/components/BannerImageEditor";
+import { ImageEditor } from "@/components/BannerImageEditor";
 
 import { getBanner, updateBanner } from "@/lib/admin/store";
 import { revalidatePath } from "next/cache";
@@ -37,7 +37,7 @@ export default async function page({
         name="url"
         defaultValue={banner.url}
       />
-      <BannerImageEditor
+      <ImageEditor
         label="Imagem"
         required
         name="image"

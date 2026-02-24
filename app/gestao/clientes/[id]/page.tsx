@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 import Button from "@/components/Button";
-import { BannerImageEditor } from "@/components/BannerImageEditor";
+import { ImageEditor } from "@/components/BannerImageEditor";
 import { getClient, updateClient } from "@/lib/admin/store";
 
 export default async function page({
@@ -27,7 +27,7 @@ export default async function page({
     >
       <h1 className="text-2xl font-bold">Editar Cliente</h1>
       <input hidden name="id" value={id} readOnly />
-      <BannerImageEditor
+      <ImageEditor
         label="Logo"
         required
         name="image"

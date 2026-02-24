@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import Cropper, { type Area } from "react-easy-crop";
 import Button from "./Button";
 
-interface BannerImageEditorProps {
+interface ImageEditorProps {
   name: string;
   label: string;
   required?: boolean;
@@ -12,13 +12,13 @@ interface BannerImageEditorProps {
   aspect?: number;
 }
 
-export function BannerImageEditor({
+export function ImageEditor({
   name,
   label,
   required,
   defaultValue,
   aspect,
-}: BannerImageEditorProps) {
+}: ImageEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [imageUrl, setImageUrl] = useState<string | undefined>(defaultValue);

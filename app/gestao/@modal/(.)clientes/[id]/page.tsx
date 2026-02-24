@@ -9,6 +9,7 @@ import { FileInput } from "@/components/FileInput";
 import { getClient, updateClient } from "@/lib/admin/store";
 import AdminModal from "@/components/admin/AdminModal";
 import { revalidatePath } from "next/cache";
+import { ImageEditor } from "@/components/BannerImageEditor";
 
 export default async function page({
   params,
@@ -31,11 +32,12 @@ export default async function page({
         className="space-y-4 p-5"
       >
         <input hidden name="id" value={id} readOnly />
-        <FileInput
-          accept="image/*"
+
+        <ImageEditor
           label="Logo"
           required
           name="image"
+          aspect={1}
           defaultValue={client.logoUrl}
         />
         <div className="flex justify-end gap-3 pt-2">

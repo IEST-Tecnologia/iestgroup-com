@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
-import { BannerImageEditor } from "@/components/BannerImageEditor";
+import { ImageEditor } from "@/components/BannerImageEditor";
 
 import { createBanner } from "@/lib/admin/store";
 import { revalidatePath } from "next/cache";
@@ -28,12 +28,7 @@ export default async function page() {
         placeholder="https://example.com"
         name="url"
       />
-      <BannerImageEditor
-        label="Imagem"
-        required
-        name="image"
-        aspect={512 / 171}
-      />
+      <ImageEditor label="Imagem" required name="image" aspect={512 / 171} />
       <div className="flex justify-end gap-3 pt-2">
         <Link href="/gestao/banners">
           <Button type="button" variant="destructive">
