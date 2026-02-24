@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
-import { FileInput } from "@/components/FileInput";
+import { BannerImageEditor } from "@/components/BannerImageEditor";
 
 import { createBanner } from "@/lib/admin/store";
 import AdminModal from "@/components/admin/AdminModal";
@@ -12,14 +12,13 @@ import { revalidatePath } from "next/cache";
 
 export default async function page() {
   return (
-    <AdminModal title="Adicionar Banner">
+    <AdminModal title="Adicionar Banner" size="lg">
       <Form
         action={async (formData) => {
           "use server";
           await createBanner(formData);
-          revalidatePath("/admin/clients");
-
-          redirect("/admin/banners");
+          revalidatePath("/gestao/banners");
+          redirect("/gestao/banners");
         }}
         className="space-y-4 p-5"
       >
@@ -30,9 +29,15 @@ export default async function page() {
           placeholder="https://example.com"
           name="url"
         />
-        <FileInput accept="image/*" label="Imagem" required name="image" />
+
+        <BannerImageEditor
+          label="Imagem"
+          required
+          name="image"
+          aspect={512 / 171}
+        />
         <div className="flex justify-end gap-3 pt-2">
-          <Link href="/admin/banners">
+          <Link href="/gestao/banners">
             <Button type="button" variant="inverted">
               Cancelar
             </Button>

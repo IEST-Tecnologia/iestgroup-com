@@ -4,9 +4,10 @@ import { redirect } from "next/navigation";
 
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
-import { FileInput } from "@/components/FileInput";
+import { BannerImageEditor } from "@/components/BannerImageEditor";
 
 import { getBanner, updateBanner } from "@/lib/admin/store";
+import { revalidatePath } from "next/cache";
 
 export default async function page({
   params,
@@ -21,6 +22,7 @@ export default async function page({
         "use server";
         const id = formData.get("id") as string;
         await updateBanner(id, formData);
+        revalidatePath("/gestao/banners");
         redirect("/gestao/banners");
       }}
       className="space-y-4 p-5"
@@ -35,12 +37,12 @@ export default async function page({
         name="url"
         defaultValue={banner.url}
       />
-      <FileInput
-        accept="image/*"
+      <BannerImageEditor
         label="Imagem"
         required
         name="image"
         defaultValue={banner.imageUrl}
+        aspect={512 / 171}
       />
       <div className="flex justify-end gap-3 pt-2">
         <Link href="/gestao/banners">

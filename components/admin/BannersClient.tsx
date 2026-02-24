@@ -1,6 +1,12 @@
 "use client";
 
-import { startTransition, useOptimistic, useRef, useState } from "react";
+import {
+  startTransition,
+  useEffect,
+  useOptimistic,
+  useRef,
+  useState,
+} from "react";
 import type { Banner } from "@/lib/admin/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,6 +45,9 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
   const [banners, setBanners] = useState<Banner[]>(
     [...initialBanners].sort((a, b) => a.order - b.order),
   );
+  useEffect(() => {
+    setBanners([...initialBanners].sort((a, b) => a.order - b.order));
+  }, initialBanners);
 
   const [optimisticBanners, updateOptimisticBanners] = useOptimistic(
     banners,
@@ -191,7 +200,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
                     width={96}
                     height={48}
                     alt="Banner preview"
-                    className="h-12 w-24 object-cover rounded border border-gray-200"
+                    className="h-12 w-24 object-contain rounded border border-gray-200"
                   />
                 </td>
                 <td className="px-4 py-3 text-gray-500 max-w-xs">

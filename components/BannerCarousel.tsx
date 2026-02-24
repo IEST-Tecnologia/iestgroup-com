@@ -43,14 +43,15 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
               href={banner.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex-[0_0_100%] min-w-0 w-full aspect-video max-h-175"
+              className="flex-[0_0_100%] min-w-0 w-full"
             >
               <Image
                 src={banner.imageUrl}
                 alt=""
-                fill
-                className="object-cover"
+                width={0}
+                height={0}
                 sizes="100vw"
+                className="w-full h-auto"
                 priority
               />
             </a>

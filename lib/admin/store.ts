@@ -123,8 +123,12 @@ export async function getBanner(id: string): Promise<Banner> {
   return toBanner(await unwrap<BannerDTO>(res));
 }
 
-export async function listBanners(): Promise<Banner[]> {
-  const res = await apiFetch("/api/v1/banners");
+export async function listBanners(
+  filterActive: boolean = false,
+): Promise<Banner[]> {
+  const res = await apiFetch(
+    `/api/v1/banners${filterActive ? "?active=true" : ""}`,
+  );
   return (await unwrap<BannerDTO[]>(res)).map(toBanner);
 }
 

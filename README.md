@@ -42,3 +42,9 @@ Esse repositório usa Vitest para testes unitários
 ## Authentication
 
 To redirect the user for the authenticate page, just use a Link with href="/api/auth/login"
+
+## Project overview
+
+### app/(public)
+
+This is where the public routes rest, no authentication
