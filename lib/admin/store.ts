@@ -1,4 +1,7 @@
-import { requireAdminServer } from "./actions";
+"use server";
+
+import { requireAdminServer } from "@/lib/auth";
+import { getAccessToken } from "@/lib/auth/cookies";
 import type {
   JobResponse,
   Job,
@@ -12,8 +15,12 @@ import type {
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8080";
 
 async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
+  const accessToken = await getAccessToken();
+  const headers = new Headers(init?.headers);
+  if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
   return fetch(`${BACKEND_URL}${path}`, {
     ...init,
+    headers,
     cache: "no-store",
   });
 }
@@ -96,6 +103,7 @@ function toBanner(dto: BannerDTO): Banner {
     url: dto.url,
     imageUrl: dto.image_url,
     createdAt: dto.created_at,
+    order: dto.order,
   };
 }
 
@@ -146,6 +154,15 @@ export async function deleteBanner(id: string): Promise<boolean> {
   const res = await apiFetch(`/api/v1/banners/${id}`, { method: "DELETE" });
   if (res.status === 404) return false;
   return true;
+}
+
+export async function reorderBanners(ids: string[]): Promise<void> {
+  const res = await apiFetch("/api/v1/banners/reorder", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids }),
+  });
+  await unwrap<unknown>(res);
 }
 
 // --- Client CRUD ---
