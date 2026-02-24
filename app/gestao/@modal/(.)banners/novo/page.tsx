@@ -38,7 +38,7 @@ export default async function page() {
         />
         <div className="flex justify-end gap-3 pt-2">
           <Link href="/gestao/banners">
-            <Button type="button" variant="inverted">
+            <Button type="button" variant="destructive">
               Cancelar
             </Button>
           </Link>

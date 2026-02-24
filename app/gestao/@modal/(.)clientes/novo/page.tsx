@@ -25,7 +25,7 @@ export default async function page() {
         <FileInput accept="image/*" label="Logo" required name="image" />
         <div className="flex justify-end gap-3 pt-2">
           <Link href="/admin/clients">
-            <Button type="button" variant="inverted">
+            <Button type="button" variant="destructive">
               Cancelar
             </Button>
           </Link>
