@@ -1,6 +1,4 @@
 import AdminSidebar from "@/components/admin/AdminSidebar";
-import { requireAdminServer } from "@/lib/admin/actions";
-import { requireAdmin } from "@/lib/auth";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,7 +15,7 @@ export default async function AdminLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  await requireAdmin();
+  // requireAdmin not needed because proxy takes care of it
   return (
     <div className="flex min-h-screen bg-gray-100">
       <AdminSidebar />

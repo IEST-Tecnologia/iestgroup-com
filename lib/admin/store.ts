@@ -21,7 +21,10 @@ async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
 // Single entry point for all response handling.
 // Parses the backend envelope { success, data | error } regardless of HTTP status.
 // Falls back to a plain HTTP error message if the body is not valid JSON.
+// Returns null as T for 204 No Content — safe for callers that discard the result
+// (unknown/void), and a deliberate cast for typed callers that never receive 204.
 async function unwrap<T>(res: Response): Promise<T> {
+  if (res.status === 204) return null as T;
   let body: BackendResponse<T>;
   try {
     body = (await res.json()) as BackendResponse<T>;
@@ -108,14 +111,12 @@ function toClient(dto: ClientDTO): Client {
 
 export async function getBanner(id: string): Promise<Banner> {
   const res = await apiFetch(`/api/v1/banners/${id}`);
-  const dto = await unwrap<BannerDTO>(res);
-  return toBanner(dto);
+  return toBanner(await unwrap<BannerDTO>(res));
 }
 
 export async function listBanners(): Promise<Banner[]> {
   const res = await apiFetch("/api/v1/banners");
-  const dtos = await unwrap<BannerDTO[]>(res);
-  return dtos.map(toBanner);
+  return (await unwrap<BannerDTO[]>(res)).map(toBanner);
 }
 
 export async function createBanner(formData: FormData): Promise<Banner> {
@@ -151,14 +152,12 @@ export async function deleteBanner(id: string): Promise<boolean> {
 
 export async function getClient(id: string): Promise<Client> {
   const res = await apiFetch(`/api/v1/clients/${id}`);
-  const dto = await unwrap<ClientDTO>(res);
-  return toClient(dto);
+  return toClient(await unwrap<ClientDTO>(res));
 }
 
 export async function listClients(): Promise<Client[]> {
   const res = await apiFetch("/api/v1/clients");
-  const dtos = await unwrap<ClientDTO[]>(res);
-  return dtos.map(toClient);
+  return (await unwrap<ClientDTO[]>(res)).map(toClient);
 }
 
 export async function createClient(formData: FormData): Promise<Client> {
