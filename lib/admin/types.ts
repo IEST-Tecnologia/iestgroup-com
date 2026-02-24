@@ -44,6 +44,7 @@ export interface Banner {
   id: string;
   url: string;
   imageUrl: string;
+  mobileImageUrl: string;
   createdAt: string;
   order: number;
   active: boolean;
@@ -61,6 +62,7 @@ export interface BannerDTO {
   id: string;
   url: string;
   image_url: string;
+  mobile_image_url: string;
   created_at: string;
   order: number;
   active: boolean;

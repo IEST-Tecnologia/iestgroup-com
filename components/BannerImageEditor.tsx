@@ -60,7 +60,7 @@ export function ImageEditor({
 
       {/* Existing image URL — tells backend to keep/re-crop current image */}
       {!hasNewFile && defaultValue && (
-        <input type="hidden" name="image_url" value={defaultValue} />
+        <input type="hidden" name={`${name}_url`} value={defaultValue} />
       )}
 
       <div>
@@ -108,10 +108,10 @@ export function ImageEditor({
         </div>
       )}
 
-      <input type="hidden" name="crop_x" value={pixelCrop.x} />
-      <input type="hidden" name="crop_y" value={pixelCrop.y} />
-      <input type="hidden" name="crop_width" value={pixelCrop.width} />
-      <input type="hidden" name="crop_height" value={pixelCrop.height} />
+      <input type="hidden" name={`${name}_crop_x`} value={pixelCrop.x} />
+      <input type="hidden" name={`${name}_crop_y`} value={pixelCrop.y} />
+      <input type="hidden" name={`${name}_crop_width`} value={pixelCrop.width} />
+      <input type="hidden" name={`${name}_crop_height`} value={pixelCrop.height} />
     </div>
   );
 }

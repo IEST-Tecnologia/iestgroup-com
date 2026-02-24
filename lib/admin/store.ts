@@ -102,6 +102,7 @@ function toBanner(dto: BannerDTO): Banner {
     id: dto.id,
     url: dto.url,
     imageUrl: dto.image_url,
+    mobileImageUrl: dto.mobile_image_url,
     createdAt: dto.created_at,
     order: dto.order,
     active: dto.active,

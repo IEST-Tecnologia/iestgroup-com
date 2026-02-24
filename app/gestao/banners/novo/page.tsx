@@ -28,7 +28,8 @@ export default async function page() {
         placeholder="https://example.com"
         name="url"
       />
-      <ImageEditor label="Imagem" required name="image" aspect={512 / 171} />
+      <ImageEditor label="Imagem desktop" required name="image" aspect={512 / 171} />
+      <ImageEditor label="Imagem mobile" required name="mobile_image" aspect={768 / 853} />
       <div className="flex justify-end gap-3 pt-2">
         <Link href="/gestao/banners">
           <Button type="button" variant="destructive">

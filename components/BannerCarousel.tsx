@@ -45,15 +45,23 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
               rel="noopener noreferrer"
               className="flex-[0_0_100%] min-w-0 w-full"
             >
-              <Image
-                src={banner.imageUrl}
-                alt=""
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="w-full h-auto"
-                priority
-              />
+              <picture>
+                {banner.mobileImageUrl && (
+                  <source
+                    media="(max-width: 767px)"
+                    srcSet={banner.mobileImageUrl}
+                  />
+                )}
+                <Image
+                  src={banner.imageUrl}
+                  alt=""
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-auto"
+                  priority
+                />
+              </picture>
             </a>
           ))}
         </div>

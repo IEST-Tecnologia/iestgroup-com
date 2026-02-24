@@ -39,11 +39,18 @@ export default async function page({
           defaultValue={banner.url}
         />
         <ImageEditor
-          label="Imagem"
+          label="Imagem desktop"
           required
           name="image"
           defaultValue={banner.imageUrl}
           aspect={512 / 171}
+        />
+        <ImageEditor
+          label="Imagem mobile"
+          required
+          name="mobile_image"
+          defaultValue={banner.mobileImageUrl}
+          aspect={768 / 853}
         />
         <div className="flex justify-end gap-3 pt-2">
           <Link href="/gestao/banners">
