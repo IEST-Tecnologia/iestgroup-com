@@ -55,7 +55,7 @@ export default async function ClientsPage() {
                       width={500}
                       height={500}
                       alt="Client preview"
-                      className="h-12 w-24 object-cover rounded border border-gray-200"
+                      className="h-12 w-12 object-cover rounded border border-gray-200"
                     />
                   </td>
                   <td className="px-4 py-3 text-gray-500">
