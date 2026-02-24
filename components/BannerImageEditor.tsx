@@ -78,7 +78,7 @@ export function BannerImageEditor({
           {/* Crop area */}
           <div
             className="relative w-full rounded overflow-hidden bg-gray-900"
-            style={{ aspectRatio: "512/171" }}
+            style={{ aspectRatio: aspect ?? 512 / 171 }}
           >
             <Cropper
               image={imageUrl}
