@@ -46,6 +46,7 @@ export interface Banner {
   imageUrl: string;
   createdAt: string;
   order: number;
+  active: boolean;
 }
 
 export interface Client {
@@ -62,6 +63,7 @@ export interface BannerDTO {
   image_url: string;
   created_at: string;
   order: number;
+  active: boolean;
 }
 
 export interface ClientDTO {

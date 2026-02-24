@@ -5,7 +5,12 @@ import type { Banner } from "@/lib/admin/types";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "../Button";
-import { deleteBanner, reorderBanners } from "@/lib/admin/store";
+import Switch from "../Switch";
+import {
+  deleteBanner,
+  reorderBanners,
+  toggleBannerEnabled,
+} from "@/lib/admin/store";
 
 function GripIcon() {
   return (
@@ -89,6 +94,21 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
     setDragOverIdx(null);
   };
 
+  const handleToggle = (id: string, currentActive: boolean) => {
+    const updated = banners.map((b) =>
+      b.id === id ? { ...b, active: !currentActive } : b,
+    );
+    startTransition(async () => {
+      updateOptimisticBanners(updated);
+      try {
+        await toggleBannerEnabled(id, !currentActive);
+        setBanners(updated);
+      } catch (err) {
+        alert(err instanceof Error ? err.message : "Erro ao atualizar banner");
+      }
+    });
+  };
+
   const handleDelete = async (id: string) => {
     if (!confirm("Tem certeza que deseja excluir este banner?")) return;
     try {
@@ -117,6 +137,9 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
             <tr>
               <th className="px-3 py-3 w-8" />
               <th className="px-4 py-3 text-left font-medium text-gray-600">
+                Ativo
+              </th>
+              <th className="px-4 py-3 text-left font-medium text-gray-600">
                 Imagem
               </th>
               <th className="px-4 py-3 text-left font-medium text-gray-600">
@@ -133,7 +156,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
           <tbody className="divide-y divide-gray-100">
             {optimisticBanners.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-gray-400">
+                <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
                   Nenhum banner cadastrado
                 </td>
               </tr>
@@ -155,6 +178,12 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
               >
                 <td className="px-3 py-3 cursor-grab active:cursor-grabbing text-gray-300 hover:text-gray-500 transition-colors">
                   <GripIcon />
+                </td>
+                <td className="px-4 py-3">
+                  <Switch
+                    checked={banner.active}
+                    onChange={() => handleToggle(banner.id, banner.active)}
+                  />
                 </td>
                 <td className="px-4 py-3">
                   <Image

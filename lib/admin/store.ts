@@ -104,6 +104,7 @@ function toBanner(dto: BannerDTO): Banner {
     imageUrl: dto.image_url,
     createdAt: dto.created_at,
     order: dto.order,
+    active: dto.active,
   };
 }
 
@@ -154,6 +155,19 @@ export async function deleteBanner(id: string): Promise<boolean> {
   const res = await apiFetch(`/api/v1/banners/${id}`, { method: "DELETE" });
   if (res.status === 404) return false;
   return true;
+}
+
+export async function toggleBannerEnabled(
+  id: string,
+  enabled: boolean,
+): Promise<void> {
+  await requireAdminServer();
+  const res = await apiFetch(`/api/v1/banners/${id}/toggle`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ enabled }),
+  });
+  await unwrap<unknown>(res);
 }
 
 export async function reorderBanners(ids: string[]): Promise<void> {
