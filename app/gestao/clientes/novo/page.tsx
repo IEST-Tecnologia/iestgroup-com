@@ -22,7 +22,7 @@ export default async function page() {
       <BannerImageEditor label="Logo" required name="image" aspect={1} />
       <div className="flex justify-end gap-3 pt-2">
         <Link href="/gestao/clientes">
-          <Button type="button" variant="inverted">
+          <Button type="button" variant="destructive">
             Cancelar
           </Button>
         </Link>

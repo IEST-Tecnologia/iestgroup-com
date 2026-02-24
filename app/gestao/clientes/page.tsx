@@ -16,7 +16,7 @@ export default async function ClientsPage() {
       <div>
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-xl font-semibold text-foreground">Clientes</h1>
-          <Link href="/admin/clients/novo">
+          <Link href="/gestao/clientes/novo">
             <Button size="small">Novo Cliente</Button>
           </Link>
         </div>
@@ -71,7 +71,7 @@ export default async function ClientsPage() {
                           "use server";
                           await requireAdmin();
                           await deleteClient(client.id);
-                          revalidatePath("/admin/clients");
+                          revalidatePath("/gestao/clientes");
                         }}
                       >
                         <input hidden readOnly value={client.id} />
