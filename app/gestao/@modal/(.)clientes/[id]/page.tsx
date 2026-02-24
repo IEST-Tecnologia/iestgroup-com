@@ -25,9 +25,9 @@ export default async function page({
           "use server";
           const id = formData.get("id") as string;
           await updateClient(id, formData);
-          revalidatePath("/admin/clients");
+          revalidatePath("/gestao/clientes");
 
-          redirect("/admin/clients");
+          redirect("/gestao/clientes");
         }}
         className="space-y-4 p-5"
       >
@@ -41,7 +41,7 @@ export default async function page({
           defaultValue={client.logoUrl}
         />
         <div className="flex justify-end gap-3 pt-2">
-          <Link href="/admin/clients">
+          <Link href="/gestao/clientes">
             <Button type="button" variant="destructive">
               Cancelar
             </Button>

@@ -18,14 +18,14 @@ export default async function page() {
         action={async (formData) => {
           "use server";
           await createClient(formData);
-          revalidatePath("/admin/clients");
-          redirect("/admin/clients");
+          revalidatePath("/gestao/clientes");
+          redirect("/gestao/clientes");
         }}
         className="space-y-4 p-5"
       >
         <ImageEditor label="Logo" required name="image" aspect={1} />
         <div className="flex justify-end gap-3 pt-2">
-          <Link href="/admin/clients">
+          <Link href="/gestao/clientes">
             <Button type="button" variant="destructive">
               Cancelar
             </Button>
