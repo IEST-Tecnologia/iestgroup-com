@@ -14,7 +14,7 @@ export default async function page() {
       action={async (formData) => {
         "use server";
         await createBanner(formData);
-        redirect("/admin/banners");
+        redirect("/gestao/banners");
       }}
       className="space-y-4 p-5"
     >
@@ -28,7 +28,7 @@ export default async function page() {
       />
       <FileInput accept="image/*" label="Imagem" required name="image" />
       <div className="flex justify-end gap-3 pt-2">
-        <Link href="/admin/banners">
+        <Link href="/gestao/banners">
           <Button type="button" variant="inverted">
             Cancelar
           </Button>

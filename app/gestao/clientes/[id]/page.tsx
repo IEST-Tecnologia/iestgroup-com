@@ -3,7 +3,6 @@ import Form from "next/form";
 import { redirect } from "next/navigation";
 
 import Button from "@/components/Button";
-import { Input } from "@/components/Input";
 import { FileInput } from "@/components/FileInput";
 
 import { getClient, updateClient } from "@/lib/admin/store";
@@ -21,11 +20,11 @@ export default async function page({
         "use server";
         const id = formData.get("id") as string;
         await updateClient(id, formData);
-        redirect("/admin/clients");
+        redirect("/gestao/clientes");
       }}
       className="space-y-4 p-5"
     >
-      <h1 className="text-2xl font-bold">Adicionar Client</h1>
+      <h1 className="text-2xl font-bold">Editar Cliente</h1>
       <input hidden name="id" value={id} readOnly />
       <FileInput
         accept="image/*"
@@ -35,7 +34,7 @@ export default async function page({
         defaultValue={client.logoUrl}
       />
       <div className="flex justify-end gap-3 pt-2">
-        <Link href="/admin/clients">
+        <Link href="/gestao/clientes">
           <Button type="button" variant="inverted">
             Cancelar
           </Button>

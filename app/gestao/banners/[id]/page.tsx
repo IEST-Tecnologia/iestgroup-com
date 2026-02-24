@@ -21,7 +21,7 @@ export default async function page({
         "use server";
         const id = formData.get("id") as string;
         await updateBanner(id, formData);
-        redirect("/admin/banners");
+        redirect("/gestao/banners");
       }}
       className="space-y-4 p-5"
     >
@@ -43,7 +43,7 @@ export default async function page({
         defaultValue={banner.imageUrl}
       />
       <div className="flex justify-end gap-3 pt-2">
-        <Link href="/admin/banners">
+        <Link href="/gestao/banners">
           <Button type="button" variant="inverted">
             Cancelar
           </Button>
