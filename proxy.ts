@@ -5,7 +5,7 @@ import type { KeycloakTokenResponse } from "@/lib/auth/jwt";
 
 // Routes that require authentication AND the "admin" client role.
 // Example: /^\/dashboard(\/.*)?$/, /^\/admin(\/.*)?$/
-const PROTECTED_ROUTES: RegExp[] = [/^\/admin(\/.*)?$/];
+const PROTECTED_ROUTES: RegExp[] = [/^\/gestao(\/.*)?$/];
 
 // Routes that redirect to home when already authenticated
 const AUTH_ONLY_ROUTES: string[] = ["/login"];
@@ -77,10 +77,8 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
   const accessToken = request.cookies.get("kc_access_token")?.value;
   const refreshToken = request.cookies.get("kc_refresh_token")?.value;
 
-  const hasValidAccess =
-    !!accessToken && !isTokenExpired(accessToken);
-  const hasValidRefresh =
-    !!refreshToken && !isTokenExpired(refreshToken, 0);
+  const hasValidAccess = !!accessToken && !isTokenExpired(accessToken);
+  const hasValidRefresh = !!refreshToken && !isTokenExpired(refreshToken, 0);
 
   // Already authenticated — redirect away from auth-only pages (e.g. /login)
   if (AUTH_ONLY_ROUTES.includes(pathname) && hasValidAccess) {
@@ -103,7 +101,10 @@ export async function proxy(request: NextRequest): Promise<NextResponse> {
       setTokenCookies(response, newTokens);
 
       // Check admin role on the freshly issued token
-      if (isProtectedRoute(pathname) && !hasClientAdminRole(newTokens.access_token)) {
+      if (
+        isProtectedRoute(pathname) &&
+        !hasClientAdminRole(newTokens.access_token)
+      ) {
         return NextResponse.redirect(new URL("/", request.url));
       }
 

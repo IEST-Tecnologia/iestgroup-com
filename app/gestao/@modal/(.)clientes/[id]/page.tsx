@@ -9,6 +9,7 @@ import { FileInput } from "@/components/FileInput";
 import { getClient, updateClient } from "@/lib/admin/store";
 import AdminModal from "@/components/admin/AdminModal";
 import { revalidatePath } from "next/cache";
+import { ImageEditor } from "@/components/BannerImageEditor";
 
 export default async function page({
   params,
@@ -24,23 +25,24 @@ export default async function page({
           "use server";
           const id = formData.get("id") as string;
           await updateClient(id, formData);
-          revalidatePath("/admin/clients");
+          revalidatePath("/gestao/clientes");
 
-          redirect("/admin/clients");
+          redirect("/gestao/clientes");
         }}
         className="space-y-4 p-5"
       >
         <input hidden name="id" value={id} readOnly />
-        <FileInput
-          accept="image/*"
+
+        <ImageEditor
           label="Logo"
           required
           name="image"
+          aspect={1}
           defaultValue={client.logoUrl}
         />
         <div className="flex justify-end gap-3 pt-2">
-          <Link href="/admin/clients">
-            <Button type="button" variant="inverted">
+          <Link href="/gestao/clientes">
+            <Button type="button" variant="destructive">
               Cancelar
             </Button>
           </Link>

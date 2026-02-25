@@ -16,7 +16,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [banners, clients] = await Promise.all([listBanners(), listClients()]);
+  const FEATURE_FLAG_HERO_BANNER =
+    process.env.NEXT_PUBLIC_FEATURE_FLAG_HERO_BANNER === "true";
+  const [banners, clients] = await Promise.all([
+    FEATURE_FLAG_HERO_BANNER ? listBanners(true) : Promise.resolve([]),
+    listClients(),
+  ]);
 
   const {
     props: { srcSet },
@@ -28,10 +33,9 @@ export default async function Home() {
   });
   const backgroundImage = getBackgroundImage(srcSet);
   const style = { backgroundImage };
-
   return (
     <div>
-      <BannerCarousel banners={banners} />
+      {FEATURE_FLAG_HERO_BANNER && <BannerCarousel banners={banners} />}
       <main className="bg-white">
         <div className="flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
           <div className="w-full lg:w-1/2 p-2.5 flex flex-col gap-5">

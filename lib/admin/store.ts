@@ -1,4 +1,7 @@
-import { requireAdminServer } from "./actions";
+"use server";
+
+import { requireAdminServer } from "@/lib/auth";
+import { getAccessToken } from "@/lib/auth/cookies";
 import type {
   JobResponse,
   Job,
@@ -12,8 +15,12 @@ import type {
 const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:8080";
 
 async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
+  const accessToken = await getAccessToken();
+  const headers = new Headers(init?.headers);
+  if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
   return fetch(`${BACKEND_URL}${path}`, {
     ...init,
+    headers,
     cache: "no-store",
   });
 }
@@ -21,7 +28,10 @@ async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
 // Single entry point for all response handling.
 // Parses the backend envelope { success, data | error } regardless of HTTP status.
 // Falls back to a plain HTTP error message if the body is not valid JSON.
+// Returns null as T for 204 No Content — safe for callers that discard the result
+// (unknown/void), and a deliberate cast for typed callers that never receive 204.
 async function unwrap<T>(res: Response): Promise<T> {
+  if (res.status === 204) return null as T;
   let body: BackendResponse<T>;
   try {
     body = (await res.json()) as BackendResponse<T>;
@@ -92,7 +102,10 @@ function toBanner(dto: BannerDTO): Banner {
     id: dto.id,
     url: dto.url,
     imageUrl: dto.image_url,
+    mobileImageUrl: dto.mobile_image_url,
     createdAt: dto.created_at,
+    order: dto.order,
+    active: dto.active,
   };
 }
 
@@ -108,14 +121,16 @@ function toClient(dto: ClientDTO): Client {
 
 export async function getBanner(id: string): Promise<Banner> {
   const res = await apiFetch(`/api/v1/banners/${id}`);
-  const dto = await unwrap<BannerDTO>(res);
-  return toBanner(dto);
+  return toBanner(await unwrap<BannerDTO>(res));
 }
 
-export async function listBanners(): Promise<Banner[]> {
-  const res = await apiFetch("/api/v1/banners");
-  const dtos = await unwrap<BannerDTO[]>(res);
-  return dtos.map(toBanner);
+export async function listBanners(
+  filterActive: boolean = false,
+): Promise<Banner[]> {
+  const res = await apiFetch(
+    `/api/v1/banners${filterActive ? "?active=true" : ""}`,
+  );
+  return (await unwrap<BannerDTO[]>(res)).map(toBanner);
 }
 
 export async function createBanner(formData: FormData): Promise<Banner> {
@@ -147,18 +162,38 @@ export async function deleteBanner(id: string): Promise<boolean> {
   return true;
 }
 
+export async function toggleBannerEnabled(
+  id: string,
+  enabled: boolean,
+): Promise<void> {
+  await requireAdminServer();
+  const res = await apiFetch(`/api/v1/banners/${id}/toggle`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ enabled }),
+  });
+  await unwrap<unknown>(res);
+}
+
+export async function reorderBanners(ids: string[]): Promise<void> {
+  const res = await apiFetch("/api/v1/banners/reorder", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids }),
+  });
+  await unwrap<unknown>(res);
+}
+
 // --- Client CRUD ---
 
 export async function getClient(id: string): Promise<Client> {
   const res = await apiFetch(`/api/v1/clients/${id}`);
-  const dto = await unwrap<ClientDTO>(res);
-  return toClient(dto);
+  return toClient(await unwrap<ClientDTO>(res));
 }
 
 export async function listClients(): Promise<Client[]> {
   const res = await apiFetch("/api/v1/clients");
-  const dtos = await unwrap<ClientDTO[]>(res);
-  return dtos.map(toClient);
+  return (await unwrap<ClientDTO[]>(res)).map(toClient);
 }
 
 export async function createClient(formData: FormData): Promise<Client> {

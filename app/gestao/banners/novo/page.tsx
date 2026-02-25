@@ -4,9 +4,10 @@ import { redirect } from "next/navigation";
 
 import Button from "@/components/Button";
 import { Input } from "@/components/Input";
-import { FileInput } from "@/components/FileInput";
+import { ImageEditor } from "@/components/BannerImageEditor";
 
 import { createBanner } from "@/lib/admin/store";
+import { revalidatePath } from "next/cache";
 
 export default async function page() {
   return (
@@ -14,7 +15,8 @@ export default async function page() {
       action={async (formData) => {
         "use server";
         await createBanner(formData);
-        redirect("/admin/banners");
+        revalidatePath("/gestao/banners");
+        redirect("/gestao/banners");
       }}
       className="space-y-4 p-5"
     >
@@ -26,10 +28,11 @@ export default async function page() {
         placeholder="https://example.com"
         name="url"
       />
-      <FileInput accept="image/*" label="Imagem" required name="image" />
+      <ImageEditor label="Imagem desktop" required name="image" aspect={512 / 171} />
+      <ImageEditor label="Imagem mobile" required name="mobile_image" aspect={768 / 853} />
       <div className="flex justify-end gap-3 pt-2">
-        <Link href="/admin/banners">
-          <Button type="button" variant="inverted">
+        <Link href="/gestao/banners">
+          <Button type="button" variant="destructive">
             Cancelar
           </Button>
         </Link>

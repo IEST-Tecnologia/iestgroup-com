@@ -1,8 +1,24 @@
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { getAccessToken, getRefreshToken } from "./cookies";
 import { decodeAccessToken, buildAuthUser, isTokenExpired } from "./jwt";
 import type { AuthUser } from "./jwt";
+import { NextResponse } from "next/server";
+import { ApiError } from "../admin/types";
 
+export async function guardAdmin(): Promise<NextResponse | null> {
+  const user = await getCurrentUser();
+  if (!user) {
+    return NextResponse.json<ApiError>(
+      { error: "Unauthorized" },
+      { status: 401 },
+    );
+  }
+  if (!user.allRoles.includes("admin")) {
+    return NextResponse.json<ApiError>({ error: "Forbidden" }, { status: 403 });
+  }
+  return null;
+}
 // Returns the current authenticated user decoded from the access token cookie,
 // or null if not authenticated or the token is expired.
 // Safe to call from Server Components, Server Actions, and Route Handlers.
@@ -48,9 +64,18 @@ export async function hasValidRefreshToken(): Promise<boolean> {
   return !isTokenExpired(refreshToken, 0);
 }
 
+export async function requireAdminServer(): Promise<void> {
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Unauthorized");
+  if (!user.allRoles.includes("admin")) throw new Error("Forbidden");
+}
+
 export async function requireAdmin() {
   const user = await getCurrentUser();
-  if (!user) redirect("/api/auth/login");
+  if (!user) {
+    const pathname = (await headers()).get("x-invoke-path") ?? "/gestao";
+    redirect(`/api/auth/login?returnTo=${encodeURIComponent(pathname)}`);
+  }
   if (!user.allRoles.includes("admin")) redirect("/");
 }
 export type { AuthUser } from "./jwt";

@@ -167,11 +167,8 @@ export default function JobsClient({
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-semibold text-foreground">Vagas</h1>
-        <Link
-          href="/gestao/vagas/nova"
-          className="px-4 py-2 text-sm font-semibold text-white bg-primary rounded hover:bg-secondary transition-colors"
-        >
-          Nova vaga
+        <Link href="/gestao/vagas/nova">
+          <Button size="small">Nova vaga</Button>
         </Link>
       </div>
 
@@ -315,11 +312,8 @@ export default function JobsClient({
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-2">
-                    <Link
-                      href={`/gestao/vagas/${job.slug}`}
-                      className="px-4 py-2 text-sm font-semibold uppercase text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors"
-                    >
-                      Editar
+                    <Link href={`/gestao/vagas/${job.slug}`}>
+                      <Button size="small" variant="outline">Editar</Button>
                     </Link>
                     <Button
                       size="small"
