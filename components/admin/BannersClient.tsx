@@ -138,11 +138,8 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
             principal
           </p>
         </div>
-        <Link
-          href="/gestao/banners/novo"
-          className="px-4 py-2 text-sm font-semibold text-white bg-primary rounded hover:bg-secondary transition-colors"
-        >
-          Novo banner
+        <Link href="/gestao/banners/novo">
+          <Button size="small">Novo banner</Button>
         </Link>
       </div>
 
@@ -224,11 +221,8 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-2">
-                    <Link
-                      href={`/gestao/banners/${banner.id}`}
-                      className="px-4 py-2 text-sm font-semibold uppercase text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors"
-                    >
-                      Editar
+                    <Link href={`/gestao/banners/${banner.id}`}>
+                      <Button size="small" variant="outline">Editar</Button>
                     </Link>
                     <Button
                       size="small"

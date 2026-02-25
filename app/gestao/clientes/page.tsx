@@ -70,8 +70,8 @@ export default async function ClientsPage() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
-                      <Link href={`/admin/clients/${client.id}`}>
-                        <Button>Editar</Button>
+                      <Link href={`/gestao/clientes/${client.id}`}>
+                        <Button size="small" variant="outline">Editar</Button>
                       </Link>
                       <Form
                         action={async (formData) => {
@@ -82,7 +82,7 @@ export default async function ClientsPage() {
                         }}
                       >
                         <input hidden readOnly value={client.id} />
-                        <Button>Excluir</Button>
+                        <Button size="small" variant="destructive">Excluir</Button>
                       </Form>
                     </div>
                   </td>

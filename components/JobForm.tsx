@@ -4,6 +4,7 @@
 import { sendForm } from "@/app/(public)/carreira-iest/action";
 import Link from "next/link";
 import React, { useTransition } from "react";
+import Button from "@/components/Button";
 
 export default function JobForm() {
   const [isPending, startTransition] = useTransition();
@@ -78,14 +79,15 @@ export default function JobForm() {
               </Link>
             </label>
           </div>
-          <div className="w-full ">
-            <button
+          <div className="w-full">
+            <Button
               type="submit"
-              className={`w-full bg-primary border py-2 cursor-pointer ${isPending ? "bg-white/50 text-primary" : "text-white border-white hover:bg-white hover:text-primary "}`}
+              variant="inverted"
+              className="w-full"
               disabled={isPending}
             >
               {isPending ? "Enviando..." : "Enviar"}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
