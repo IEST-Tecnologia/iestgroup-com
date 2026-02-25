@@ -27,7 +27,12 @@ export default function ContactForm() {
     <>
       <form ref={formRef} className="flex flex-col gap-4" action={formAction}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 md:gap-3">
-          <Input label="Nome" name="first_name" required placeholder="Seu nome" />
+          <Input
+            label="Nome"
+            name="first_name"
+            required
+            placeholder="Seu nome"
+          />
           <Input
             label="Sobrenome"
             name="last_name"
@@ -49,7 +54,7 @@ export default function ContactForm() {
         />
         <Textarea label="Mensagem" name="message" />
         <label>
-          <input className="mr-1" type="checkbox" />
+          <input className="mr-1" type="checkbox" required />
           Você concorda com nossa politica de privacidade.
         </label>
         <div>

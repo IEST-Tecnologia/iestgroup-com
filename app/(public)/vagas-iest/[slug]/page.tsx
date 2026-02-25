@@ -27,9 +27,6 @@ export default async function page({
   const job = await getJobBySlug(slug);
   if (!job) redirect("/vagas-iest");
 
-  // TODO: Substituir pelo fetch real do backend usando o slug (name)
-  // const job = MOCK_JOB;
-
   return (
     <>
       <section
@@ -158,7 +155,7 @@ export default async function page({
         </div>
       </main>
       <section>
-        <JobForm />
+        <JobForm jobName={job.name} />
       </section>
     </>
   );
