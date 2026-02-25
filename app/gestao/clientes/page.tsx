@@ -6,6 +6,7 @@ import { deleteClient, listClients } from "@/lib/admin/store";
 import Form from "next/form";
 import { revalidatePath } from "next/cache";
 import { getCurrentUser, requireAdmin } from "@/lib/auth";
+import ClientsMarquee from "@/components/ClientsMarquee";
 
 export const metadata: Metadata = { title: "Clients" };
 
@@ -27,7 +28,7 @@ export default async function ClientsPage() {
           </Link>
         </div>
 
-        <div className="bg-white rounded shadow-sm overflow-hidden">
+        <div className="bg-white rounded shadow-sm overflow-hidden mb-4">
           <table className="w-full text-sm">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
@@ -89,6 +90,17 @@ export default async function ClientsPage() {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="bg-white rounded shadow-sm overflow-hidden">
+          <div className="px-4 py-3 border-b border-gray-200">
+            <h2 className="text-sm font-medium text-gray-600">Prévia</h2>
+            <p className="text-xs text-gray-400 mt-0.5">
+              É assim que a seção de clientes aparece na página principal
+            </p>
+          </div>
+          <div className="py-6 bg-gray-50">
+            <ClientsMarquee clients={clients} />
+          </div>
         </div>
       </div>
     </div>
