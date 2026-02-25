@@ -131,7 +131,13 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-semibold text-foreground">Banners</h1>
+        <div>
+          <h1 className="text-xl font-semibold text-foreground">Banners</h1>
+          <p className="text-sm text-gray-500 mt-0.5">
+            Nessa página você irá editar os banners que aparecerem na página
+            principal
+          </p>
+        </div>
         <Link
           href="/gestao/banners/novo"
           className="px-4 py-2 text-sm font-semibold text-white bg-primary rounded hover:bg-secondary transition-colors"
