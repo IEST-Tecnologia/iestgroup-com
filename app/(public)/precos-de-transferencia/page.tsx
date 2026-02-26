@@ -5,6 +5,7 @@ import BannerPrecos from "@/assets/servicos/banner-precos.jpg";
 import BgPrecos from "@/assets/servicos/bg-precos.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "Preços de Transferência",
@@ -146,6 +147,7 @@ export default function page() {
             </p>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import BannerParalegal from "@/assets/servicos/banner-paralegal.png";
 import BgParalegal from "@/assets/servicos/bg-paralegal.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "Serviço Digital e Marketing",
@@ -104,6 +105,7 @@ export default function page() {
             </p>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

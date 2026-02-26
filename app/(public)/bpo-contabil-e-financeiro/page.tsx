@@ -5,6 +5,7 @@ import BgBpo from "@/assets/servicos/bg-bpo.jpg";
 import SeloPQCE from "@/assets/servicos/selo-pqec.png";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "BPO Contábil e Financeiro",
@@ -178,6 +179,7 @@ export default function page() {
             </div>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

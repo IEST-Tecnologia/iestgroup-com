@@ -4,6 +4,7 @@ import BannerRh from "@/assets/servicos/banner-rh.png";
 import BgRh from "@/assets/servicos/bg-rh.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "Recursos Humanos",
@@ -232,6 +233,7 @@ export default function page() {
             </ul>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );
