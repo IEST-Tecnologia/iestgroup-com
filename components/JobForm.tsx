@@ -1,9 +1,7 @@
 "use client";
 
-// TODO: change dependency
-import { sendForm } from "@/app/(public)/carreira-iest/action";
 import Link from "next/link";
-import React, { useRef, useEffect, useState, useTransition } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 const LANGUAGES = [
   "Sem inglês",
@@ -19,7 +17,11 @@ const LANGUAGES = [
 ];
 
 export default function JobForm({ jobName }: { jobName: string }) {
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
+  const [feedback, setFeedback] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
   const [languagesOpen, setLanguagesOpen] = useState(false);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -57,11 +59,53 @@ export default function JobForm({ jobName }: { jobName: string }) {
           Quero registrar meu currículo
         </h3>
         <form
-          action={(formData) => {
-            startTransition(async () => {
-              formData.append("jobName", jobName);
-              await sendForm(formData);
-            });
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setFeedback(null);
+            const formData = new FormData(e.currentTarget);
+            const curriculum = formData.get("curriculum");
+            if (
+              curriculum instanceof File &&
+              curriculum.size > 8 * 1024 * 1024
+            ) {
+              setFeedback({
+                success: false,
+                message: "Arquivo muito grande. Tamanho máximo: 8MB.",
+              });
+              return;
+            }
+            setIsPending(true);
+            formData.append("jobName", jobName);
+            try {
+              const res = await fetch("/api/job-applications", {
+                method: "POST",
+                body: formData,
+              });
+              let data: { error?: string } = {};
+              try {
+                data = await res.json();
+              } catch {}
+              if (!res.ok) {
+                setFeedback({
+                  success: false,
+                  message: data.error ?? "Erro ao enviar. Tente novamente.",
+                });
+              } else {
+                setFeedback({
+                  success: true,
+                  message: "Candidatura enviada com sucesso!",
+                });
+                (e.target as HTMLFormElement).reset();
+                setSelectedLanguages([]);
+              }
+            } catch {
+              setFeedback({
+                success: false,
+                message: "Erro ao conectar com o servidor. Tente novamente.",
+              });
+            } finally {
+              setIsPending(false);
+            }
           }}
           className="w-full max-w-full md:max-w-[50vw] md:w-[50vw] flex flex-wrap flex-col md:flex-row gap-6"
         >
@@ -92,39 +136,41 @@ export default function JobForm({ jobName }: { jobName: string }) {
             />
           </div>
           <div className="w-full flex flex-col md:flex-row gap-6">
-            <select
-              className="p-4 bg-white w-full md:w-1/2 text-gray-400"
-              id="gender"
-              name="gender"
-              required
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Sexo
-              </option>
-              <option value="Masculino" className="text-black">
-                Masculino
-              </option>
-              <option value="Feminino" className="text-black">
-                Feminino
-              </option>
-              <option value="Prefiro não informar" className="text-black">
-                Prefiro não informar
-              </option>
-            </select>
-            <div className="flex flex-col w-full md:w-1/2 gap-1">
-              <input
-                className="p-4 bg-white text-gray-400"
-                type="text"
-                placeholder="Data de nascimento"
-                id="birthdate"
-                name="birthdate"
+            <div className="relative w-full md:w-1/2">
+              <select
+                className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
+                id="gender"
+                name="gender"
                 required
-              />
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Sexo
+                </option>
+                <option value="Masculino" className="text-black">
+                  Masculino
+                </option>
+                <option value="Feminino" className="text-black">
+                  Feminino
+                </option>
+                <option value="Prefiro não informar" className="text-black">
+                  Prefiro não informar
+                </option>
+              </select>
+              <svg
+                className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
             </div>
-          </div>
-
-          <div className="w-full flex flex-col md:flex-row gap-6">
             <div className="relative w-full md:w-1/2" ref={dropdownRef}>
               {selectedLanguages.map((value) => (
                 <input
@@ -183,6 +229,19 @@ export default function JobForm({ jobName }: { jobName: string }) {
                 </ul>
               )}
             </div>
+          </div>
+
+          <div className="w-full flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col w-full md:w-1/2 gap-1">
+              <input
+                className="p-4 bg-white text-gray-400"
+                type="text"
+                placeholder="Data de nascimento"
+                id="birthdate"
+                name="birthdate"
+                required
+              />
+            </div>
             <input
               className="p-4 bg-white w-full md:w-1/2 text-gray-400"
               type="text"
@@ -223,6 +282,13 @@ export default function JobForm({ jobName }: { jobName: string }) {
               </Link>
             </label>
           </div>
+          {feedback && (
+            <p
+              className={`w-full text-sm ${feedback.success ? "text-green-300" : "text-red-300"}`}
+            >
+              {feedback.message}
+            </p>
+          )}
           <div className="w-full ">
             <button
               type="submit"

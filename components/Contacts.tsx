@@ -1,26 +1,18 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AddressIcon } from "@/components/icons";
 import Button from "./Button";
-import { submitContact, type ContactState } from "@/app/actions/contact";
 import Toast from "@/components/Toast";
 
-export default function Contacts() {
-  const [state, formAction, pending] = useActionState<ContactState, FormData>(
-    submitContact,
-    null,
-  );
-  const [toast, setToast] = useState<ContactState>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+type Feedback = { success: boolean; message: string } | null;
 
-  useEffect(() => {
-    if (!state) return;
-    setToast(state);
-    if (state.success) {
-      formRef.current?.reset();
-    }
-  }, [state]);
+export default function Contacts() {
+  const [isPending, setIsPending] = useState(false);
+  const [feedback, setFeedback] = useState<Feedback>(null);
+  const [dismissedFeedback, setDismissedFeedback] = useState<Feedback>(null);
+  const showToast = !!feedback && feedback !== dismissedFeedback;
+  const formRef = useRef<HTMLFormElement>(null);
 
   return (
     <section className="bg-primary text-white">
@@ -50,7 +42,45 @@ export default function Contacts() {
           <form
             ref={formRef}
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
-            action={formAction}
+            onSubmit={async (e) => {
+              e.preventDefault();
+              setIsPending(true);
+              setFeedback(null);
+              const data = new FormData(e.currentTarget);
+              try {
+                const res = await fetch("/api/contact", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    first_name: data.get("first_name"),
+                    last_name: data.get("last_name"),
+                    email: data.get("email"),
+                    phone: data.get("phone"),
+                    message: data.get("message"),
+                  }),
+                });
+                let json: { error?: string } = {};
+                try {
+                  json = await res.json();
+                } catch {}
+                if (!res.ok) {
+                  setFeedback({
+                    success: false,
+                    message: json.error ?? "Erro ao enviar mensagem. Tente novamente.",
+                  });
+                } else {
+                  setFeedback({ success: true, message: "Mensagem enviada com sucesso!" });
+                  formRef.current?.reset();
+                }
+              } catch {
+                setFeedback({
+                  success: false,
+                  message: "Erro ao conectar com o servidor. Tente novamente.",
+                });
+              } finally {
+                setIsPending(false);
+              }
+            }}
           >
             <input
               className="px-5 py-2 border border-white"
@@ -83,19 +113,19 @@ export default function Contacts() {
               rows={4}
             />
             <div>
-              <Button variant="inverted" disabled={pending}>
-                {pending ? "Enviando..." : "Enviar"}
+              <Button variant="inverted" disabled={isPending}>
+                {isPending ? "Enviando..." : "Enviar"}
               </Button>
             </div>
           </form>
         </div>
       </div>
 
-      {toast && (
+      {showToast && (
         <Toast
-          message={toast.message}
-          variant={toast.success ? "success" : "error"}
-          onClose={() => setToast(null)}
+          message={feedback!.message}
+          variant={feedback!.success ? "success" : "error"}
+          onClose={() => setDismissedFeedback(feedback)}
         />
       )}
     </section>

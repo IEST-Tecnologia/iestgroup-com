@@ -12,13 +12,12 @@ export default function ContactForm() {
     submitContact,
     null,
   );
-  const [toast, setToast] = useState<ContactState>(null);
+  const [dismissedState, setDismissedState] = useState<ContactState>(null);
+  const showToast = !!state && state !== dismissedState;
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (!state) return;
-    setToast(state);
-    if (state.success) {
+    if (state?.success) {
       formRef.current?.reset();
     }
   }, [state]);
@@ -64,11 +63,11 @@ export default function ContactForm() {
         </div>
       </form>
 
-      {toast && (
+      {showToast && (
         <Toast
-          message={toast.message}
-          variant={toast.success ? "success" : "error"}
-          onClose={() => setToast(null)}
+          message={state!.message}
+          variant={state!.success ? "success" : "error"}
+          onClose={() => setDismissedState(state)}
         />
       )}
     </>

@@ -116,7 +116,7 @@ export default function page() {
           </div>
         </div>
       </main>
-      <JobForm />
+      <JobForm jobName="Banco de Talentos" />
     </>
   );
 }
