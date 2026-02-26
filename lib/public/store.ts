@@ -44,19 +44,23 @@ export interface JobFilterOptions {
 export async function listJobs(
   page = 1,
   pageSize = 20,
+  type?: string,
   filters?: JobFilters,
 ): Promise<JobResponse> {
   const params = new URLSearchParams({
     page: String(page),
     page_size: String(pageSize),
   });
+  if (type) params.set("type", type);
   if (filters?.search) params.set("search", filters.search);
   if (filters?.status) params.set("status", filters.status);
   if (filters?.sort_by) params.set("sort_by", filters.sort_by);
   if (filters?.sort_dir) params.set("sort_dir", filters.sort_dir);
   if (filters?.work_model) params.set("work_model", filters.work_model);
-  if (filters?.contract_type) params.set("contract_type", filters.contract_type);
-  if (filters?.work_schedule) params.set("work_schedule", filters.work_schedule);
+  if (filters?.contract_type)
+    params.set("contract_type", filters.contract_type);
+  if (filters?.work_schedule)
+    params.set("work_schedule", filters.work_schedule);
   if (filters?.area) params.set("area", filters.area);
   if (filters?.company) params.set("company", filters.company);
   if (filters?.nivel) params.set("nivel", filters.nivel);
@@ -77,9 +81,15 @@ export async function listJobFilterOptions(): Promise<JobFilterOptions> {
   const data = await unwrap<JobResponse>(res);
   const jobs = data.jobs ?? [];
   return {
-    areas: [...new Set(jobs.map((j) => j.area).filter(Boolean))].sort() as string[],
-    companies: [...new Set(jobs.map((j) => j.company).filter(Boolean))].sort() as string[],
-    nivels: [...new Set(jobs.map((j) => j.nivel).filter(Boolean))].sort() as string[],
+    areas: [
+      ...new Set(jobs.map((j) => j.area).filter(Boolean)),
+    ].sort() as string[],
+    companies: [
+      ...new Set(jobs.map((j) => j.company).filter(Boolean)),
+    ].sort() as string[],
+    nivels: [
+      ...new Set(jobs.map((j) => j.nivel).filter(Boolean)),
+    ].sort() as string[],
   };
 }
 

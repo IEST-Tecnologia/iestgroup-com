@@ -82,7 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let jobRoutes: MetadataRoute.Sitemap = [];
 
   try {
-    const { jobs } = await listJobs(1, 1000, { status: "open" });
+    const { jobs } = await listJobs(1, 1000, "", { status: "open" });
 
     jobRoutes = jobs.map((job) => ({
       url: `${BASE_URL}/vagas-iest/${job.slug}`,

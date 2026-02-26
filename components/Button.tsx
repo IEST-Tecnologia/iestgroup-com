@@ -33,7 +33,7 @@ export default function Button({
   const buttonClasses = `
     ${variantStyles[variant]}
     ${sizeStyles[size]}
-    transition-colors duration-300 font-semibold cursor-pointer uppercase
+    transition-colors duration-300 font-semibold cursor-pointer uppercase disabled:bg-primary/80
     ${className}
   `
     .trim()

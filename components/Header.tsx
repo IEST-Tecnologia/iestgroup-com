@@ -57,38 +57,25 @@ const navigationItems: NavItem[] = [
   {
     label: "Carreiras",
     dropdown: [
-      { label: "Vagas", href: "/vagas-iest" },
-      { label: "Trabalhe Conosco", href: "/carreira-iest" },
+      { label: "Vagas", href: "/vagas-iest?type=external" },
+      { label: "Trabalhe Conosco", href: "/vagas-iest?type=internal" },
+      { label: "Banco de talentos", href: "/carreira-iest" },
     ],
   },
 ];
 
-export default function Header({
-  devHover = false,
-}: { devHover?: boolean } = {}) {
-  const [activeItem, setActiveItem] = useState<string>("/");
-  const [showStickyHeader, setShowStickyHeader] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Show sticky header when scrolled past 100px
-      if (currentScrollY > 200) {
-        setShowStickyHeader(true);
-      } else {
-        setShowStickyHeader(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const HeaderContent = ({ isSticky = false }: { isSticky?: boolean }) => (
+function HeaderContent({
+  isSticky = false,
+  devHover,
+  activeItem,
+  setActiveItem,
+}: {
+  isSticky?: boolean;
+  devHover: boolean;
+  activeItem: string;
+  setActiveItem: (href: string) => void;
+}) {
+  return (
     <div className="mx-auto max-w-317.5 px-5">
       <div
         className={`flex items-center ${isSticky ? "min-h-15" : "min-h-17.5 justify-between"}`}
@@ -227,15 +214,44 @@ export default function Header({
       </div>
     </div>
   );
+}
+
+export default function Header({
+  devHover = false,
+}: { devHover?: boolean } = {}) {
+  const [activeItem, setActiveItem] = useState<string>("/");
+  const [showStickyHeader, setShowStickyHeader] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show sticky header when scrolled past 100px
+      if (currentScrollY > 200) {
+        setShowStickyHeader(true);
+      } else {
+        setShowStickyHeader(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
-      {/* Static Header - scrolls with page */}
       <header className="bg-white border-b border-[#eaeaea]">
-        <HeaderContent isSticky={false} />
+        <HeaderContent
+          isSticky={false}
+          devHover={devHover}
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
+        />
       </header>
 
-      {/* Fixed Header - appears after 200px scroll */}
       <header
         className={`fixed left-0 right-0 top-0 z-50 bg-white transition-all duration-300 ${
           showStickyHeader
@@ -243,7 +259,12 @@ export default function Header({
             : "-translate-y-full"
         }`}
       >
-        <HeaderContent isSticky={true} />
+        <HeaderContent
+          isSticky={true}
+          devHover={devHover}
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
+        />
       </header>
     </>
   );

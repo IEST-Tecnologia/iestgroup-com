@@ -11,9 +11,10 @@ import type { JobResponse, Job } from "@/lib/admin/types";
 export async function listJobs(
   page = 1,
   pageSize = 20,
+  type?: string,
   filters?: JobFilters,
 ): Promise<JobResponse> {
-  return storeListJobs(page, pageSize, filters);
+  return storeListJobs(page, pageSize, type, filters);
 }
 
 export async function listJobFilterOptions(): Promise<JobFilterOptions> {

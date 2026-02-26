@@ -39,7 +39,7 @@ export async function createJob(formData: FormData): Promise<Job> {
 export async function updateJob(id: number, formData: FormData): Promise<Job> {
   await requireAdminServer();
   const job = await storeUpdateJob(id, formData);
-  return redirect(`/gestao/vagas/${job.slug}`);
+  return job;
 }
 
 export async function getJobBySlug(slug: string): Promise<Job> {

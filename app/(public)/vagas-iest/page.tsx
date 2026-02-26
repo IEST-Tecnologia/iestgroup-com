@@ -156,6 +156,7 @@ interface PageProps {
 export default async function page({ searchParams }: PageProps) {
   const params = await searchParams;
   const page = Number(getString(params.page) ?? 1);
+  const type = getString(params.type);
 
   const filters = {
     search: getString(params.search),
@@ -169,7 +170,7 @@ export default async function page({ searchParams }: PageProps) {
   };
 
   const [{ jobs, total }, filterOptions] = await Promise.all([
-    listJobs(page, PAGE_SIZE, filters),
+    listJobs(page, PAGE_SIZE, type, filters),
     listJobFilterOptions(),
   ]);
 
@@ -242,7 +243,7 @@ export default async function page({ searchParams }: PageProps) {
           </p>
           <Link
             className="bg-primary py-2 px-6 rounded-md text-white font-semibold hover:bg-primary/90"
-            href="/vagas-iest"
+            href="/carreira-iest"
           >
             Participar do banco de talentos
           </Link>
