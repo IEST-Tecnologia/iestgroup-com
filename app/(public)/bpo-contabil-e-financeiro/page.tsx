@@ -5,9 +5,12 @@ import BgBpo from "@/assets/servicos/bg-bpo.jpg";
 import SeloPQCE from "@/assets/servicos/selo-pqec.png";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "BPO Contábil e Financeiro",
+  description:
+    "Faça o BPO Contábil e Financeiro da sua empresa com quem entende do assunto. Sua empresa é chinesa ou faz negócios com a China. Acesse",
 };
 
 export default function page() {
@@ -176,6 +179,7 @@ export default function page() {
             </div>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

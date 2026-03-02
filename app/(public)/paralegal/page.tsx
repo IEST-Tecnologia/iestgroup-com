@@ -4,9 +4,12 @@ import BannerParalegal from "@/assets/servicos/banner-paralegal.png";
 import BgParalegal from "@/assets/servicos/bg-paralegal.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "Paralegal",
+  description:
+    "Oferecemos expertise e suporte completo no processo de abertura de empresas, com soluções personalizadas que atendem às necessidades específicas de cada",
 };
 
 export default function page() {
@@ -109,6 +112,7 @@ export default function page() {
             </p>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

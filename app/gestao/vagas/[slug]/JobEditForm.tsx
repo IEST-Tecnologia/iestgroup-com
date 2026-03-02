@@ -9,6 +9,9 @@ import RichText from "@/components/Tiptap";
 import { updateJob } from "@/lib/admin/actions";
 import type { Job } from "@/lib/admin/types";
 import Link from "next/link";
+import LeftArrow from "@/components/icons/LeftArrow";
+import { useState } from "react";
+import Toast from "@/components/Toast";
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },
@@ -76,6 +79,10 @@ function getErrorMsg(error: unknown): string | undefined {
 }
 
 export default function JobEditForm({ job }: { job: Job }) {
+  const [showToast, setShowToast] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
   const {
     register,
     control,
@@ -140,12 +147,25 @@ export default function JobEditForm({ job }: { job: Job }) {
     formData.append("differences", JSON.stringify(data.differences));
     formData.append("benefits", JSON.stringify(data.benefits));
 
-    await updateJob(job.id, formData);
+    try {
+      await updateJob(job.id, formData);
+      setShowToast(true);
+      setSuccess(true);
+    } catch (e) {
+      setShowToast(true);
+      setSuccess(false);
+      setError("Erro ao atualizar a vaga: " + e);
+    }
   };
 
   return (
     <div className="w-full px-6 py-8">
-      <h1 className="text-xl font-semibold mb-4">Editar Vaga</h1>
+      <div className="flex flex-row items-center gap-2 mb-4">
+        <Link className="hover:text-primary" href="/gestao/vagas">
+          <LeftArrow className="w-4 h-4" />
+        </Link>
+        <h1 className="text-xl font-semibold ">Editar Vaga</h1>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Nome da vaga"
@@ -206,7 +226,7 @@ export default function JobEditForm({ job }: { job: Job }) {
                   type="text"
                   id="id_job"
                   fullWidth
-                  {...register("id_job", { required: REQUIRED_MSG })}
+                  {...register("id_job")}
                   error={errors.id_job?.message}
                 />
               </div>
@@ -435,11 +455,22 @@ export default function JobEditForm({ job }: { job: Job }) {
               type="submit"
               disabled={isSubmitting}
             >
-              Salvar
+              {isSubmitting ? "Salvando..." : "Salvar"}
             </Button>
           </div>
         </div>
       </form>
+      {showToast && (
+        <Toast
+          message={success ? "Vaga atualizada com sucesso" : error}
+          variant={success ? "success" : "error"}
+          onClose={() => {
+            setSuccess(false);
+            setShowToast(false);
+            setError("");
+          }}
+        />
+      )}
     </div>
   );
 }

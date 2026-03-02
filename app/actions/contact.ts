@@ -14,20 +14,26 @@ export async function submitContact(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        nome: formData.get("first_name"),
-        sobrenome: formData.get("last_name"),
+        first_name: formData.get("first_name"),
+        last_name: formData.get("last_name"),
         email: formData.get("email"),
-        telefone: formData.get("phone"),
-        mensagem: formData.get("message"),
+        phone: formData.get("phone"),
+        message: formData.get("message"),
       }),
     });
 
     if (!res.ok) {
-      return { success: false, message: "Erro ao enviar mensagem. Tente novamente." };
+      return {
+        success: false,
+        message: "Erro ao enviar mensagem. Tente novamente.",
+      };
     }
 
     return { success: true, message: "Mensagem enviada com sucesso!" };
   } catch {
-    return { success: false, message: "Erro ao enviar mensagem. Tente novamente." };
+    return {
+      success: false,
+      message: "Erro ao enviar mensagem. Tente novamente.",
+    };
   }
 }

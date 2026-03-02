@@ -4,9 +4,12 @@ import BannerRh from "@/assets/servicos/banner-rh.png";
 import BgRh from "@/assets/servicos/bg-rh.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "Recursos Humanos",
+  description:
+    "Recursos Humanos para empresas que precisam contratar chineses ou que tenham a fluência na língua chinesa. Saiba Mais.",
 };
 
 export default function page() {
@@ -230,6 +233,7 @@ export default function page() {
             </ul>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

@@ -5,9 +5,12 @@ import BannerPrecos from "@/assets/servicos/banner-precos.jpg";
 import BgPrecos from "@/assets/servicos/bg-precos.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "Preços de Transferência",
+  description:
+    "Preparados para os preços de transferência de qualquer pessoa física ou jurídica. Apoiamos você na transferência de dinheiro, Brasil e China.",
 };
 
 export default function page() {
@@ -144,6 +147,7 @@ export default function page() {
             </p>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

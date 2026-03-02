@@ -4,9 +4,12 @@ import BannerConsulting from "@/assets/servicos/banner-consultoria-profissional.
 import BannerQuemSomos from "@/assets/sobre-nos/banner-quem-somos.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
+import Contacts from "@/components/Contacts";
 
 export const metadata: Metadata = {
   title: "Consultoria Profissional",
+  description:
+    "Realizamos pesquisas e análises da jurisprudência tributária brasileira, identificando riscos e oportunidades de maneira eficiente, fornecendo informações",
 };
 
 export default function page() {
@@ -106,6 +109,7 @@ export default function page() {
             </p>
           </div>
         </section>
+        <Contacts />
       </div>
     </>
   );

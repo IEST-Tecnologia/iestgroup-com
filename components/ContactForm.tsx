@@ -12,13 +12,12 @@ export default function ContactForm() {
     submitContact,
     null,
   );
-  const [toast, setToast] = useState<ContactState>(null);
+  const [dismissedState, setDismissedState] = useState<ContactState>(null);
+  const showToast = !!state && state !== dismissedState;
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (!state) return;
-    setToast(state);
-    if (state.success) {
+    if (state?.success) {
       formRef.current?.reset();
     }
   }, [state]);
@@ -27,7 +26,12 @@ export default function ContactForm() {
     <>
       <form ref={formRef} className="flex flex-col gap-4" action={formAction}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 md:gap-3">
-          <Input label="Nome" name="first_name" required placeholder="Seu nome" />
+          <Input
+            label="Nome"
+            name="first_name"
+            required
+            placeholder="Seu nome"
+          />
           <Input
             label="Sobrenome"
             name="last_name"
@@ -49,7 +53,7 @@ export default function ContactForm() {
         />
         <Textarea label="Mensagem" name="message" />
         <label>
-          <input className="mr-1" type="checkbox" />
+          <input className="mr-1" type="checkbox" required />
           Você concorda com nossa politica de privacidade.
         </label>
         <div>
@@ -59,11 +63,11 @@ export default function ContactForm() {
         </div>
       </form>
 
-      {toast && (
+      {showToast && (
         <Toast
-          message={toast.message}
-          variant={toast.success ? "success" : "error"}
-          onClose={() => setToast(null)}
+          message={state!.message}
+          variant={state!.success ? "success" : "error"}
+          onClose={() => setDismissedState(state)}
         />
       )}
     </>
