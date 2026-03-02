@@ -50,7 +50,7 @@ export default async function ClientsPage() {
                     colSpan={4}
                     className="px-4 py-8 text-center text-gray-400"
                   >
-                    Nenhum client cadastrado
+                    Nenhum cliente cadastrado
                   </td>
                 </tr>
               )}
@@ -71,7 +71,9 @@ export default async function ClientsPage() {
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
                       <Link href={`/gestao/clientes/${client.id}`}>
-                        <Button size="small" variant="outline">Editar</Button>
+                        <Button size="small" variant="outline">
+                          Editar
+                        </Button>
                       </Link>
                       <Form
                         action={async (formData) => {
@@ -82,7 +84,9 @@ export default async function ClientsPage() {
                         }}
                       >
                         <input hidden readOnly value={client.id} />
-                        <Button size="small" variant="destructive">Excluir</Button>
+                        <Button size="small" variant="destructive">
+                          Excluir
+                        </Button>
                       </Form>
                     </div>
                   </td>

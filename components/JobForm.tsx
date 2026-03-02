@@ -237,7 +237,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
               <input
                 className="p-4 bg-white text-gray-400"
                 type="text"
-                placeholder="Data de nascimento"
+                placeholder="Data de nascimento (dia/mes/ano)"
                 id="birthdate"
                 name="birthdate"
                 required
