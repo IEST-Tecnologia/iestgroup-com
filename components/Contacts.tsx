@@ -66,10 +66,14 @@ export default function Contacts() {
                 if (!res.ok) {
                   setFeedback({
                     success: false,
-                    message: json.error ?? "Erro ao enviar mensagem. Tente novamente.",
+                    message:
+                      json.error ?? "Erro ao enviar mensagem. Tente novamente.",
                   });
                 } else {
-                  setFeedback({ success: true, message: "Mensagem enviada com sucesso!" });
+                  setFeedback({
+                    success: true,
+                    message: "Mensagem enviada com sucesso!",
+                  });
                   formRef.current?.reset();
                 }
               } catch {
@@ -83,35 +87,39 @@ export default function Contacts() {
             }}
           >
             <input
-              className="px-5 py-2 border border-white"
+              className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
               placeholder="Nome"
               name="first_name"
               required
             />
             <input
-              className="px-5 py-2 border border-white"
+              className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
               placeholder="Sobrenome"
               name="last_name"
               required
             />
             <input
-              className="px-5 py-2 border border-white"
+              className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
               placeholder="E-mail"
               name="email"
               required
             />
             <input
-              className="px-5 py-2 border border-white"
+              className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
               placeholder="Telefone"
               name="phone"
               required
             />
             <textarea
-              className="px-5 py-2 col-span-1 md:col-span-2 border border-white"
+              className="px-5 py-2 col-span-2 border border-white"
               placeholder="Mensagem"
               name="message"
               rows={4}
             />
+            <label className="col-span-2">
+              <input className="mr-1" type="checkbox" required />
+              Você concorda com nossa politica de privacidade.
+            </label>
             <div>
               <Button variant="inverted" disabled={isPending}>
                 {isPending ? "Enviando..." : "Enviar"}
