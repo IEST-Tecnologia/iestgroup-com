@@ -95,18 +95,18 @@ function HeaderContent({
   return (
     <div className="mx-auto max-w-317.5 px-5 relative">
       <div
-        className={`flex items-center ${isSticky ? "min-h-15" : "min-h-17.5 justify-between"}`}
+        className={`flex items-center justify-between ${isSticky ? "min-h-15" : "min-h-17.5"}`}
       >
         {/* Logo */}
-        <div className={`shrink-0 pr-4 ${isSticky ? "w-[16.6%]" : ""}`}>
+        <div className={`shrink-0 pr-4 `}>
           <Link href="/">
             <Logo width={isSticky ? 75 : 90} height={isSticky ? 30 : 36} />
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className={`hidden md:block ${isSticky ? "w-[66.66%]" : ""}`}>
-          <ul className={`flex ${isSticky ? "justify-end" : "flex-wrap"}`}>
+        <nav className={`hidden md:block`}>
+          <ul className={`flex flex-wrap`}>
             {navigationItems.map((item) => (
               <li
                 key={item.label}
@@ -337,7 +337,9 @@ export default function Header({
   const [activeItem, setActiveItem] = useState<string>("/");
   const [showStickyHeader, setShowStickyHeader] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileExpandedItem, setMobileExpandedItem] = useState<string | null>(null);
+  const [mobileExpandedItem, setMobileExpandedItem] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     const handleScroll = () => {
