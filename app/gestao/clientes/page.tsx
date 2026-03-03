@@ -5,13 +5,24 @@ import Image from "next/image";
 import { deleteClient, listClients } from "@/lib/admin/store";
 import Form from "next/form";
 import { revalidatePath } from "next/cache";
-import { getCurrentUser, requireAdmin } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import ClientsMarquee from "@/components/ClientsMarquee";
+import { Client } from "@/lib/admin/types";
 
 export const metadata: Metadata = { title: "Clients" };
 
 export default async function ClientsPage() {
-  const clients = await listClients();
+  let data: Client[] = [];
+
+  try {
+    data = await listClients();
+  } catch (err) {
+    console.error(
+      "[ClientPage] failed to load clients:",
+      err instanceof Error ? err.message : err,
+    );
+  }
+
   return (
     <div className="p-6">
       <div>
@@ -44,7 +55,7 @@ export default async function ClientsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {clients.length === 0 && (
+              {data.length === 0 && (
                 <tr>
                   <td
                     colSpan={4}
@@ -54,7 +65,7 @@ export default async function ClientsPage() {
                   </td>
                 </tr>
               )}
-              {clients.map((client) => (
+              {data.map((client) => (
                 <tr key={client.id} className="hover:bg-gray-50">
                   <td className="px-4 py-3">
                     <Image
@@ -103,7 +114,7 @@ export default async function ClientsPage() {
             </p>
           </div>
           <div className="py-6 bg-gray-50">
-            <ClientsMarquee clients={clients} />
+            <ClientsMarquee clients={data} />
           </div>
         </div>
       </div>
