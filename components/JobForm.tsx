@@ -260,6 +260,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
               <input
                 className="w-full md:2/3 file:bg-white file:rounded-full file:px-4 file:py-2 file:text-primary file:mr-2 text-white"
                 type="file"
+                accept=".jpg, .jpeg, .png, .pdf, .docx"
                 name="curriculum"
                 required
               />

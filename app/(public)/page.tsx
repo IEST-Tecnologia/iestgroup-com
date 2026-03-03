@@ -19,8 +19,8 @@ export default async function Home() {
   const FEATURE_FLAG_HERO_BANNER =
     process.env.NEXT_PUBLIC_FEATURE_FLAG_HERO_BANNER === "true";
   const [banners, clients] = await Promise.all([
-    FEATURE_FLAG_HERO_BANNER ? listBanners(true) : Promise.resolve([]),
-    listClients(),
+    FEATURE_FLAG_HERO_BANNER ? listBanners(true).catch(() => []) : Promise.resolve([]),
+    listClients().catch(() => []),
   ]);
 
   const {

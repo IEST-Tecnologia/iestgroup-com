@@ -8,3 +8,4 @@ export { default as BrazilFlagIcon } from "./BrazilFlagIcon";
 export { default as ChinaFlagIcon } from "./ChinaFlagIcon";
 export { default as LogoIcon } from "./LogoIcon";
 export { default as MenuIcon } from "./MenuIcon";
+export { default as XIcon } from "./XIcon";

@@ -10,6 +10,7 @@ import {
   BrazilFlagIcon as BrazilFlag,
   ChinaFlagIcon as ChinaFlag,
   MenuIcon,
+  XIcon,
 } from "@/components/icons";
 
 interface DropdownItem {
@@ -69,27 +70,43 @@ function HeaderContent({
   devHover,
   activeItem,
   setActiveItem,
+  mobileMenuOpen,
+  setMobileMenuOpen,
+  mobileExpandedItem,
+  setMobileExpandedItem,
+  renderMobilePanel,
 }: {
   isSticky?: boolean;
   devHover: boolean;
   activeItem: string;
   setActiveItem: (href: string) => void;
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+  mobileExpandedItem: string | null;
+  setMobileExpandedItem: (label: string | null) => void;
+  renderMobilePanel: boolean;
 }) {
+  const handleMobileNav = (href: string) => {
+    setActiveItem(href);
+    setMobileMenuOpen(false);
+    setMobileExpandedItem(null);
+  };
+
   return (
-    <div className="mx-auto max-w-317.5 px-5">
+    <div className="mx-auto max-w-317.5 px-5 relative">
       <div
-        className={`flex items-center ${isSticky ? "min-h-15" : "min-h-17.5 justify-between"}`}
+        className={`flex items-center justify-between ${isSticky ? "min-h-15" : "min-h-17.5"}`}
       >
         {/* Logo */}
-        <div className={`shrink-0 pr-4 ${isSticky ? "w-[16.6%]" : ""}`}>
+        <div className={`shrink-0 pr-4 `}>
           <Link href="/">
             <Logo width={isSticky ? 75 : 90} height={isSticky ? 30 : 36} />
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className={`hidden md:block ${isSticky ? "w-[66.66%]" : ""}`}>
-          <ul className={`flex ${isSticky ? "justify-end" : "flex-wrap"}`}>
+        <nav className={`hidden md:block`}>
+          <ul className={`flex flex-wrap`}>
             {navigationItems.map((item) => (
               <li
                 key={item.label}
@@ -202,16 +219,114 @@ function HeaderContent({
         </div>
 
         {/* Mobile menu button */}
-        <div className="md:hidden">
+        <div className="md:hidden ml-auto">
           <button
             type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
             aria-label="Toggle menu"
           >
-            <MenuIcon className="h-6 w-6" />
+            {mobileMenuOpen ? (
+              <XIcon className="h-6 w-6" />
+            ) : (
+              <MenuIcon className="h-6 w-6" />
+            )}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Panel */}
+      {mobileMenuOpen && renderMobilePanel && (
+        <nav className="md:hidden absolute left-0 right-0 top-full z-50 bg-white border-t border-gray-200 shadow-lg">
+          <ul className="py-2">
+            {navigationItems.map((item) => {
+              const isExpanded = mobileExpandedItem === item.label;
+              return (
+                <li key={item.label}>
+                  {item.dropdown ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setMobileExpandedItem(isExpanded ? null : item.label)
+                        }
+                        className="flex w-full items-center justify-between px-5 py-3 font-montserrat font-semibold uppercase text-gray-600 hover:bg-gray-50 hover:text-primary"
+                      >
+                        {item.label}
+                        <ChevronDown
+                          width={12}
+                          height={12}
+                          className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      {isExpanded && (
+                        <ul className="bg-gray-50 border-t border-gray-100">
+                          {item.dropdown.map((dropdownItem) => (
+                            <li key={dropdownItem.label}>
+                              <Link
+                                href={dropdownItem.href}
+                                onClick={() =>
+                                  handleMobileNav(dropdownItem.href)
+                                }
+                                className={`block px-8 py-2.5 font-montserrat text-[15px] transition-colors duration-200 ${
+                                  activeItem === dropdownItem.href
+                                    ? "text-primary font-semibold"
+                                    : "text-[#2F2F2F] hover:text-primary"
+                                }`}
+                              >
+                                {dropdownItem.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </>
+                  ) : item.href ? (
+                    <Link
+                      href={item.href}
+                      onClick={() => handleMobileNav(item.href!)}
+                      className={`block px-5 py-3 font-montserrat font-semibold uppercase transition-colors duration-200 ${
+                        activeItem === item.href
+                          ? "text-primary"
+                          : "text-gray-600 hover:bg-gray-50 hover:text-primary"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* Social + Language */}
+          <div className="flex items-center gap-4 border-t border-gray-200 px-5 py-4">
+            <a
+              href="https://www.linkedin.com/company/iestgroup"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-8.5 w-8.5 items-center justify-center rounded-full border border-primary bg-white text-primary"
+              aria-label="LinkedIn"
+            >
+              <LinkedInIcon className="h-4.25 w-4.25" />
+            </a>
+            <Link
+              href="/we-chat"
+              className="flex h-8.5 w-8.5 items-center justify-center rounded-full border border-primary bg-white text-primary"
+            >
+              <WeChatIcon className="h-4.25 w-4.25" />
+            </Link>
+            <div className="ml-auto flex items-center gap-3">
+              <Link href="#" aria-label="Português">
+                <BrazilFlag className="h-8.25 w-8.25 rounded-full" />
+              </Link>
+              <Link href="https://iestgroup.com" aria-label="中文">
+                <ChinaFlag className="h-8.25 w-8.25 rounded-full" />
+              </Link>
+            </div>
+          </div>
+        </nav>
+      )}
     </div>
   );
 }
@@ -221,6 +336,10 @@ export default function Header({
 }: { devHover?: boolean } = {}) {
   const [activeItem, setActiveItem] = useState<string>("/");
   const [showStickyHeader, setShowStickyHeader] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileExpandedItem, setMobileExpandedItem] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -249,6 +368,11 @@ export default function Header({
           devHover={devHover}
           activeItem={activeItem}
           setActiveItem={setActiveItem}
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
+          mobileExpandedItem={mobileExpandedItem}
+          setMobileExpandedItem={setMobileExpandedItem}
+          renderMobilePanel={!showStickyHeader}
         />
       </header>
 
@@ -264,6 +388,11 @@ export default function Header({
           devHover={devHover}
           activeItem={activeItem}
           setActiveItem={setActiveItem}
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
+          mobileExpandedItem={mobileExpandedItem}
+          setMobileExpandedItem={setMobileExpandedItem}
+          renderMobilePanel={showStickyHeader}
         />
       </header>
     </>
