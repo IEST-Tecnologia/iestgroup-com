@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Metadata } from "next";
 import JobForm from "@/components/JobForm";
 import { t } from "@/lib/i18n";
+import { cidades } from "@/assets/cidades";
+import { estados } from "@/assets/estados";
 
 export const metadata: Metadata = {
   title: "Carreira Iest",
@@ -84,7 +86,11 @@ export default function page() {
           </div>
         </div>
       </main>
-      <JobForm jobName="Banco de Talentos" />
+      <JobForm
+        jobName="Banco de Talentos"
+        cidades={cidades}
+        estados={estados}
+      />
     </>
   );
 }
