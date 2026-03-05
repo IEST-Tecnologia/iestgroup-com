@@ -1,13 +1,12 @@
-import Link from "next/link";
 import Form from "next/form";
 import { redirect } from "next/navigation";
 
-import Button from "@/components/Button";
 import { Input } from "@/components/Input";
 import { ImageEditor } from "@/components/BannerImageEditor";
 
 import { createBanner } from "@/lib/admin/store";
 import AdminModal from "@/components/admin/AdminModal";
+import ModalFormActions from "@/components/admin/ModalFormActions";
 import { revalidatePath } from "next/cache";
 
 export default async function page() {
@@ -32,14 +31,7 @@ export default async function page() {
 
         <ImageEditor label="Imagem desktop" required name="image" aspect={512 / 171} />
         <ImageEditor label="Imagem mobile" required name="mobile_image" aspect={768 / 853} />
-        <div className="flex justify-end gap-3 pt-2">
-          <Link href="/gestao/banners">
-            <Button type="button" variant="destructive">
-              Cancelar
-            </Button>
-          </Link>
-          <Button type="submit">Salvar</Button>
-        </div>
+        <ModalFormActions cancelHref="/gestao/banners" />
       </Form>
     </AdminModal>
   );
