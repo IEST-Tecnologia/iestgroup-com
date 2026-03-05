@@ -6,10 +6,13 @@ import Button from "@/components/Button";
 
 export default function ModalFormActions({
   cancelHref,
+  pending: pendingProp,
 }: {
   cancelHref: string;
+  pending?: boolean;
 }) {
-  const { pending } = useFormStatus();
+  const { pending: formPending } = useFormStatus();
+  const pending = pendingProp ?? formPending;
 
   return (
     <div className="flex justify-end gap-3 pt-2">
