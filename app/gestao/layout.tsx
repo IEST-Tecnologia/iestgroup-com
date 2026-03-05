@@ -1,4 +1,5 @@
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import ToastProvider from "@/components/ToastProvider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,10 +18,12 @@ export default async function AdminLayout({
 }) {
   // requireAdmin not needed because proxy takes care of it
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <AdminSidebar />
-      {modal}
-      <main className="flex-1 overflow-y-auto">{children}</main>
-    </div>
+    <ToastProvider>
+      <div className="flex min-h-screen bg-gray-100">
+        <AdminSidebar />
+        {modal}
+        <main className="flex-1 overflow-y-auto">{children}</main>
+      </div>
+    </ToastProvider>
   );
 }
