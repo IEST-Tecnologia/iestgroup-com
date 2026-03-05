@@ -17,7 +17,7 @@ export default async function AdminLayout({
 }) {
   // requireAdmin not needed because proxy takes care of it
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex h-screen overflow-hidden bg-gray-100">
       <AdminSidebar />
       {modal}
       <main className="flex-1 overflow-y-auto">{children}</main>

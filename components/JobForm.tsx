@@ -146,7 +146,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
                 defaultValue=""
               >
                 <option value="" disabled>
-                  Sexo
+                  Como você se identifica?
                 </option>
                 <option value="Masculino" className="text-black">
                   Masculino
@@ -237,10 +237,9 @@ export default function JobForm({ jobName }: { jobName: string }) {
               <input
                 className="p-4 bg-white text-gray-400"
                 type="text"
-                placeholder="Data de nascimento (dia/mes/ano)"
-                id="birthdate"
-                name="birthdate"
-                required
+                placeholder="Perfil no Linkedin (opcional)"
+                id="linkedin"
+                name="linkedin"
               />
             </div>
             <input

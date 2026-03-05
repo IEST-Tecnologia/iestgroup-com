@@ -3,15 +3,11 @@
 import { useRef, useState } from "react";
 import { AddressIcon } from "@/components/icons";
 import Button from "./Button";
-import Toast from "@/components/Toast";
-
-type Feedback = { success: boolean; message: string } | null;
+import { useToast } from "@/context/ToastContext";
 
 export default function Contacts() {
+  const { addToast } = useToast();
   const [isPending, setIsPending] = useState(false);
-  const [feedback, setFeedback] = useState<Feedback>(null);
-  const [dismissedFeedback, setDismissedFeedback] = useState<Feedback>(null);
-  const showToast = !!feedback && feedback !== dismissedFeedback;
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
@@ -64,23 +60,13 @@ export default function Contacts() {
                   json = await res.json();
                 } catch {}
                 if (!res.ok) {
-                  setFeedback({
-                    success: false,
-                    message:
-                      json.error ?? "Erro ao enviar mensagem. Tente novamente.",
-                  });
+                  addToast(json.error ?? "Erro ao enviar mensagem. Tente novamente.", "error");
                 } else {
-                  setFeedback({
-                    success: true,
-                    message: "Mensagem enviada com sucesso!",
-                  });
+                  addToast("Mensagem enviada com sucesso!", "success");
                   formRef.current?.reset();
                 }
               } catch {
-                setFeedback({
-                  success: false,
-                  message: "Erro ao conectar com o servidor. Tente novamente.",
-                });
+                addToast("Erro ao conectar com o servidor. Tente novamente.", "error");
               } finally {
                 setIsPending(false);
               }
@@ -129,13 +115,6 @@ export default function Contacts() {
         </div>
       </div>
 
-      {showToast && (
-        <Toast
-          message={feedback!.message}
-          variant={feedback!.success ? "success" : "error"}
-          onClose={() => setDismissedFeedback(feedback)}
-        />
-      )}
     </section>
   );
 }

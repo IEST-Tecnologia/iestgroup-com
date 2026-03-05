@@ -11,6 +11,7 @@ import {
 } from "./store";
 import type { Banner, JobResponse, Job } from "./types";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function requireAdminServer(): Promise<void> {
   const user = await getCurrentUser();
