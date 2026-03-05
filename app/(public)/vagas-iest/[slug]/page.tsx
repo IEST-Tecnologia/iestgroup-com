@@ -39,7 +39,7 @@ export default async function page({
           </h1>
         </div>
       </section>
-      <main className="py-8">
+      <main className="py-8 px-4">
         <div className="max-w-262.5 mx-auto">
           <div className="flex flex-col gap-4 pb-8">
             <h2 className="text-2xl font-semibold">Informações gerais</h2>
