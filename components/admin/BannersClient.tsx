@@ -47,7 +47,7 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
   );
   useEffect(() => {
     setBanners([...initialBanners].sort((a, b) => a.order - b.order));
-  }, initialBanners);
+  }, [initialBanners]);
 
   const [optimisticBanners, updateOptimisticBanners] = useOptimistic(
     banners,
@@ -222,7 +222,9 @@ export default function BannersClient({ initialBanners }: BannersClientProps) {
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-2">
                     <Link href={`/gestao/banners/${banner.id}`}>
-                      <Button size="small" variant="outline">Editar</Button>
+                      <Button size="small" variant="outline">
+                        Editar
+                      </Button>
                     </Link>
                     <Button
                       size="small"
