@@ -1,5 +1,6 @@
 import React from "react";
 import BgCarreira from "@/assets/banner-carreira.png";
+import Image from "next/image";
 import { Metadata } from "next";
 import JobForm from "@/components/JobForm";
 import { t } from "@/lib/i18n";
@@ -13,11 +14,8 @@ export const metadata: Metadata = {
 export default function page() {
   return (
     <>
-      <section
-        className="bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${BgCarreira.src})` }}
-      >
-        <div className="min-h-100 w-full"></div>
+      <section className="hidden md:block w-full">
+        <Image src={BgCarreira} alt="" className="w-full h-auto" />
       </section>
       <main className="py-8">
         <div className="max-w-7xl mx-auto flex flex-col gap-6 px-4">
