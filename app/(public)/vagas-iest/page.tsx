@@ -45,9 +45,13 @@ function JobCard({ job }: { job: Job }) {
             </span>
           )}
         </div>
-        <p className="text-lg font-semibold text-primary">{job.name}</p>
+        <p className="text-lg font-semibold text-primary line-clamp-1">
+          {job.name}
+        </p>
         {job.company && (
-          <p className="text-xs text-gray-500 font-medium">{job.company}</p>
+          <p className="text-xs text-gray-500 font-medium line-clamp-1">
+            {job.company}
+          </p>
         )}
         <div className="flex gap-2 flex-wrap items-center">
           <div className="flex gap-1.5 items-center">
@@ -86,7 +90,9 @@ function JobCard({ job }: { job: Job }) {
         <p className="text-sm text-gray-400">
           {formatRelativeDate(job.created_at)}
         </p>
-        <span className="text-xs font-medium text-primary">Ver vaga →</span>
+        <span className="text-xs font-medium text-primary">
+          {job.status === "closed" ? "Finalizada" : "Ver vaga →"}
+        </span>
       </div>
     </Link>
   );
@@ -166,7 +172,6 @@ export default async function page({ searchParams }: PageProps) {
     area: getString(params.area),
     company: getString(params.company),
     nivel: getString(params.nivel),
-    status: "open",
   };
 
   const [{ jobs, total }, filterOptions] = await Promise.all([

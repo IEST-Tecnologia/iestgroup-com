@@ -33,15 +33,14 @@ export default async function page({
         className="bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${Bg.src})` }}
       >
-        <div className="min-h-65 max-w-7xl mx-auto flex items-center">
-          <h1 className="text-3xl font-bold text-white uppercase">
-            {job.name}
-          </h1>
-        </div>
+        <div className="min-h-65 max-w-7xl mx-auto flex items-center"></div>
       </section>
       <main className="py-8">
         <div className="max-w-262.5 mx-auto">
           <div className="flex flex-col gap-4 pb-8">
+            <h1 className="text-3xl font-bold uppercase text-center">
+              {job.name}
+            </h1>
             <h2 className="text-2xl font-semibold">Informações gerais</h2>
             <div className="ml-4 flex flex-col gap-2">
               <InfoItem
