@@ -4,6 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { setConsentCookie } from "@/app/actions/consent";
 import Link from "next/link";
+import { t } from "@/lib/i18n";
 
 interface ConsentPopUpProps {
   consent: string | undefined;
@@ -50,18 +51,15 @@ export default function ConsentPopUp({ consent }: ConsentPopUpProps) {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold">Sua privacidade importa</h3>
+              <h3 className="text-lg font-semibold">{t("consent_title")}</h3>
             </div>
             <p className="text-foreground/80 text-sm leading-relaxed">
-              Utilizamos cookies para melhorar sua experiência de navegação,
-              personalizar conteúdo e analisar nosso tráfego. Ao clicar em
-              &quot;Aceitar&quot;, você concorda com o uso de cookies conforme
-              descrito em nossa{" "}
+              {t("consent_text")}{" "}
               <Link
                 href="/politica-de-privacidade"
                 className="text-primary font-medium hover:underline"
               >
-                Política de Privacidade
+                {t("consent_privacy_link")}
               </Link>
               .
             </p>
@@ -71,13 +69,13 @@ export default function ConsentPopUp({ consent }: ConsentPopUpProps) {
               onClick={() => handleConsent("rejected")}
               className="px-6 py-3 text-sm font-medium border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
             >
-              Rejeitar
+              {t("consent_reject")}
             </button>
             <button
               onClick={() => handleConsent("accepted")}
               className="px-6 py-3 text-sm font-medium text-white bg-primary rounded-xl hover:bg-primary/90 transition-colors duration-200 cursor-pointer"
             >
-              Aceitar cookies
+              {t("consent_accept")}
             </button>
           </div>
         </div>

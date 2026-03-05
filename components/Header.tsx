@@ -12,6 +12,7 @@ import {
   MenuIcon,
   XIcon,
 } from "@/components/icons";
+import { t } from "@/lib/i18n";
 
 interface DropdownItem {
   label: string;
@@ -20,47 +21,64 @@ interface DropdownItem {
 
 interface NavItem {
   label: string;
+  disabled?: boolean;
   href?: string;
   dropdown?: DropdownItem[];
 }
 
 const navigationItems: NavItem[] = [
   {
-    label: "Home",
+    label: t("header_nav_home"),
     href: "/",
   },
   {
-    label: "Sobre nós",
+    label: t("header_nav_about"),
     href: "/sobre-nos",
   },
   {
-    label: "Serviços",
+    label: t("header_nav_services"),
     dropdown: [
-      { label: "Consultoria Profissional", href: "/consultoria-profissional" },
       {
-        label: "BPO Contábil e Financeiro",
+        label: t("header_nav_services_consulting"),
+        href: "/consultoria-profissional",
+      },
+      {
+        label: t("header_nav_services_bpo"),
         href: "/bpo-contabil-e-financeiro",
       },
-      { label: "Recursos Humanos", href: "/recursos-humanos" },
-      { label: "Paralegal", href: "/paralegal" },
-      { label: "Preços de Transferência", href: "/precos-de-transferencia" },
-      { label: "Serviços Digitais", href: "/servico-digital-e-marketing" },
+      { label: t("header_nav_services_rh"), href: "/recursos-humanos" },
+      { label: t("header_nav_services_paralegal"), href: "/paralegal" },
+      {
+        label: t("header_nav_services_transfer"),
+        href: "/precos-de-transferencia",
+      },
+      {
+        label: t("header_nav_services_digital"),
+        href: "/servico-digital-e-marketing",
+      },
     ],
   },
   {
-    label: "Notícias",
+    label: t("header_nav_news"),
     href: "https://china2brazil.com.br/",
   },
   {
-    label: "Contato",
+    label: t("header_nav_contact"),
     href: "/contato",
   },
   {
-    label: "Carreiras",
+    label: t("header_nav_careers"),
+    disabled: process.env.NEXT_PUBLIC_LANG == "zh",
     dropdown: [
-      { label: "Vagas", href: "/vagas-iest?type=external" },
-      { label: "Trabalhe Conosco", href: "/vagas-iest?type=internal" },
-      { label: "Banco de talentos", href: "/carreira-iest" },
+      {
+        label: t("header_nav_careers_jobs_external"),
+        href: "/vagas-iest?type=external",
+      },
+      {
+        label: t("header_nav_careers_jobs_internal"),
+        href: "/vagas-iest?type=internal",
+      },
+      { label: t("header_nav_careers_join"), href: "/carreira-iest" },
     ],
   },
 ];
@@ -107,74 +125,76 @@ function HeaderContent({
         {/* Navigation */}
         <nav className={`hidden md:block`}>
           <ul className={`flex flex-wrap`}>
-            {navigationItems.map((item) => (
-              <li
-                key={item.label}
-                className={`group relative ${devHover ? "hover" : ""}`}
-              >
-                {item.dropdown ? (
-                  <span
-                    className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-md"} ${devHover ? "text-primary" : "text-gray-600 hover:text-primary"}`}
-                  >
-                    {item.label}
+            {navigationItems
+              .filter((i) => !i.disabled)
+              .map((item) => (
+                <li
+                  key={item.label}
+                  className={`group relative ${devHover ? "hover" : ""}`}
+                >
+                  {item.dropdown ? (
+                    <span
+                      className={`relative flex cursor-pointer items-center gap-1 whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-md"} ${devHover ? "text-primary" : "text-gray-600 hover:text-primary"}`}
+                    >
+                      {item.label}
 
-                    <ChevronDown width={10} height={10} className="ml-1" />
-                    {/* Bottom border on hover */}
-                    <span
-                      className={`absolute bottom-0 left-0 h-0.5 w-full bg-secondary transition-opacity duration-300 ${devHover ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
-                    />
-                  </span>
-                ) : item.href ? (
-                  <Link
-                    href={item.href}
-                    onClick={() => setActiveItem(item.href!)}
-                    className={`relative block whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-md"} ${
-                      activeItem === item.href
-                        ? "text-primary"
-                        : devHover
-                          ? "text-primary"
-                          : "text-gray-600 hover:text-primary"
-                    }`}
-                  >
-                    {item.label}
-                    {/* Bottom border on hover/active */}
-                    <span
-                      className={`absolute bottom-0 left-0 h-0.5 w-full bg-secondary transition-opacity duration-300 ${
+                      <ChevronDown width={10} height={10} className="ml-1" />
+                      {/* Bottom border on hover */}
+                      <span
+                        className={`absolute bottom-0 left-0 h-0.5 w-full bg-secondary transition-opacity duration-300 ${devHover ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                      />
+                    </span>
+                  ) : item.href ? (
+                    <Link
+                      href={item.href}
+                      onClick={() => setActiveItem(item.href!)}
+                      className={`relative block whitespace-nowrap px-5 py-2.5 font-montserrat font-semibold transition-colors duration-300 uppercase ${isSticky ? "text-[14px]" : "text-md"} ${
                         activeItem === item.href
-                          ? "opacity-100"
+                          ? "text-primary"
                           : devHover
-                            ? "opacity-100"
-                            : "opacity-0 group-hover:opacity-100"
+                            ? "text-primary"
+                            : "text-gray-600 hover:text-primary"
                       }`}
-                    />
-                  </Link>
-                ) : null}
+                    >
+                      {item.label}
+                      {/* Bottom border on hover/active */}
+                      <span
+                        className={`absolute bottom-0 left-0 h-0.5 w-full bg-secondary transition-opacity duration-300 ${
+                          activeItem === item.href
+                            ? "opacity-100"
+                            : devHover
+                              ? "opacity-100"
+                              : "opacity-0 group-hover:opacity-100"
+                        }`}
+                      />
+                    </Link>
+                  ) : null}
 
-                {/* Dropdown Menu */}
-                {item.dropdown && (
-                  <div
-                    className={`absolute left-0 top-full z-50 min-w-55 border-primary bg-white shadow-lg transition-all duration-300 ${devHover ? "visible opacity-100" : "invisible opacity-0 group-hover:visible group-hover:opacity-100"}`}
-                  >
-                    <div className="py-2">
-                      {item.dropdown.map((dropdownItem) => (
-                        <Link
-                          key={dropdownItem.label}
-                          href={dropdownItem.href}
-                          onClick={() => setActiveItem(dropdownItem.href)}
-                          className={`block px-5 py-2.5 font-montserrat text-[15px] transition-colors duration-300 ${
-                            activeItem === dropdownItem.href
-                              ? "bg-gray-50 text-primary font-semibold"
-                              : "text-[#2F2F2F] hover:bg-gray-100 hover:text-primary"
-                          }`}
-                        >
-                          {dropdownItem.label}
-                        </Link>
-                      ))}
+                  {/* Dropdown Menu */}
+                  {item.dropdown && (
+                    <div
+                      className={`absolute left-0 top-full z-50 min-w-55 border-primary bg-white shadow-lg transition-all duration-300 ${devHover ? "visible opacity-100" : "invisible opacity-0 group-hover:visible group-hover:opacity-100"}`}
+                    >
+                      <div className="py-2">
+                        {item.dropdown.map((dropdownItem) => (
+                          <Link
+                            key={dropdownItem.label}
+                            href={dropdownItem.href}
+                            onClick={() => setActiveItem(dropdownItem.href)}
+                            className={`block px-5 py-2.5 font-montserrat text-[15px] transition-colors duration-300 ${
+                              activeItem === dropdownItem.href
+                                ? "bg-gray-50 text-primary font-semibold"
+                                : "text-[#2F2F2F] hover:bg-gray-100 hover:text-primary"
+                            }`}
+                          >
+                            {dropdownItem.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </li>
-            ))}
+                  )}
+                </li>
+              ))}
           </ul>
         </nav>
 

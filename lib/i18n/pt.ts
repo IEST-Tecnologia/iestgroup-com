@@ -13,8 +13,8 @@ const pt = {
   header_nav_contact: "Contato",
   header_nav_careers: "Carreiras",
   header_nav_careers_jobs_external: "Vagas",
-  header_nav_careers_jobs_internal: "Vagas",
-  header_nav_careers_join: "Trabalhe Conosco",
+  header_nav_careers_jobs_internal: "Trabalhe Conosco",
+  header_nav_careers_join: "Banco de Talentos",
   header_lang_pt: "Português",
   header_lang_zh: "中文",
   header_toggle_menu: "Toggle menu",
@@ -97,8 +97,10 @@ const pt = {
   contacts_email: "E-mail",
   contacts_phone: "Telefone",
   contacts_message: "Mensagem",
+  contacts_or_phone: "ou pelo telefone",
   contacts_sending: "Enviando...",
   contacts_send: "Enviar",
+  contacts_connect_error: "Erro ao conectar com o servidor. Tente novamente.",
 
   // HOME PAGE
   home_history_title: "Nossa história",
@@ -210,7 +212,8 @@ const pt = {
     "Se você é uma pessoa que busca desafios, gosta de aprender e crescer continuamente, e deseja fazer parte de uma equipe que valoriza o talento e a dedicação, o Grupo IEST é o lugar certo para você. Venha construir uma carreira de sucesso conosco e faça a diferença no mundo dos negócios.",
   career_p4:
     "Envie seu currículo e junte-se ao nosso banco de talentos. Estamos ansiosos para conhecer você!",
-  career_p5: "Grupo IEST – Transformando desafios em oportunidades, juntos!",
+  career_p5_1: "Grupo IEST – ",
+  career_p5_2: "Transformando desafios em oportunidades, juntos!",
 
   // BPO PAGE
   bpo_banner_alt: "Uma mão feminina navegando no computador",
@@ -294,6 +297,16 @@ const pt = {
   rh_terceirizacao_p1:
     "Com a reforma da legislação trabalhista no Brasil, que permitiu a terceirização de atividades-fim, passamos a oferecer serviços especializados de terceirização de Recursos Humanos (RH). Essa solução se tornou uma alternativa viável para empresas que ainda não possuem uma subsidiária no país.",
   rh_terceirizacao_p2: "Entre os serviços que disponibilizamos estão:",
+  rh_terceirizacao_contratos_title: "Elaboração e Revisão de Contratos:",
+  rh_terceirizacao_contratos_text:
+    "Desenvolvimento e análise de contratos trabalhistas, garantindo alinhamento com as legislações vigentes.",
+  rh_terceirizacao_normas_title: "Elaboração e Revisão de Normas Internas:",
+  rh_terceirizacao_normas_text:
+    "Criação e atualização de políticas internas para promover conformidade e organização no ambiente corporativo.",
+  rh_terceirizacao_plr_title: "Gestão de Programas de PLR:",
+  rh_terceirizacao_plr_text:
+    "Elaboração de contratos para Programas de Participação nos Lucros e Resultados (PLR), além de acompanhamento junto ao sindicato da categoria para assegurar validação e conformidade.",
+
   rh_dp_title: "5) Departamento Pessoal",
   rh_dp_p1:
     "Oferecemos serviços completos e especializados na gestão de Departamento Pessoal, garantindo eficiência e conformidade com a legislação trabalhista vigente. Nossos serviços incluem:",
@@ -462,8 +475,66 @@ const pt = {
   ethics_s9_p3:
     "Agindo com ética, construímos juntos uma empresa mais forte, justa e sustentável.",
 
+  // CONSULTORIA PROFISSIONAL PAGE
+  consulting_banner_alt: "Dois homens sentados em uma cadeira de escritório",
+  consulting_arrow_alt: "ícone de uma seta apontando para baixo",
+  consulting_h1: "Consultoria Profissional",
+  consulting_h2:
+    "O IEST Group possui uma equipe altamente qualificada e experiente, pronta para oferecer uma ampla gama de serviços de Consultoria Profissional. Nosso objetivo é elevar a eficiência do planejamento das empresas, minimizando riscos e identificando as melhores oportunidades de mercado.",
+  consulting_p1:
+    "Contamos com profissionais flexíveis, bilíngues e com profundo conhecimento técnico, além de uma compreensão abrangente das culturas chinesa e brasileira, garantindo um atendimento personalizado e alinhado às necessidades dos nossos clientes. Com foco em qualidade e excelência, estamos preparados para ajudar você e sua empresa a alcançar os resultados que deseja.",
+  consulting_services_intro:
+    "Segue abaixo demonstrativo de todos os serviços que nós prestamos na matéria de consultoria profissional:",
+  consulting_tributaria_title: "1) Consultoria Tributária",
+  consulting_tributaria_text:
+    "Realizamos pesquisas e análises da jurisprudência tributária brasileira, identificando riscos e oportunidades de maneira eficiente, fornecendo informações estratégicas que apoiem nossos clientes na tomada de decisões.",
+  consulting_contabil_title: "2) Consultoria Contábil",
+  consulting_contabil_text:
+    "Oferecemos suporte no controle e gestão de empresas por meio de análises contábeis e implementação de procedimentos de controle interno, assegurando a saúde financeira e operacional dos negócios.",
+  consulting_mercado_title: "3) Consultoria de Mercado",
+  consulting_mercado_text:
+    "Elaboramos análises e estudos de mercado personalizados, fornecendo informações precisas e relevantes para facilitar decisões empresariais mais seguras e assertivas.",
+  consulting_pesquisas_title: "4) Pesquisas de Informações",
+  consulting_pesquisas_text:
+    "Identificamos e analisamos dados estratégicos sobre temas essenciais para o desenvolvimento e expansão de negócios.",
+
+  // VAGAS-IEST PAGE
+  vagas_work_model_in_office: "Presencial",
+  vagas_work_model_hybrid: "Híbrido",
+  vagas_work_model_remote: "Remoto",
+  vagas_contract_clt: "CLT",
+  vagas_contract_pj: "PJ",
+  vagas_contract_temporary: "Temporário",
+  vagas_contract_type_alt: "Tipo de contrato",
+  vagas_work_model_alt: "Modelo de trabalho",
+  vagas_see_job: "Ver vaga →",
+  vagas_empty_title: "Nenhuma vaga encontrada",
+  vagas_empty_subtitle: "Tente ajustar os filtros ou buscar por outros termos",
+  vagas_clear_filters: "Limpar todos os filtros",
+  vagas_talent_bank_text:
+    "Não encontrou a vaga que procurava? Participe do nosso banco de talentos!",
+  vagas_talent_bank_cta: "Participar do banco de talentos",
+  vagas_pagination_prev: "← Anterior",
+  vagas_pagination_next: "Próximo →",
+
+  // WECHAT PAGE
+  wechat_h1: "SIGA A NOSSA CONTA OFICIAL DO WECHAT",
+  wechat_qrcode_alt: "Qrcode para wechat da Iest",
+
   // PRIVACY POLICY PAGE
   privacy_h1: "Política de Privacidade",
+  privacy_s1_title: "I. INTRODUÇÃO E OBJETIVO",
+  privacy_s2_title: "II. TERMOS E DEFINIÇÕES",
+  privacy_s3_title: "III. ABRANGÊNCIA",
+  privacy_s4_title:
+    "IV. PRINCÍPIOS DE PRIVACIDADE E PROTEÇÃO DE DADOS PESSOAIS",
+  privacy_s5_title: "V. DIRETRIZES",
+  privacy_s6_title: "VI. POLÍTICA DE COOKIES",
+  privacy_s7_title: "VII. GESTÃO DE CONSEQUÊNCIAS",
+  privacy_s8_title: "VIII. DIREITOS DOS TITULARES",
+  privacy_s9_title: "IX. RESPONSABILIDADES",
+  privacy_s10_title: "X. DOCUMENTAÇÃO COMPLEMENTAR",
+  privacy_s11_title: "XI. DISPOSIÇÕES GERAIS",
 } as const;
 
 export default pt;
