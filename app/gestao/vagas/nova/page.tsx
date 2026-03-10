@@ -134,7 +134,7 @@ export default function Page() {
           type="text"
           id="name"
           fullWidth
-          {...register("name", { required: REQUIRED_MSG })}
+          {...register("name", { required: REQUIRED_MSG, setValueAs: (v) => v.trim() })}
           error={errors.name?.message}
         />
         <div className="w-full flex justify-between items-start gap-6 mt-4">
@@ -148,7 +148,7 @@ export default function Page() {
                   type="text"
                   id="company"
                   fullWidth
-                  {...register("company", { required: REQUIRED_MSG })}
+                  {...register("company", { required: REQUIRED_MSG, setValueAs: (v) => v.trim() })}
                   error={errors.company?.message}
                 />
                 <TextField
@@ -157,7 +157,7 @@ export default function Page() {
                   type="text"
                   id="area"
                   fullWidth
-                  {...register("area", { required: REQUIRED_MSG })}
+                  {...register("area", { required: REQUIRED_MSG, setValueAs: (v) => v.trim() })}
                   error={errors.area?.message}
                 />
               </div>
@@ -168,7 +168,7 @@ export default function Page() {
                   type="text"
                   id="nivel"
                   fullWidth
-                  {...register("nivel", { required: REQUIRED_MSG })}
+                  {...register("nivel", { required: REQUIRED_MSG, setValueAs: (v) => v.trim() })}
                   error={errors.nivel?.message}
                 />
                 <TextField
@@ -177,7 +177,7 @@ export default function Page() {
                   type="text"
                   id="locality"
                   fullWidth
-                  {...register("locality", { required: REQUIRED_MSG })}
+                  {...register("locality", { required: REQUIRED_MSG, setValueAs: (v) => v.trim() })}
                   error={errors.locality?.message}
                 />
                 <TextField
@@ -186,7 +186,7 @@ export default function Page() {
                   type="text"
                   id="id_job"
                   fullWidth
-                  {...register("id_job", { required: REQUIRED_MSG })}
+                  {...register("id_job", { required: REQUIRED_MSG, setValueAs: (v) => v.trim() })}
                   error={errors.id_job?.message}
                 />
               </div>

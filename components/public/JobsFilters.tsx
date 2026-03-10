@@ -71,7 +71,7 @@ function SelectFilter({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`appearance-none pl-3 pr-8 py-2 text-sm border rounded-lg bg-white outline-none transition-colors cursor-pointer ${
+        className={`appearance-none pl-3 pr-8 py-2 text-sm border rounded-lg bg-white outline-none transition-colors cursor-pointer w-40 truncate ${
           value
             ? "border-primary text-primary font-medium"
             : "border-gray-300 text-gray-600 hover:border-primary"
