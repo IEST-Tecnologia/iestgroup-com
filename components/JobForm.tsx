@@ -17,7 +17,29 @@ const LANGUAGES = [
   "Outros",
 ];
 
-export default function JobForm({ jobName }: { jobName: string }) {
+function ChevronDown() {
+  return (
+    <svg
+      className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+}
+
+export default function JobForm({
+  jobName,
+  cidades,
+  estados,
+}: {
+  jobName: string;
+  cidades: { [key in string]: string[] };
+  estados: { sigla: string; nome: string }[];
+}) {
   const [isPending, setIsPending] = useState(false);
   const [feedback, setFeedback] = useState<{
     success: boolean;
@@ -25,7 +47,13 @@ export default function JobForm({ jobName }: { jobName: string }) {
   } | null>(null);
   const [languagesOpen, setLanguagesOpen] = useState(false);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+  const [selectedEstado, setSelectedEstado] = useState("");
+  const [selectedCidade, setSelectedCidade] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const cidadesFiltradas = selectedEstado
+    ? (cidades[selectedEstado] ?? [])
+    : [];
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -64,6 +92,9 @@ export default function JobForm({ jobName }: { jobName: string }) {
             e.preventDefault();
             setFeedback(null);
             const formData = new FormData(e.currentTarget);
+            const cidade = formData.get("cidade") as string;
+            const estado = formData.get("estado") as string;
+            formData.append("location", `${cidade}, ${estado}`);
             const curriculum = formData.get("curriculum");
             if (
               curriculum instanceof File &&
@@ -98,6 +129,8 @@ export default function JobForm({ jobName }: { jobName: string }) {
                 });
                 (e.target as HTMLFormElement).reset();
                 setSelectedLanguages([]);
+                setSelectedEstado("");
+                setSelectedCidade("");
               }
             } catch {
               setFeedback({
@@ -158,19 +191,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
                   Prefiro não informar
                 </option>
               </select>
-              <svg
-                className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+              <ChevronDown />
             </div>
             <div className="relative w-full md:w-1/2" ref={dropdownRef}>
               {selectedLanguages.map((value) => (
@@ -233,23 +254,63 @@ export default function JobForm({ jobName }: { jobName: string }) {
           </div>
 
           <div className="w-full flex flex-col md:flex-row gap-6">
-            <div className="flex flex-col w-full md:w-1/2 gap-1">
-              <input
-                className="p-4 bg-white text-gray-400"
-                type="text"
-                placeholder="Data de nascimento (dia/mes/ano)"
-                id="birthdate"
-                name="birthdate"
-                required
-              />
-            </div>
             <input
-              className="p-4 bg-white w-full md:w-1/2 text-gray-400"
+              className="p-4 bg-white text-gray-400 w-full md:w-1/2"
               type="text"
-              id="location"
-              name="location"
-              placeholder="Localidade"
+              placeholder="Data de nascimento (dia/mes/ano)"
+              id="birthdate"
+              name="birthdate"
+              required
             />
+            <div className="relative w-full md:w-1/2">
+              <select
+                className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
+                id="estado"
+                name="estado"
+                required
+                value={selectedEstado}
+                onChange={(e) => {
+                  setSelectedEstado(e.target.value);
+                  setSelectedCidade("");
+                }}
+              >
+                <option value="" disabled>
+                  Estado
+                </option>
+                {estados.map((est) => (
+                  <option
+                    key={est.sigla}
+                    value={est.sigla}
+                    className="text-black"
+                  >
+                    {est.nome}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown />
+            </div>
+          </div>
+
+          <div className="relative w-full">
+            <select
+              className="p-4 bg-white w-full appearance-none pr-10 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400"
+              id="cidade"
+              name="cidade"
+              required
+              disabled={!selectedEstado}
+              value={selectedCidade}
+              onChange={(e) => setSelectedCidade(e.target.value)}
+            >
+              <option value="" disabled>
+                {selectedEstado ? "Cidade" : "Selecione um estado primeiro"}
+              </option>
+              {cidadesFiltradas.map((cidade) => (
+                <option key={cidade} value={cidade} className="text-black">
+                  {cidade}
+                </option>
+              ))}
+            </select>
+            <ChevronDown />
           </div>
 
           <div className="w-full flex flex-col md:flex-row items-center gap-6">

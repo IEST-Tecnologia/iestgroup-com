@@ -1,7 +1,11 @@
 import React from "react";
 import BgCarreira from "@/assets/banner-carreira.png";
+import Image from "next/image";
 import { Metadata } from "next";
 import JobForm from "@/components/JobForm";
+import { t } from "@/lib/i18n";
+import { cidades } from "@/assets/cidades";
+import { estados } from "@/assets/estados";
 
 export const metadata: Metadata = {
   title: "Carreira Iest",
@@ -12,111 +16,81 @@ export const metadata: Metadata = {
 export default function page() {
   return (
     <>
-      <section
-        className="bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${BgCarreira.src})` }}
-      >
-        <div className="min-h-100 w-full"></div>
+      <section className="hidden md:block w-full">
+        <Image src={BgCarreira} alt="" className="w-full h-auto" />
       </section>
       <main className="py-8">
         <div className="max-w-7xl mx-auto flex flex-col gap-6 px-4">
           <div className="flex flex-col gap-4">
             <h1 className="text-3xl text-primary font-semibold">
-              Por que trabalhar na IEST?
+              {t("career_h1")}
             </h1>
-            <p className="text-md font-extralight">
-              No Grupo IEST, acreditamos que o sucesso de uma empresa é
-              construído por pessoas talentosas e apaixonadas pelo que fazem.
-              Fundado em São Paulo em 2012, o Grupo IEST se dedica a auxiliar
-              empresas multinacionais a entenderem e navegarem pelas
-              complexidades do mercado brasileiro. Oferecemos uma gama de
-              serviços na área de BPO e Consultorias.
-            </p>
+            <p className="text-md font-extralight">{t("career_p1")}</p>
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-3xl text-primary font-semibold">
-              Sua Carreira acontece aqui
+              {t("career_h2_1")}
             </h2>
-            <p className="text-md font-extralight">
-              No Grupo IEST, sua carreira realmente acontece. Valorizamos o
-              crescimento e o desenvolvimento de nossos colaboradores,
-              proporcionando um ambiente de trabalho dinâmico e desafiador, onde
-              suas habilidades e conhecimentos são constantemente aprimorados.
-              Buscamos perfis que tenham Soft Skills que se alinhem com os
-              nossos valores. São bem vindos profissionais com habilidades de
-              adaptação, flexibilidade e curiosos em aprender uma nova cultura.
-            </p>
+            <p className="text-md font-extralight">{t("career_p2")}</p>
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-3xl text-primary font-semibold">
-              Porque você deveria fazer parte do nosso time?
+              {t("career_h2_2")}
             </h2>
 
             <div className="text-md font-extralight">
               <ul className="list-disc ml-6 md:ml-12">
                 <li className="text-md">
                   <strong className="font-semibold">
-                    Desafios que Inspiram:
+                    {t("career_challenge_title")}
                   </strong>{" "}
-                  Buscamos pessoas que gostam de desafios e estão sempre prontas
-                  para superar obstáculos e encontrar soluções inovadoras.
+                  {t("career_challenge_text")}
                 </li>
                 <li className="text-md">
                   <strong className="font-semibold">
-                    Ambiente Colaborativo:
+                    {t("career_collab_title")}
                   </strong>{" "}
-                  Incentivamos a colaboração e o trabalho em equipe, acreditando
-                  que as melhores soluções surgem da união de talentos diversos.
+                  {t("career_collab_text")}
                 </li>
                 <li className="text-md">
                   <strong className="font-semibold">
-                    Desenvolvimento Contínuo:
+                    {t("career_dev_title")}
                   </strong>{" "}
-                  Investimos no desenvolvimento contínuo dos nossos
-                  colaboradores, oferecendo treinamentos, workshops e
-                  oportunidades de aprendizado que ajudam a expandir suas
-                  habilidades e conhecimentos.
-                </li>
-                <li className="text-md">
-                  <strong className="font-semibold">Impacto Real:</strong>{" "}
-                  Trabalhando conosco, você terá a oportunidade de causar um
-                  impacto real nas operações de empresas multinacionais,
-                  contribuindo para o sucesso de grandes negócios no Brasil.
+                  {t("career_dev_text")}
                 </li>
                 <li className="text-md">
                   <strong className="font-semibold">
-                    Cultura de Inovação:
+                    {t("career_impact_title")}
                   </strong>{" "}
-                  Valorizamos a inovação e incentivamos nossos colaboradores a
-                  pensarem fora da caixa, trazendo novas ideias e abordagens
-                  para os desafios do dia a dia.
+                  {t("career_impact_text")}
+                </li>
+                <li className="text-md">
+                  <strong className="font-semibold">
+                    {t("career_innovation_title")}
+                  </strong>{" "}
+                  {t("career_innovation_text")}
                 </li>
               </ul>
             </div>
           </div>
           <div className="flex flex-col gap-4">
             <h2 className="text-3xl text-primary font-semibold">
-              Junte-se a nós
+              {t("career_h2_3")}
             </h2>
+            <p className="text-md font-extralight">{t("career_p3")}</p>
+            <p className="text-md font-semibold">{t("career_p4")}</p>
             <p className="text-md font-extralight">
-              Se você é uma pessoa que busca desafios, gosta de aprender e
-              crescer continuamente, e deseja fazer parte de uma equipe que
-              valoriza o talento e a dedicação, o Grupo IEST é o lugar certo
-              para você. Venha construir uma carreira de sucesso conosco e faça
-              a diferença no mundo dos negócios.
-            </p>
-            <p className="text-md font-semibold">
-              Envie seu currículo e junte-se ao nosso banco de talentos. Estamos
-              ansiosos para conhecer você!
-            </p>
-            <p className="text-md font-extralight">
-              <strong className="font-semibold">Grupo IEST –</strong>{" "}
-              Transformando desafios em oportunidades, juntos!
+              <strong className="font-semibold">{t("career_p5_1")}</strong>{" "}
+              {t("career_p5_2")}
             </p>
           </div>
         </div>
       </main>
-      <JobForm jobName="Banco de Talentos" />
+      <JobForm
+        jobName="Banco de Talentos"
+        cidades={cidades}
+        estados={estados}
+      />
     </>
   );
 }

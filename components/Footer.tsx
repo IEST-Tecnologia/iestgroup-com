@@ -4,10 +4,9 @@ import { removeConsentCookie } from "@/app/actions/consent";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { t } from "@/lib/i18n";
 
 export default function Footer() {
-  const year = new Date().getFullYear();
-
   const pathname = usePathname();
 
   return (
@@ -19,38 +18,32 @@ export default function Footer() {
               src="/logo-iest-footer.png"
               width={130}
               height={52}
-              alt="Logo da IEST"
+              alt={t("footer_logo_alt")}
             />
-            <p className="text-md ">
-              Desde 2012, o IEST Group auxilia multinacionais a se estabelecerem
-              no Brasil. Somos especialistas no oferecimento de serviços
-              empresais completos para empresas brasileiras e estrangeiras.
-            </p>
+            <p className="text-md ">{t("footer_about")}</p>
             <div className="w-full flex flex-col md:flex-row gap-2">
               <div className="w-full md:w-1/3 flex justify-center items-center">
                 <Image
                   src="/selo-pqec.png"
                   width={150}
                   height={150}
-                  alt="Selo Programa de Qualificação em Excelencia Contínua"
+                  alt={t("footer_seal_alt")}
                 />
               </div>
               <div className="flex flex-col items-start w-full md:w-2/3">
-                <p className=" text-md font-semibold">Certificação PQEC</p>
-                <p className=" text-md font-light">
-                  Programa de Qualificação em Excelencia contínua
-                </p>
+                <p className=" text-md font-semibold">{t("footer_cert_title")}</p>
+                <p className=" text-md font-light">{t("footer_cert_subtitle")}</p>
               </div>
             </div>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
             <h5 className=" text-lg uppercase font-semibold">
-              SOBRE O IEST GROUP
+              {t("footer_section_about")}
             </h5>
             <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link className="hover:text-foreground/80" href="/sobre-nos">
-                  Sobre Nós
+                  {t("footer_link_about")}
                 </Link>
               </li>
               <li>
@@ -58,7 +51,7 @@ export default function Footer() {
                   className="hover:text-foreground/80"
                   href="www.china2brazil.com.br"
                 >
-                  Notícias
+                  {t("footer_link_news")}
                 </Link>
               </li>
               <li>
@@ -66,12 +59,12 @@ export default function Footer() {
                   className="hover:text-foreground/80"
                   href="/carreira-iest"
                 >
-                  Carreira
+                  {t("footer_link_career")}
                 </Link>
               </li>
               <li>
                 <Link className="hover:text-foreground/80" href="/contato">
-                  Entre em contato
+                  {t("footer_link_contact")}
                 </Link>
               </li>
               <li>
@@ -79,20 +72,20 @@ export default function Footer() {
                   className="hover:text-foreground/80"
                   href="/codigo-de-etica"
                 >
-                  Código de ética
+                  {t("footer_link_ethics")}
                 </Link>
               </li>
             </ul>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className=" text-lg uppercase font-semibold">SERVIÇOS</h5>
+            <h5 className=" text-lg uppercase font-semibold">{t("footer_section_services")}</h5>
             <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link
                   className="hover:text-foreground/80"
                   href="/consultoria-profissional"
                 >
-                  Consultoria Profissional
+                  {t("footer_link_consulting")}
                 </Link>
               </li>
               <li>
@@ -100,7 +93,7 @@ export default function Footer() {
                   className="hover:text-foreground/80"
                   href="/bpo-contabil-e-financeiro"
                 >
-                  BPO Contábil e Financeiro
+                  {t("footer_link_bpo")}
                 </Link>
               </li>
               <li>
@@ -108,12 +101,12 @@ export default function Footer() {
                   className="hover:text-foreground/80"
                   href="/recursos-humanos"
                 >
-                  Recursos Humanos
+                  {t("footer_link_rh")}
                 </Link>
               </li>
               <li>
                 <Link className="hover:text-foreground/80" href="/paralegal">
-                  Paralegal
+                  {t("footer_link_paralegal")}
                 </Link>
               </li>
               <li>
@@ -121,7 +114,7 @@ export default function Footer() {
                   className="hover:text-foreground/80"
                   href="/precos-de-transferencia"
                 >
-                  Transferência
+                  {t("footer_link_transfer")}
                 </Link>
               </li>
               <li>
@@ -129,20 +122,20 @@ export default function Footer() {
                   className="hover:text-foreground/80"
                   href="/servico-digital-e-marketing"
                 >
-                  Digitais
+                  {t("footer_link_digital")}
                 </Link>
               </li>
             </ul>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className=" text-lg uppercase font-semibold">LGPD</h5>
+            <h5 className=" text-lg uppercase font-semibold">{t("footer_section_lgpd")}</h5>
             <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link
                   className="hover:text-foreground/80"
                   href="/politica-de-privacidade"
                 >
-                  Política de Privacidade
+                  {t("footer_link_privacy")}
                 </Link>
               </li>
               <li>
@@ -155,7 +148,7 @@ export default function Footer() {
                     await removeConsentCookie(pathname);
                   }}
                 >
-                  Gerenciar cookies
+                  {t("footer_manage_cookies")}
                 </p>
               </li>
             </ul>
@@ -164,9 +157,7 @@ export default function Footer() {
         <div className="w-full  bg-gray-300 h-0.5 my-5"></div>
         <div className="w-full flex flex-col md:flex-row items-center justify-between px-4">
           <div>
-            <p className="text-sm ">
-              Grupo IEST - {year} © All Rights Reserved.
-            </p>
+            <p className="text-sm ">{t("footer_copyright")}</p>
           </div>
           <div className="hidden md:flex flex-row gap-6">
             <Link href="https://www.linkedin.com/company/">
@@ -174,7 +165,7 @@ export default function Footer() {
                 src="/linkedin.svg"
                 width={24}
                 height={24}
-                alt="Logo Linkedin"
+                alt={t("footer_linkedin_alt")}
               />
             </Link>
             <Link href="https://www.facebook.com/IESTGROUP/?locale=pt_BR">
@@ -182,7 +173,7 @@ export default function Footer() {
                 src="/facebook.svg"
                 width={24}
                 height={24}
-                alt="Logo Linkedin"
+                alt={t("footer_facebook_alt")}
               />
             </Link>
             <Link href="https://www.instagram.com/iestgroup/">
@@ -190,7 +181,7 @@ export default function Footer() {
                 src="/instagram.svg"
                 width={24}
                 height={24}
-                alt="Logo Linkedin"
+                alt={t("footer_instagram_alt")}
               />
             </Link>
           </div>
@@ -202,7 +193,7 @@ export default function Footer() {
               src="/linkedin.svg"
               width={24}
               height={24}
-              alt="Logo Linkedin"
+              alt={t("footer_linkedin_alt")}
             />
           </Link>
           <Link href="https://www.facebook.com/IESTGROUP/?locale=pt_BR">
@@ -210,7 +201,7 @@ export default function Footer() {
               src="/facebook.svg"
               width={24}
               height={24}
-              alt="Logo Facebook"
+              alt={t("footer_facebook_alt")}
             />
           </Link>
           <Link href="https://www.instagram.com/iestgroup/">
@@ -218,7 +209,7 @@ export default function Footer() {
               src="/instagram.svg"
               width={24}
               height={24}
-              alt="Logo Instagram"
+              alt={t("footer_instagram_alt")}
             />
           </Link>
         </div>

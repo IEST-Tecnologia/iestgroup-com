@@ -11,6 +11,7 @@ import type { Job } from "@/lib/admin/types";
 import Link from "next/link";
 import LeftArrow from "@/components/icons/LeftArrow";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Toast from "@/components/Toast";
 
 const WORK_MODEL_OPTIONS = [
@@ -79,6 +80,7 @@ function getErrorMsg(error: unknown): string | undefined {
 }
 
 export default function JobEditForm({ job }: { job: Job }) {
+  const router = useRouter();
   const [showToast, setShowToast] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -148,9 +150,12 @@ export default function JobEditForm({ job }: { job: Job }) {
     formData.append("benefits", JSON.stringify(data.benefits));
 
     try {
-      await updateJob(job.id, formData);
+      const updated = await updateJob(job.id, formData);
       setShowToast(true);
       setSuccess(true);
+      if (updated.slug !== job.slug) {
+        router.replace(`/gestao/vagas/${updated.slug}`);
+      }
     } catch (e) {
       setShowToast(true);
       setSuccess(false);

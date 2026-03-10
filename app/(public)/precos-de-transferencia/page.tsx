@@ -6,6 +6,7 @@ import BgPrecos from "@/assets/servicos/bg-precos.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
 import Contacts from "@/components/Contacts";
+import { t } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Preços de Transferência",
@@ -19,44 +20,30 @@ export default function page() {
       <PageHeroSection
         backgroundBannerImage={BgPrecos}
         secondBannerImage={BannerPrecos}
-        secondBannerAlt="Um banner com uma mãpo entendendo um cartão e outra estendendo uma sacola"
+        secondBannerAlt={t("precos_banner_alt")}
         service={true}
         shadowbg={true}
       >
         <h1 className="w-full text-primary text-3xl font-bold text-center md:text-left uppercase mb-5">
-          Preços de Transferência
+          {t("precos_h1")}
         </h1>
         <h2 className="text-black text-xl md:text-2xl text-center md:text-left font-semibold mb-10">
-          Com uma equipe de profissionais provenientes das renomadas Big Four e
-          vasta experiência em Preços de Tranferência (ou Transfer Pricing), o
-          IEST Group está preparado para garantir que sua empresa opere com
-          segurança e conformidade, evitando problemas tributários.
+          {t("precos_h2")}
         </h2>
         <div className="text-lg font-base mb-8 text-justify md:text:left md:columns-2 md:gap-12.5 [&>p]:mb-6">
-          <p>
-            Atendemos às demandas de clientes que realizam transações com partes
-            vinculadas no exterior ou com terceiros localizados em países de
-            tributação favorecida (paraísos fiscais) ou sob regimes fiscais
-            privilegiados,
-          </p>
-          <p>
-            assegurando total conformidade com as regras de Preços de
-            Transferência. Nossa expertise garante análises precisas e soluções
-            eficazes para suas necessidades internacionais.
-          </p>
+          <p>{t("precos_p1")}</p>
         </div>
         <div className="max-w-164 z-20 bg-primary py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
           <div>
             <p className="text-xl font-semibold text-white">
-              A nossa assessoria garante a aplicação da metodologia adequada
-              para prevenir os ajustes fiscais.
+              {t("precos_services_intro")}
             </p>
           </div>
           <div className="text-6xl">
             <Image
               className="w-16 md:w-36"
               src={ArrowDown}
-              alt="ícone de uma seta apontando para baixo"
+              alt={t("precos_arrow_alt")}
             />
           </div>
         </div>
@@ -65,18 +52,17 @@ export default function page() {
         <div className="max-w-277.75 mx-auto">
           <div className="flex justify-center">
             <h3 className="w-full md:w-3/5 text-primary font-bold text-xl md:text-3xl text-center">
-              As seguintes transações estão sujeitas às regras de preços de
-              transferência:
+              {t("precos_subject_title")}
             </h3>
           </div>
           <div className="flex flex-col md:flex-row mt-8">
             <FlipCard
-              frontText="Importação de bens, direitos ou serviços"
-              backText="Exportação de bens, direitos ou serviços"
+              frontText={t("precos_flip1_front")}
+              backText={t("precos_flip1_back")}
             />
             <FlipCard
-              frontText="Receitas financeiras de juros decorrentes de contrato mútuo"
-              backText="Despesas financeiras de juros decorrentes de contrato mútuo"
+              frontText={t("precos_flip2_front")}
+              backText={t("precos_flip2_back")}
             />
           </div>
         </div>
@@ -84,66 +70,56 @@ export default function page() {
       <div className="flex flex-col gap-10 my-10">
         <div className="max-w-7xl mx-auto">
           <h3 className="text-primary font-medium text-xl md:text-3xl text-center px-2">
-            Segue abaixo demonstrativo de todos os serviços que nós prestamos
-            dentro da nossa Consultoria de Preços de Transferência:
+            {t("precos_list_intro")}
           </h3>
         </div>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-lg md:text-2xl font-semibold mb-4 ">
-              01) Elaboração dos cálculos de preços de transferência
+              {t("precos_calculo_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Desenvolvemos cálculos detalhados, assegurando precisão e
-              conformidade com as regulamentações vigentes.
+              {t("precos_calculo_text")}
             </p>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-lg md:text-2xl font-semibold mb-4 ">
-              2) Revisão das Metodologias Aplicadas
+              {t("precos_revisao_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Analisamos as metodologias empregadas nos cálculos de preços de
-              transferência, garantindo aderência às normas e otimização dos
-              processos.
+              {t("precos_revisao_text")}
             </p>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-lg md:text-2xl font-semibold mb-4 ">
-              3) Planejamento e Monitoramento
+              {t("precos_planejamento_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Oferecemos planejamento estratégico e monitoramento contínuo dos
-              cálculos de preços de transferência, com o objetivo de estimar e
-              prevenir ajustes fiscais indesejados.
+              {t("precos_planejamento_text")}
             </p>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-lg md:text-2xl font-semibold mb-4 ">
-              4) Treinamentos e Palestras
+              {t("precos_treinamentos_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Realizamos capacitações e palestras personalizadas sobre o tema,
-              promovendo o entendimento técnico e estratégico para equipes e
-              gestores.
+              {t("precos_treinamentos_text")}
             </p>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-lg md:text-2xl font-semibold mb-4 ">
-              5) Atendimento à Fiscalização
+              {t("precos_fiscalizacao_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Prestamos suporte completo durante auditorias e fiscalizações,
-              assegurando que as demandas dos órgãos reguladores sejam atendidas
-              com eficiência e transparência.
+              {t("precos_fiscalizacao_text")}
             </p>
           </div>
         </section>

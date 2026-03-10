@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { AddressIcon } from "@/components/icons";
 import Button from "./Button";
 import Toast from "@/components/Toast";
+import { t } from "@/lib/i18n";
 
 type Feedback = { success: boolean; message: string } | null;
 
@@ -21,7 +22,7 @@ export default function Contacts() {
           <div className="flex gap-5 items-center">
             <AddressIcon className="fill-white h-8.75 w-auto" />
             <h2 className="font-bold uppercase leading text-2xl md:text-[28px] lg:text-[32px]">
-              Endereço
+              {t("contacts_address_title")}
             </h2>
           </div>
           <p className="text-base md:text-lg lg:text-[19px] font-semibold">
@@ -30,15 +31,14 @@ export default function Contacts() {
             São Paulo/SP
           </p>
           <p className="text-base md:text-lg lg:text-[18px]">
-            Em caso de dúvida entre em contato através do e-mail{" "}
-            <strong className="font-bold">br@iestgroup.com </strong> ou pelo
-            telefone <strong className="font-bold">+55 11 2309-5904 </strong>
+            {t("contacts_contact_info")}{" "}
+            <strong className="font-bold">br@iestgroup.com </strong>{" "}
+            {t("contacts_or_phone")}{" "}
+            <strong className="font-bold">+55 11 2309-5904 </strong>
           </p>
         </div>
         <div className="w-full lg:w-3/5 text-base md:text-lg lg:text-[18px] p-2.5">
-          <div className="mb-5">
-            Preencha seus dados abaixo e esclareça suas dúvidas:
-          </div>
+          <div className="mb-5">{t("contacts_form_intro")}</div>
           <form
             ref={formRef}
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
@@ -66,20 +66,19 @@ export default function Contacts() {
                 if (!res.ok) {
                   setFeedback({
                     success: false,
-                    message:
-                      json.error ?? "Erro ao enviar mensagem. Tente novamente.",
+                    message: json.error ?? t("contact_error"),
                   });
                 } else {
                   setFeedback({
                     success: true,
-                    message: "Mensagem enviada com sucesso!",
+                    message: t("contact_success"),
                   });
                   formRef.current?.reset();
                 }
               } catch {
                 setFeedback({
                   success: false,
-                  message: "Erro ao conectar com o servidor. Tente novamente.",
+                  message: t("contacts_connect_error"),
                 });
               } finally {
                 setIsPending(false);
@@ -88,41 +87,41 @@ export default function Contacts() {
           >
             <input
               className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
-              placeholder="Nome"
+              placeholder={t("contacts_name")}
               name="first_name"
               required
             />
             <input
               className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
-              placeholder="Sobrenome"
+              placeholder={t("contacts_lastname")}
               name="last_name"
               required
             />
             <input
               className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
-              placeholder="E-mail"
+              placeholder={t("contacts_email")}
               name="email"
               required
             />
             <input
               className="col-span-2 md:col-span-1 px-5 py-2 border border-white"
-              placeholder="Telefone"
+              placeholder={t("contacts_phone")}
               name="phone"
               required
             />
             <textarea
               className="px-5 py-2 col-span-2 border border-white"
-              placeholder="Mensagem"
+              placeholder={t("contacts_message")}
               name="message"
               rows={4}
             />
             <label className="col-span-2">
               <input className="mr-1" type="checkbox" required />
-              Você concorda com nossa politica de privacidade.
+              {t("contact_form_privacy_agree")}
             </label>
             <div>
               <Button variant="inverted" disabled={isPending}>
-                {isPending ? "Enviando..." : "Enviar"}
+                {isPending ? t("contacts_sending") : t("contacts_send")}
               </Button>
             </div>
           </form>

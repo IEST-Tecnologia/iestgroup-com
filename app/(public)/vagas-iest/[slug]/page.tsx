@@ -17,7 +17,8 @@ import {
 } from "@/lib/mocks/jobs";
 import { getJobBySlug } from "@/lib/public/actions";
 import { redirect } from "next/navigation";
-
+import { cidades } from "@/assets/cidades";
+import { estados } from "@/assets/estados";
 export default async function page({
   params,
 }: {
@@ -26,7 +27,6 @@ export default async function page({
   const { slug } = await params;
   const job = await getJobBySlug(slug);
   if (!job) redirect("/vagas-iest");
-
   return (
     <>
       <section
@@ -39,7 +39,7 @@ export default async function page({
           </h1>
         </div>
       </section>
-      <main className="py-8">
+      <main className="py-8 px-4">
         <div className="max-w-262.5 mx-auto">
           <div className="flex flex-col gap-4 pb-8">
             <h2 className="text-2xl font-semibold">Informações gerais</h2>
@@ -155,7 +155,7 @@ export default async function page({
         </div>
       </main>
       <section>
-        <JobForm jobName={job.name} />
+        <JobForm jobName={job.name} cidades={cidades} estados={estados} />
       </section>
     </>
   );

@@ -1,46 +1,21 @@
-import Link from "next/link";
-import Form from "next/form";
 import { redirect } from "next/navigation";
-
-import Button from "@/components/Button";
-import { Input } from "@/components/Input";
-import { ImageEditor } from "@/components/BannerImageEditor";
+import { revalidatePath } from "next/cache";
 
 import { createBanner } from "@/lib/admin/store";
 import AdminModal from "@/components/admin/AdminModal";
-import { revalidatePath } from "next/cache";
+import BannerCreateForm from "@/components/admin/BannerCreateForm";
 
 export default async function page() {
+  async function action(formData: FormData) {
+    "use server";
+    await createBanner(formData);
+    revalidatePath("/gestao/banners");
+    redirect("/gestao/banners");
+  }
+
   return (
     <AdminModal title="Adicionar Banner" size="lg">
-      <Form
-        action={async (formData) => {
-          "use server";
-          await createBanner(formData);
-          revalidatePath("/gestao/banners");
-          redirect("/gestao/banners");
-        }}
-        className="space-y-4 p-5"
-      >
-        <Input
-          type="url"
-          label="URL de destino"
-          required
-          placeholder="https://example.com"
-          name="url"
-        />
-
-        <ImageEditor label="Imagem desktop" required name="image" aspect={512 / 171} />
-        <ImageEditor label="Imagem mobile" required name="mobile_image" aspect={768 / 853} />
-        <div className="flex justify-end gap-3 pt-2">
-          <Link href="/gestao/banners">
-            <Button type="button" variant="destructive">
-              Cancelar
-            </Button>
-          </Link>
-          <Button type="submit">Salvar</Button>
-        </div>
-      </Form>
+      <BannerCreateForm action={action} />
     </AdminModal>
   );
 }
