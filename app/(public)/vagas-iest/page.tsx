@@ -197,7 +197,11 @@ export default async function page({ searchParams }: PageProps) {
               <div className="h-36 animate-pulse bg-gray-100 rounded-xl mb-8" />
             }
           >
-            <JobsFilters filterOptions={filterOptions} totalJobs={total} />
+            <JobsFilters
+              filterOptions={filterOptions}
+              totalJobs={total}
+              type={type}
+            />
           </Suspense>
 
           {jobs.length === 0 ? (
@@ -222,7 +226,7 @@ export default async function page({ searchParams }: PageProps) {
                 Tente ajustar os filtros ou buscar por outros termos
               </p>
               <Link
-                href="/vagas-iest"
+                href={`/vagas-iest?type=${type}`}
                 className="mt-4 text-sm text-primary hover:underline font-medium"
               >
                 Limpar todos os filtros

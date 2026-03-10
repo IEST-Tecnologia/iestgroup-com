@@ -12,6 +12,7 @@ export interface JobFilterOptions {
 interface JobsFiltersProps {
   filterOptions: JobFilterOptions;
   totalJobs: number;
+  type: string | undefined;
 }
 
 const WORK_MODEL_OPTIONS = [
@@ -100,7 +101,11 @@ function SelectFilter({
   );
 }
 
-export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersProps) {
+export default function JobsFilters({
+  filterOptions,
+  totalJobs,
+  type,
+}: JobsFiltersProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -165,7 +170,7 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
 
   const clearAll = () => {
     setSearchValue("");
-    router.push("/vagas-iest", { scroll: false });
+    router.push(`/vagas-iest?type=${type ?? "external"}`, { scroll: false });
   };
 
   return (
@@ -225,7 +230,9 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
               key={opt.value}
               label={opt.label}
               active={currentWorkModel === opt.value}
-              onClick={() => toggleChip("work_model", opt.value, currentWorkModel)}
+              onClick={() =>
+                toggleChip("work_model", opt.value, currentWorkModel)
+              }
             />
           ))}
         </div>
@@ -238,7 +245,9 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
               key={opt.value}
               label={opt.label}
               active={currentContractType === opt.value}
-              onClick={() => toggleChip("contract_type", opt.value, currentContractType)}
+              onClick={() =>
+                toggleChip("contract_type", opt.value, currentContractType)
+              }
             />
           ))}
         </div>
@@ -251,7 +260,9 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
               key={opt.value}
               label={opt.label}
               active={currentWorkSchedule === opt.value}
-              onClick={() => toggleChip("work_schedule", opt.value, currentWorkSchedule)}
+              onClick={() =>
+                toggleChip("work_schedule", opt.value, currentWorkSchedule)
+              }
             />
           ))}
         </div>
@@ -272,7 +283,10 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
             label="Empresa"
             value={currentCompany}
             onChange={(v) => navigate({ company: v })}
-            options={filterOptions.companies.map((c) => ({ label: c, value: c }))}
+            options={filterOptions.companies.map((c) => ({
+              label: c,
+              value: c,
+            }))}
           />
         )}
         {filterOptions.nivels.length > 0 && (
@@ -310,7 +324,8 @@ export default function JobsFilters({ filterOptions, totalJobs }: JobsFiltersPro
         )}
 
         <span className="ml-auto text-sm text-gray-500">
-          {totalJobs} {totalJobs === 1 ? "vaga encontrada" : "vagas encontradas"}
+          {totalJobs}{" "}
+          {totalJobs === 1 ? "vaga encontrada" : "vagas encontradas"}
         </span>
       </div>
     </div>
