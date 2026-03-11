@@ -17,7 +17,13 @@ const LANGUAGES = [
   "Outros",
 ];
 
-export default function JobForm({ jobName }: { jobName: string }) {
+export default function JobForm({
+  jobName,
+  disabled,
+}: {
+  jobName: string;
+  disabled: boolean;
+}) {
   const [isPending, setIsPending] = useState(false);
   const [feedback, setFeedback] = useState<{
     success: boolean;
@@ -59,6 +65,31 @@ export default function JobForm({ jobName }: { jobName: string }) {
         <h3 className="text-xl md:text-3xl text-white font-semibold text-center mb-6">
           Quero registrar meu currículo
         </h3>
+        {disabled && (
+          <div className="w-full max-w-full md:max-w-[50vw] mb-4 flex items-center gap-3 bg-white/10 border border-white/30 rounded px-4 py-3 text-white text-sm">
+            <svg
+              className="w-5 h-5 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+              />
+            </svg>
+            <div>
+              Esta vaga está finalizada e não está aceitando novas candidaturas.
+              Mas, você pode se inscrever no nosso{" "}
+              <Link className="underline" href="/carreira-iest">
+                banco de talentos
+              </Link>
+              .
+            </div>
+          </div>
+        )}
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -108,7 +139,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
               setIsPending(false);
             }
           }}
-          className="w-full max-w-full md:max-w-[50vw] md:w-[50vw] flex flex-wrap flex-col md:flex-row gap-6"
+          className={`w-full max-w-full md:max-w-[50vw] md:w-[50vw] flex flex-wrap flex-col md:flex-row gap-6 ${disabled ? "opacity-50 pointer-events-none select-none" : ""}`}
         >
           <input
             className="p-4 bg-white w-full"
@@ -116,6 +147,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
             id="name"
             name="name"
             placeholder="Nome"
+            disabled={disabled}
             required
           />
           <div className="w-full flex flex-col md:flex-row gap-6">
@@ -125,6 +157,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
               id="email"
               name="email"
               placeholder="E-mail"
+              disabled={disabled}
               required
             />
             <input
@@ -133,17 +166,19 @@ export default function JobForm({ jobName }: { jobName: string }) {
               id="phone"
               name="phone"
               placeholder="Telefone"
+              disabled={disabled}
               required
             />
           </div>
           <div className="w-full flex flex-col md:flex-row gap-6">
             <div className="relative w-full md:w-1/2">
               <select
-                className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
+                className="p-4 bg-white w-full appearance-none invalid:text-gray-400 pr-10 select-none"
                 id="gender"
                 name="gender"
-                required
                 defaultValue=""
+                disabled={disabled}
+                required
               >
                 <option value="" disabled>
                   Como você se identifica?
@@ -179,6 +214,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
                   type="hidden"
                   name="languages"
                   value={value}
+                  disabled={disabled}
                 />
               ))}
               <button
@@ -240,6 +276,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
                 placeholder="Perfil no Linkedin (opcional)"
                 id="linkedin"
                 name="linkedin"
+                disabled={disabled}
               />
             </div>
             <input
@@ -248,6 +285,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
               id="location"
               name="location"
               placeholder="Localidade"
+              disabled={disabled}
             />
           </div>
 
@@ -261,6 +299,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
                 type="file"
                 accept=".jpg, .jpeg, .png, .pdf, .docx"
                 name="curriculum"
+                disabled={disabled}
                 required
               />
             </div>
@@ -271,6 +310,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
               type="checkbox"
               id="terms"
               name="terms"
+              disabled={disabled}
               required
             />
             <label htmlFor="terms">
@@ -295,7 +335,7 @@ export default function JobForm({ jobName }: { jobName: string }) {
               type="submit"
               variant="inverted"
               className="w-full"
-              disabled={isPending}
+              disabled={isPending || disabled}
             >
               {isPending ? "Enviando..." : "Enviar"}
             </Button>

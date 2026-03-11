@@ -35,7 +35,7 @@ export default async function page({
       >
         <div className="min-h-65 max-w-7xl mx-auto flex items-center"></div>
       </section>
-      <main className="py-8">
+      <main className="py-8 px-4">
         <div className="max-w-262.5 mx-auto">
           <div className="flex flex-col gap-4 pb-8">
             <h1 className="text-3xl font-bold uppercase text-center">
@@ -154,7 +154,7 @@ export default async function page({
         </div>
       </main>
       <section>
-        <JobForm jobName={job.name} />
+        <JobForm jobName={job.name} disabled={job.status === "closed"} />
       </section>
     </>
   );
