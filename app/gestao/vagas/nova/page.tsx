@@ -1,12 +1,15 @@
 "use client";
 
 import { useForm, Controller } from "react-hook-form";
+
+import { useRouter } from "next/navigation";
 import { JSONContent } from "@tiptap/react";
 import RadioGroup from "@/components/RadioGroup";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
 import RichText from "@/components/Tiptap";
 import { createJob } from "@/lib/admin/actions";
+import { useToast } from "@/components/ToastProvider";
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },
@@ -82,6 +85,9 @@ export default function Page() {
     formState: { errors, isSubmitting },
   } = useForm<JobFormValues>();
 
+  const router = useRouter();
+  const { showToast } = useToast();
+
   const onSubmit = async (data: JobFormValues) => {
     const formData = new FormData();
     formData.append("name", data.name);
@@ -121,7 +127,15 @@ export default function Page() {
     formData.append("differences", JSON.stringify(data.differences));
     formData.append("benefits", JSON.stringify(data.benefits));
 
-    await createJob(formData);
+    try {
+      const job = await createJob(formData);
+      showToast("Vaga criada com sucesso!", "success");
+      router.push(`/gestao/vagas/${job.slug}`);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Erro ao criar vaga";
+      showToast(message, "error");
+    }
   };
 
   return (
@@ -395,6 +409,7 @@ export default function Page() {
           </div>
         </div>
       </form>
+
     </div>
   );
 }

@@ -9,19 +9,20 @@ import { formatRelativeDate } from "@/lib/utils";
 import JobsFilters from "@/components/public/JobsFilters";
 import type { Job } from "@/lib/admin/types";
 import { Metadata } from "next";
+import { t } from "@/lib/i18n";
 
 const PAGE_SIZE = 20;
 
 const WORK_MODEL_LABELS: Record<string, string> = {
-  in_office: "Presencial",
-  hybrid: "Híbrido",
-  remote: "Remoto",
+  in_office: t("vagas_work_model_in_office"),
+  hybrid: t("vagas_work_model_hybrid"),
+  remote: t("vagas_work_model_remote"),
 };
 
 const CONTRACT_TYPE_LABELS: Record<string, string> = {
-  clt: "CLT",
-  pj: "PJ",
-  temporary: "Temporário",
+  clt: t("vagas_contract_clt"),
+  pj: t("vagas_contract_pj"),
+  temporary: t("vagas_contract_temporary"),
 };
 
 export const metadata: Metadata = {
@@ -58,7 +59,7 @@ function JobCard({ job }: { job: Job }) {
             <Image
               className="w-4 h-4"
               src={IconBriefcase}
-              alt="Tipo de contrato"
+              alt={t("vagas_contract_type_alt")}
             />
             <p className="text-sm">
               {CONTRACT_TYPE_LABELS[job.contract_type] ?? job.contract_type}
@@ -69,7 +70,7 @@ function JobCard({ job }: { job: Job }) {
             <Image
               className="w-4 h-4"
               src={IconUserLocation}
-              alt="Modelo de trabalho"
+              alt={t("vagas_work_model_alt")}
             />
             <p className="text-sm">
               {WORK_MODEL_LABELS[job.work_model] ?? job.work_model}
@@ -91,7 +92,7 @@ function JobCard({ job }: { job: Job }) {
           {formatRelativeDate(job.created_at)}
         </p>
         <span className="text-xs font-medium text-primary">
-          {job.status === "closed" ? "Finalizada" : "Ver vaga →"}
+          {job.status === "closed" ? "Finalizada" : t("vagas_see_job")}
         </span>
       </div>
     </Link>
@@ -111,7 +112,9 @@ function Pagination({
 
   return (
     <div className="flex items-center justify-center gap-2 mt-10">
-      {page > 1 && <PaginationLink page={page - 1} label="← Anterior" />}
+      {page > 1 && (
+        <PaginationLink page={page - 1} label={t("vagas_pagination_prev")} />
+      )}
       {pages.map((p) => (
         <PaginationLink
           key={p}
@@ -121,7 +124,7 @@ function Pagination({
         />
       ))}
       {page < totalPages && (
-        <PaginationLink page={page + 1} label="Próximo →" />
+        <PaginationLink page={page + 1} label={t("vagas_pagination_next")} />
       )}
     </div>
   );
@@ -220,16 +223,16 @@ export default async function page({ searchParams }: PageProps) {
                 />
               </svg>
               <p className="text-lg font-medium text-gray-400">
-                Nenhuma vaga encontrada
+                {t("vagas_empty_title")}
               </p>
               <p className="text-sm text-gray-400 mt-1">
-                Tente ajustar os filtros ou buscar por outros termos
+                {t("vagas_empty_subtitle")}
               </p>
               <Link
                 href={`/vagas-iest?type=${type}`}
                 className="mt-4 text-sm text-primary hover:underline font-medium"
               >
-                Limpar todos os filtros
+                {t("vagas_clear_filters")}
               </Link>
             </div>
           ) : (
@@ -247,14 +250,13 @@ export default async function page({ searchParams }: PageProps) {
       <section className="max-w-7xl mx-auto py-6 px-4">
         <div className="w-full flex flex-col items-center gap-4">
           <p className="text-lg font-extralight text-center">
-            Não encontrou a vaga que procurava? Participe do nosso banco de
-            talentos!
+            {t("vagas_talent_bank_text")}
           </p>
           <Link
             className="bg-primary py-2 px-6 rounded-md text-white font-semibold hover:bg-primary/90"
             href="/carreira-iest"
           >
-            Participar do banco de talentos
+            {t("vagas_talent_bank_cta")}
           </Link>
         </div>
       </section>

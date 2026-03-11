@@ -5,6 +5,7 @@ import BgRh from "@/assets/servicos/bg-rh.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
 import Contacts from "@/components/Contacts";
+import { t } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Recursos Humanos",
@@ -18,37 +19,30 @@ export default function page() {
       <PageHeroSection
         backgroundBannerImage={BgRh}
         secondBannerImage={BannerRh}
-        secondBannerAlt="Cumprimento"
+        secondBannerAlt={t("rh_banner_alt")}
         service={true}
         shadowbg={true}
       >
         <h1 className="w-full text-primary text-3xl font-bold text-center md:text-left uppercase mb-5">
-          Recursos Humanos
+          {t("rh_h1")}
         </h1>
         <h2 className="text-black text-xl md:text-2xl text-center md:text-left font-semibold mb-10">
-          Se sua empresa busca crescer no Brasil ou na China com uma equipe de
-          mão de obra especializada, o IEST Group tem a solução!
+          {t("rh_h2")}
         </h2>
         <div className="text-lg font-base mb-8 text-justify md:text:left">
-          <p>
-            Contamos com uma equipe altamente qualificada em Gestão de Recursos
-            Humanos, preparada para oferecer serviços de excelência e atender às
-            necessidades específicas de nossos parceiros. Estamos prontos para
-            ajudar sua empresa a alcançar seus objetivos com eficiência e
-            qualidade.
-          </p>
+          <p>{t("rh_p1")}</p>
         </div>
         <div className="max-w-164 z-20 bg-primary py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
           <div>
             <p className="text-xl font-semibold text-white">
-              Segue abaixo o demonstrativo dos nossos serviços de RH:
+              {t("rh_services_intro")}
             </p>
           </div>
           <div className="text-6xl">
             <Image
               className="w-16 md:w-36"
               src={ArrowDown}
-              alt="ícone de uma seta apontando para baixo"
+              alt={t("rh_arrow_alt")}
             />
           </div>
         </div>
@@ -57,48 +51,28 @@ export default function page() {
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              1) Recrutamento
+              {t("rh_recrutamento_title")}
             </h2>
             <div className="flex flex-col gap-6">
-              <p className="text-sm md:text-md font-light">
-                Auxiliamos empresas chinesas a encontrar colaboradores que
-                atendam aos perfis desejados, através de plataformas para busca
-                de profissionais bilíngues Português-Mandarim. Além disso,
-                contamos com a parceria de empresas especializadas em
-                headhunting, que nos apoiam na busca por profissionais.
-              </p>
-              <p className="text-sm md:text-md font-light">
-                Desde de 2016, organizamos a Feira de Recrutamento de Empresas
-                Chinesas. Em todas as edições o evento contou com a participação
-                de diversas multinacionais chinesas, incluindo empresas
-                renomadas como Three Gorges, State Grid, Huawei, ZTE, CNOOC,
-                XCMG, Nuctech, BYD, 99, entre outras.
-              </p>
-              <p className="text-sm md:text-md font-light">
-                Esses eventos demonstram a eficácia do IEST Group na área de
-                recrutamento, fortalecendo nossa capacidade de auxiliar no
-                recrutamento de profissionais altamente qualificados.
-              </p>
+              <p className="text-sm md:text-md font-light">{t("rh_recrutamento_p1")}</p>
+              <p className="text-sm md:text-md font-light">{t("rh_recrutamento_p2")}</p>
+              <p className="text-sm md:text-md font-light">{t("rh_recrutamento_p3")}</p>
             </div>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              2) Global Mobility Services
+              {t("rh_global_title")}
             </h2>
             <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
-                <strong className="font-bold">Emissão de Vistos:</strong>{" "}
-                Suporte completo para a obtenção de vistos, incluindo categorias
-                como administrador, trabalho, técnico, entre outros, garantindo
-                conformidade com as regulamentações locais.
+                <strong className="font-bold">{t("rh_global_vistos_title")}</strong>{" "}
+                {t("rh_global_vistos_text")}
               </li>
               <li>
-                <strong className="font-bold">Assessoria Tributária:</strong>{" "}
-                Auxílio na elaboração de declarações de imposto de renda para
-                pessoas físicas expatriadas, assegurando precisão e conformidade
-                tributária.
+                <strong className="font-bold">{t("rh_global_tributaria_title")}</strong>{" "}
+                {t("rh_global_tributaria_text")}
               </li>
             </ul>
           </div>
@@ -106,30 +80,20 @@ export default function page() {
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              3) Consultoria Trabalhista
+              {t("rh_consultoria_title")}
             </h2>
             <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
-                <strong className="font-bold">
-                  Elaboração e Revisão de Contratos:
-                </strong>{" "}
-                Desenvolvimento e análise de contratos trabalhistas, garantindo
-                alinhamento com as legislações vigentes.
+                <strong className="font-bold">{t("rh_consultoria_contratos_title")}</strong>{" "}
+                {t("rh_consultoria_contratos_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Elaboração e Revisão de Normas Internas:
-                </strong>
-                Criação e atualização de políticas internas para promover
-                conformidade e organização no ambiente corporativo.
+                <strong className="font-bold">{t("rh_consultoria_normas_title")}</strong>
+                {t("rh_consultoria_normas_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Gestão de Programas de PLR:
-                </strong>
-                Elaboração de contratos para Programas de Participação nos
-                Lucros e Resultados (PLR), além de acompanhamento junto ao
-                sindicato da categoria para assegurar validação e conformidade.
+                <strong className="font-bold">{t("rh_consultoria_plr_title")}</strong>
+                {t("rh_consultoria_plr_text")}
               </li>
             </ul>
           </div>
@@ -137,40 +101,26 @@ export default function page() {
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              4) Terceirização.
+              {t("rh_terceirizacao_title")}
             </h2>
             <p className="text-sm md:text-md font-light mb-8">
-              Com a reforma da legislação trabalhista no Brasil, que permitiu a
-              terceirização de atividades-fim, passamos a oferecer serviços
-              especializados de terceirização de Recursos Humanos (RH). Essa
-              solução se tornou uma alternativa viável para empresas que ainda
-              não possuem uma subsidiária no país.
+              {t("rh_terceirizacao_p1")}
             </p>
             <p className="text-sm md:text-md font-light">
-              Entre os serviços que disponibilizamos estão:
+              {t("rh_terceirizacao_p2")}
             </p>
             <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
-                <strong className="font-bold">
-                  Elaboração e Revisão de Contratos:
-                </strong>{" "}
-                Desenvolvimento e análise de contratos trabalhistas, garantindo
-                alinhamento com as legislações vigentes.
+                <strong className="font-bold">{t("rh_terceirizacao_contratos_title")}</strong>{" "}
+                {t("rh_terceirizacao_contratos_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Elaboração e Revisão de Normas Internas:
-                </strong>
-                Criação e atualização de políticas internas para promover
-                conformidade e organização no ambiente corporativo.
+                <strong className="font-bold">{t("rh_terceirizacao_normas_title")}</strong>
+                {t("rh_terceirizacao_normas_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Gestão de Programas de PLR:
-                </strong>
-                Elaboração de contratos para Programas de Participação nos
-                Lucros e Resultados (PLR), além de acompanhamento junto ao
-                sindicato da categoria para assegurar validação e conformidade.
+                <strong className="font-bold">{t("rh_terceirizacao_plr_title")}</strong>
+                {t("rh_terceirizacao_plr_text")}
               </li>
             </ul>
           </div>
@@ -178,57 +128,39 @@ export default function page() {
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              5) Departamento Pessoal
+              {t("rh_dp_title")}
             </h2>
             <p className="text-sm md:text-md font-light mb-4">
-              Oferecemos serviços completos e especializados na gestão de
-              Departamento Pessoal, garantindo eficiência e conformidade com a
-              legislação trabalhista vigente. Nossos serviços incluem:
+              {t("rh_dp_p1")}
             </p>
             <ul className="list-disc ml-6 md:ml-12 text-sm md:text-md font-light">
               <li>
-                <strong className="font-bold">Administração de Pessoal:</strong>{" "}
-                Gestão completa de processos relacionados aos colaboradores,
-                desde a admissão até o desligamento.
+                <strong className="font-bold">{t("rh_dp_admin_title")}</strong>{" "}
+                {t("rh_dp_admin_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Controle e Cálculo de Férias:
-                </strong>
-                Planejamento e cálculo preciso para assegurar o cumprimento das
-                normas legais.
+                <strong className="font-bold">{t("rh_dp_ferias_title")}</strong>
+                {t("rh_dp_ferias_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Controle de Exames Ocupacionais:
-                </strong>
-                Monitoramento e agendamento de exames admissionais, periódicos e
-                demissionais, conforme exigências legais.
+                <strong className="font-bold">{t("rh_dp_exames_title")}</strong>
+                {t("rh_dp_exames_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Gerenciamento de Folha de Pagamento:
-                </strong>
-                Processamento e administração da folha, com foco em precisão e
-                regularidade.
+                <strong className="font-bold">{t("rh_dp_folha_title")}</strong>
+                {t("rh_dp_folha_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Gerenciamento de Benefícios:
-                </strong>
-                Coordenação eficiente de benefícios corporativos, garantindo
-                satisfação dos colaboradores.
+                <strong className="font-bold">{t("rh_dp_beneficios_title")}</strong>
+                {t("rh_dp_beneficios_text")}
               </li>
               <li>
-                <strong className="font-bold">Obrigações Acessórias:</strong>
-                Elaboração e envio de declarações obrigatórias.
+                <strong className="font-bold">{t("rh_dp_obrigacoes_title")}</strong>
+                {t("rh_dp_obrigacoes_text")}
               </li>
               <li>
-                <strong className="font-bold">
-                  Conformidade com a Legislação Vigente:
-                </strong>
-                Procedimentos realizados com base nas normas legais, reduzindo
-                riscos e garantindo segurança jurídica.
+                <strong className="font-bold">{t("rh_dp_conformidade_title")}</strong>
+                {t("rh_dp_conformidade_text")}
               </li>
             </ul>
           </div>

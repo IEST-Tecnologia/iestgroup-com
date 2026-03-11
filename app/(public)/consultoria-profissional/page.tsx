@@ -5,6 +5,7 @@ import BannerQuemSomos from "@/assets/sobre-nos/banner-quem-somos.jpg";
 import ArrowDown from "@/assets/sobre-nos/arrow-down.svg";
 import { Metadata } from "next";
 import Contacts from "@/components/Contacts";
+import { t } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Consultoria Profissional",
@@ -18,42 +19,30 @@ export default function page() {
       <PageHeroSection
         backgroundBannerImage={BannerQuemSomos}
         secondBannerImage={BannerConsulting}
-        secondBannerAlt="Dois homens sentados em uma cadeira de escritório"
+        secondBannerAlt={t("consulting_banner_alt")}
         service={true}
         shadowbg={false}
       >
         <h1 className="w-full text-primary text-3xl font-bold text-center md:text-left uppercase mb-5">
-          Consultoria Profissional
+          {t("consulting_h1")}
         </h1>
         <h2 className="text-black text-xl md:text-2xl text-center md:text-left font-semibold mb-10">
-          O IEST Group possui uma equipe altamente qualificada e experiente,
-          pronta para oferecer uma ampla gama de serviços de Consultoria
-          Profissional. Nosso objetivo é elevar a eficiência do planejamento das
-          empresas, minimizando riscos e identificando as melhores oportunidades
-          de mercado.
+          {t("consulting_h2")}
         </h2>
         <div className="text-lg font-base mb-8 text-justify md:text:left">
-          <p>
-            Contamos com profissionais flexíveis, bilíngues e com profundo
-            conhecimento técnico, além de uma compreensão abrangente das
-            culturas chinesa e brasileira, garantindo um atendimento
-            personalizado e alinhado às necessidades dos nossos clientes. Com
-            foco em qualidade e excelência, estamos preparados para ajudar você
-            e sua empresa a alcançar os resultados que deseja.
-          </p>
+          <p>{t("consulting_p1")}</p>
         </div>
         <div className="max-w-164 z-20 bg-primary py-7.5 px-10 flex flex-col-reverse md:flex-row items-start md:items-center gap-6 md:gap-2">
           <div>
             <p className="text-xl font-semibold text-white">
-              Segue abaixo demonstrativo de todos os serviços que nós prestamos
-              na matéria de consultoria profissional:
+              {t("consulting_services_intro")}
             </p>
           </div>
           <div className="text-6xl">
             <Image
               className="w-16 md:w-36"
               src={ArrowDown}
-              alt="ícone de uma seta apontando para baixo"
+              alt={t("consulting_arrow_alt")}
             />
           </div>
         </div>
@@ -62,50 +51,40 @@ export default function page() {
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              1) Consultoria Tributária
+              {t("consulting_tributaria_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              {" "}
-              Realizamos pesquisas e análises da jurisprudência tributária
-              brasileira, identificando riscos e oportunidades de maneira
-              eficiente, fornecendo informações estratégicas que apoiem nossos
-              clientes na tomada de decisões.
+              {t("consulting_tributaria_text")}
             </p>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              2) Consultoria Contábil
+              {t("consulting_contabil_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Oferecemos suporte no controle e gestão de empresas por meio de
-              análises contábeis e implementação de procedimentos de controle
-              interno, assegurando a saúde financeira e operacional dos
-              negócios.
+              {t("consulting_contabil_text")}
             </p>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              3) Consultoria de Mercado
+              {t("consulting_mercado_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Elaboramos análises e estudos de mercado personalizados,
-              fornecendo informações precisas e relevantes para facilitar
-              decisões empresariais mais seguras e assertivas.
+              {t("consulting_mercado_text")}
             </p>
           </div>
         </section>
         <section className="w-full">
           <div className="max-w-7xl mx-auto shadow-card p-7.5">
             <h2 className="text-primary text-xl md:text-2xl font-semibold mb-4 ">
-              4) Pesquisas de Informações
+              {t("consulting_pesquisas_title")}
             </h2>
             <p className="text-sm md:text-md font-light">
-              Identificamos e analisamos dados estratégicos sobre temas
-              essenciais para o desenvolvimento e expansão de negócios.
+              {t("consulting_pesquisas_text")}
             </p>
           </div>
         </section>

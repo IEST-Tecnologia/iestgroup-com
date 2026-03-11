@@ -17,7 +17,8 @@ import {
 } from "@/lib/mocks/jobs";
 import { getJobBySlug } from "@/lib/public/actions";
 import { redirect } from "next/navigation";
-
+import { cidades } from "@/assets/cidades";
+import { estados } from "@/assets/estados";
 export default async function page({
   params,
 }: {
@@ -26,7 +27,6 @@ export default async function page({
   const { slug } = await params;
   const job = await getJobBySlug(slug);
   if (!job) redirect("/vagas-iest");
-
   return (
     <>
       <section
@@ -154,7 +154,12 @@ export default async function page({
         </div>
       </main>
       <section>
-        <JobForm jobName={job.name} disabled={job.status === "closed"} />
+        <JobForm
+          jobName={job.name}
+          cidades={cidades}
+          estados={estados}
+          disabled={job.status === "closed"}
+        />
       </section>
     </>
   );

@@ -10,8 +10,6 @@ import {
   deleteBanner as storeDeleteBanner,
 } from "./store";
 import type { Banner, JobResponse, Job } from "./types";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 export async function requireAdminServer(): Promise<void> {
   const user = await getCurrentUser();
@@ -35,8 +33,7 @@ export async function listJobs(
 
 export async function createJob(formData: FormData): Promise<Job> {
   await requireAdminServer();
-  const job = await storeCreateJob(formData);
-  return redirect(`/gestao/vagas/${job.slug}`);
+  return storeCreateJob(formData);
 }
 
 export async function updateJob(id: number, formData: FormData): Promise<Job> {
