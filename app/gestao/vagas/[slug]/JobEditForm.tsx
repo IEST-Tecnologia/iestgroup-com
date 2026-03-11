@@ -43,7 +43,9 @@ const JOB_STATUS_OPTIONS = [
 interface JobFormValues {
   name: string;
   company: string;
-  area: string;
+  area1: string;
+  area2: string;
+  area3: string;
   nivel: string;
   locality: string;
   id_job: string;
@@ -92,7 +94,9 @@ export default function JobEditForm({ job }: { job: Job }) {
     defaultValues: {
       name: job.name,
       company: job.company,
-      area: job.area,
+      area1: job.area?.split(",")[0]?.trim() ?? "",
+      area2: job.area?.split(",")[1]?.trim() ?? "",
+      area3: job.area?.split(",")[2]?.trim() ?? "",
       nivel: job.nivel,
       locality: job.locality,
       id_job: job.id_job,
@@ -124,7 +128,10 @@ export default function JobEditForm({ job }: { job: Job }) {
         .replace(/^-+|-+$/g, ""),
     );
     formData.append("company", data.company);
-    formData.append("area", data.area);
+    formData.append(
+      "area",
+      [data.area1, data.area2, data.area3].filter(Boolean).join(", "),
+    );
     formData.append("nivel", data.nivel);
     formData.append("locality", data.locality);
     formData.append("id_job", data.id_job);
@@ -200,15 +207,36 @@ export default function JobEditForm({ job }: { job: Job }) {
                   {...register("company", { required: REQUIRED_MSG })}
                   error={errors.company?.message}
                 />
-                <TextField
-                  label="Area de atuação"
-                  placeholder="Marketing, RH, Financeiro..."
-                  type="text"
-                  id="area"
-                  fullWidth
-                  {...register("area", { required: REQUIRED_MSG })}
-                  error={errors.area?.message}
-                />
+                <div className="w-full flex flex-col">
+                  <span className="block font-medium text-foreground text-sm mb-1">
+                    Área(s) de atuação
+                  </span>
+                  <div className="flex w-full gap-2">
+                    <TextField
+                      placeholder="Ex: Marketing"
+                      type="text"
+                      id="area1"
+                      fullWidth
+                      required
+                      {...register("area1", { required: REQUIRED_MSG })}
+                      error={errors.area1?.message}
+                    />
+                    <TextField
+                      placeholder="Ex: RH"
+                      type="text"
+                      id="area2"
+                      fullWidth
+                      {...register("area2")}
+                    />
+                    <TextField
+                      placeholder="Ex: Financeiro"
+                      type="text"
+                      id="area3"
+                      fullWidth
+                      {...register("area3")}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="flex justify-between gap-4">
                 <TextField

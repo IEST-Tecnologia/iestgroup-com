@@ -51,6 +51,7 @@ export default function JobForm({
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const [selectedEstado, setSelectedEstado] = useState("");
   const [selectedCidade, setSelectedCidade] = useState("");
+  const [resideBrasil, setResideBrasil] = useState<"sim" | "nao" | "">("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const cidadesFiltradas = selectedEstado
@@ -121,7 +122,9 @@ export default function JobForm({
             const formData = new FormData(e.currentTarget);
             const cidade = formData.get("cidade") as string;
             const estado = formData.get("estado") as string;
-            formData.append("location", `${cidade}, ${estado}`);
+            const location =
+              resideBrasil === "nao" ? cidade : `${cidade}, ${estado}`;
+            formData.append("location", location);
             const curriculum = formData.get("curriculum");
             if (
               curriculum instanceof File &&
@@ -158,6 +161,7 @@ export default function JobForm({
                 setSelectedLanguages([]);
                 setSelectedEstado("");
                 setSelectedCidade("");
+                setResideBrasil("");
               }
             } catch {
               setFeedback({
@@ -296,63 +300,145 @@ export default function JobForm({
                 disabled={disabled}
               />
             </div>
+            <select
+              className="p-4 bg-white w-full md:w-1/2 appearance-none invalid:text-gray-400 pr-10 select-none"
+              value={resideBrasil}
+              onChange={(e) => {
+                setResideBrasil(e.target.value as "sim" | "nao");
+                setSelectedEstado("");
+                setSelectedCidade("");
+              }}
+              required
+            >
+              <option value="" disabled>
+                Você reside no Brasil?
+              </option>
+              <option value="sim" className="text-black">
+                Sim
+              </option>
+              <option value="nao" className="text-black">
+                Não
+              </option>
+            </select>
+            <ChevronDown />
+          </div>
+
+          {resideBrasil === "sim" && (
+            <div className="relative flex flex-col gap-6 md:flex-row w-full">
+              <div className="relative w-full md:w-1/2">
+                <select
+                  className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
+                  id="estado"
+                  name="estado"
+                  required
+                  value={selectedEstado}
+                  onChange={(e) => {
+                    setSelectedEstado(e.target.value);
+                    setSelectedCidade("");
+                  }}
+                >
+                  <option value="" disabled>
+                    Estado
+                  </option>
+                  {estados.map((est) => (
+                    <option
+                      key={est.sigla}
+                      value={est.sigla}
+                      className="text-black"
+                    >
+                      {est.nome}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown />
+              </div>
+              <div className="relative w-full md:w-1/2">
+                <select
+                  className="p-4 bg-white w-full appearance-none pr-10 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400"
+                  id="cidade"
+                  name="cidade"
+                  required
+                  disabled={!selectedEstado}
+                  value={selectedCidade}
+                  onChange={(e) => setSelectedCidade(e.target.value)}
+                >
+                  <option value="" disabled>
+                    {selectedEstado ? "Cidade" : "Selecione um estado primeiro"}
+                  </option>
+                  {cidadesFiltradas.map((cidade) => (
+                    <option key={cidade} value={cidade} className="text-black">
+                      {cidade}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown />
+              </div>
+            </div>
+          )}
+
+          {resideBrasil === "nao" && (
             <input
-              className="p-4 bg-white text-gray-400 w-full md:w-1/2"
+              className="p-4 bg-white w-full"
               type="text"
-              id="location"
-              name="location"
-              placeholder="Localidade"
+              id="cidade"
+              name="cidade"
+              placeholder="Cidade onde reside"
               disabled={disabled}
+              required
             />
-            <div className="relative w-full md:w-1/2">
+          )}
+
+          <div className="w-full flex flex-col md:flex-row gap-6">
+            <div className="relative w-full">
               <select
-                className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
-                id="estado"
-                name="estado"
+                className="p-4 bg-white w-full appearance-none invalid:text-gray-400 pr-10 select-none"
+                id="source"
+                name="source"
+                defaultValue=""
+                disabled={disabled}
                 required
-                value={selectedEstado}
-                onChange={(e) => {
-                  setSelectedEstado(e.target.value);
-                  setSelectedCidade("");
-                }}
               >
                 <option value="" disabled>
-                  Estado
+                  Aonde nos conheceu?
                 </option>
-                {estados.map((est) => (
-                  <option
-                    key={est.sigla}
-                    value={est.sigla}
-                    className="text-black"
-                  >
-                    {est.nome}
-                  </option>
-                ))}
+                <option value="LinkedIn" className="text-black">
+                  LinkedIn
+                </option>
+                <option value="Instagram" className="text-black">
+                  Instagram
+                </option>
+                <option value="Facebook" className="text-black">
+                  Facebook
+                </option>
+                <option value="Grupos de Whatsapp" className="text-black">
+                  Grupos de Whatsapp
+                </option>
+                <option value="Amigos" className="text-black">
+                  Amigos
+                </option>
+                <option value="Catho" className="text-black">
+                  Catho
+                </option>
+                <option value="Feira - ESEG" className="text-black">
+                  Feira - ESEG
+                </option>
+                <option value="Outros" className="text-black">
+                  Outros
+                </option>
               </select>
               <ChevronDown />
             </div>
           </div>
 
-          <div className="relative w-full">
-            <select
-              className="p-4 bg-white w-full appearance-none pr-10 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400"
-              id="cidade"
-              name="cidade"
-              required
-              disabled={!selectedEstado}
-              value={selectedCidade}
-              onChange={(e) => setSelectedCidade(e.target.value)}
-            >
-              <option value="" disabled>
-                {selectedEstado ? "Cidade" : "Selecione um estado primeiro"}
-              </option>
-              {cidadesFiltradas.map((cidade) => (
-                <option key={cidade} value={cidade} className="text-black">
-                  {cidade}
-                </option>
-              ))}
-            </select>
-            <ChevronDown />
+          <div className="w-full flex flex-col md:flex-row gap-6">
+            <textarea
+              className="p-4 bg-white w-full resize-none"
+              id="observations"
+              name="observations"
+              placeholder="Deseja nos dizer algo?"
+              rows={3}
+              disabled={disabled}
+            />
           </div>
 
           <div className="w-full flex flex-col md:flex-row items-center gap-6">

@@ -38,12 +38,19 @@ function JobCard({ job }: { job: Job }) {
       className="rounded-xl shadow-card-job p-4 border border-gray-200 flex flex-col justify-between w-full max-w-full min-h-60 gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-card-job-hover"
     >
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between gap-2">
-          <p className="text-xs text-gray-500">{job.locality}</p>
+        <div className="flex items-start gap-2">
+          <p className="text-xs text-gray-500 line-clamp-1 w-1/2 shrink-0">{job.locality}</p>
           {job.area && (
-            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium shrink-0">
-              {job.area}
-            </span>
+            <div className="flex flex-wrap gap-1 w-1/2 justify-end">
+              {job.area.split(",").map((area) => (
+                <span
+                  key={area.trim()}
+                  className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium"
+                >
+                  {area.trim()}
+                </span>
+              ))}
+            </div>
           )}
         </div>
         <p className="text-lg font-semibold text-primary line-clamp-1">
