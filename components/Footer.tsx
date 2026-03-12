@@ -1,13 +1,17 @@
 "use client";
 
 import { removeConsentCookie } from "@/app/actions/consent";
+import { subscribeNewsletter } from "@/app/actions/newsletter";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { t } from "@/lib/i18n";
 
 export default function Footer() {
   const pathname = usePathname();
+  const [email, setEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   return (
     <div className="bg-white flex justify-center">
@@ -152,6 +156,46 @@ export default function Footer() {
                 </p>
               </li>
             </ul>
+            <div className="flex flex-col items-center md:items-start gap-3 w-full">
+              <h5 className="text-lg uppercase font-semibold">{t("footer_newsletter_title")}</h5>
+              <form
+                className="flex flex-col gap-2 w-full"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setNewsletterStatus("loading");
+                  try {
+                    const res = await subscribeNewsletter(email);
+                    if (!res.success) throw new Error();
+                    setEmail("");
+                    setNewsletterStatus("success");
+                  } catch {
+                    setNewsletterStatus("error");
+                  }
+                }}
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t("footer_newsletter_placeholder")}
+                  className="border border-gray-300 rounded px-3 py-2 text-sm w-full focus:outline-none focus:border-gray-500"
+                  required
+                />
+                <button
+                  type="submit"
+                  disabled={newsletterStatus === "loading"}
+                  className="bg-primary text-white text-sm font-semibold px-4 py-2 rounded hover:opacity-90 transition-opacity disabled:opacity-60"
+                >
+                  {t("footer_newsletter_submit")}
+                </button>
+                {newsletterStatus === "success" && (
+                  <p className="text-sm text-green-600">{t("footer_newsletter_success")}</p>
+                )}
+                {newsletterStatus === "error" && (
+                  <p className="text-sm text-red-500">{t("footer_newsletter_error")}</p>
+                )}
+              </form>
+            </div>
           </div>
         </div>
         <div className="w-full  bg-gray-300 h-0.5 my-5"></div>
