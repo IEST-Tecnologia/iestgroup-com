@@ -17,8 +17,42 @@ import {
 } from "@/lib/mocks/jobs";
 import { getJobBySlug } from "@/lib/public/actions";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 import { cidades } from "@/assets/cidades";
 import { estados } from "@/assets/estados";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await getJobBySlug(slug);
+  if (!job) return {};
+
+  return {
+    title: `${job.name}`,
+    description: `Está disponivel uma vaga para ${job.name}. Modelo: ${WORK_MODEL_LABELS[job.work_model]}. Candidate-se agora!`,
+    openGraph: {
+      title: `${job.name} - IEST Group`,
+      url: `https://iestgroup.com/vagas-iest/${slug}`,
+      siteName: "IEST Group",
+      type: "website",
+      images: [
+        {
+          url: "https://iestgroup.com.br/wp-content/uploads/2021/09/portrait-successful-handsome-executive-businessman-smart-casual-wear-looking-camera-smiling-arms-crossed-modern-office-workplace-young-asia-guy-standing-contemporary-meeting-room-1024x576.jpg",
+          width: 1024,
+          height: 576,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${job.name} - IEST Group`,
+    },
+  };
+}
+
 export default async function page({
   params,
 }: {

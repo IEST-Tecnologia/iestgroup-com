@@ -216,14 +216,23 @@ export default function JobForm({
                 <option value="" disabled>
                   Como você se identifica?
                 </option>
-                <option value="Masculino" className="text-black">
-                  Masculino
+                <option value="Mulher (Hetero)" className="text-black">
+                  Mulher (Hetero)
                 </option>
-                <option value="Feminino" className="text-black">
-                  Feminino
+                <option value="Homem (Hetero)" className="text-black">
+                  Homem (Hetero)
                 </option>
-                <option value="Prefiro não informar" className="text-black">
-                  Prefiro não informar
+                <option value="Mulher Trans" className="text-black">
+                  Mulher Trans
+                </option>
+                <option value="Homem Trans" className="text-black">
+                  Homem Trans
+                </option>
+                <option value="Não-binário" className="text-black">
+                  Não-binário
+                </option>
+                <option value="Prefiro não responder" className="text-black">
+                  Prefiro não responder
                 </option>
               </select>
               <ChevronDown />
