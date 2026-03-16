@@ -51,7 +51,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-1/4 mt-6 lg:mt-0">
-            <Image src={MainImage} alt={t("home_history_img_alt")} sizes="(min-width: 1024px) 25vw, 100vw" priority />
+            <Image src={MainImage} alt={t("home_history_img_alt")} sizes="(min-width: 1024px) 25vw, 100vw" priority={!FEATURE_FLAG_HERO_BANNER} />
           </div>
         </div>
       </main>
