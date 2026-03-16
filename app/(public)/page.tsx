@@ -70,7 +70,7 @@ export default async function Home() {
               </li>
 
               <li>
-                <Link href="/bpo">{t("header_nav_services_bpo")}</Link>
+                <Link href="/bpo-contabil-e-financeiro">{t("header_nav_services_bpo")}</Link>
               </li>
               <li>
                 <Link href="/recursos-humanos">{t("header_nav_services_rh")}</Link>
@@ -84,7 +84,7 @@ export default async function Home() {
                 </Link>
               </li>
               <li>
-                <Link href="/servicos-digitais">{t("header_nav_services_digital")}</Link>
+                <Link href="/servico-digital-e-marketing">{t("header_nav_services_digital")}</Link>
               </li>
             </ul>
             <Link href="/contato" className="mt-5">
