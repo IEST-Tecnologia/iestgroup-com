@@ -224,3 +224,14 @@ export async function deleteClient(id: string): Promise<boolean> {
   if (res.status === 404) return false;
   return true;
 }
+
+// --- Newsletter ---
+
+export async function unsubscribeNewsletter(id: string): Promise<boolean> {
+  const res = await apiFetch(`/api/v1/newsletter/subscribers/${id}`, {
+    method: "DELETE",
+  });
+  if (res.status === 404) return false;
+  await unwrap<unknown>(res);
+  return true;
+}
