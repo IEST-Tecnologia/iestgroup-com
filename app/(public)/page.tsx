@@ -51,7 +51,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-1/4 mt-6 lg:mt-0">
-            <Image src={MainImage} alt={t("home_history_img_alt")} />
+            <Image src={MainImage} alt={t("home_history_img_alt")} sizes="(min-width: 1024px) 25vw, 100vw" priority />
           </div>
         </div>
       </main>
@@ -70,7 +70,7 @@ export default async function Home() {
               </li>
 
               <li>
-                <Link href="/bpo">{t("header_nav_services_bpo")}</Link>
+                <Link href="/bpo-contabil-e-financeiro">{t("header_nav_services_bpo")}</Link>
               </li>
               <li>
                 <Link href="/recursos-humanos">{t("header_nav_services_rh")}</Link>
@@ -84,7 +84,7 @@ export default async function Home() {
                 </Link>
               </li>
               <li>
-                <Link href="/servicos-digitais">{t("header_nav_services_digital")}</Link>
+                <Link href="/servico-digital-e-marketing">{t("header_nav_services_digital")}</Link>
               </li>
             </ul>
             <Link href="/contato" className="mt-5">
@@ -92,7 +92,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-2/5 p-2.5 mt-6 lg:mt-0">
-            <Image src={Section1Image} alt={t("home_services_img_alt")} />
+            <Image src={Section1Image} alt={t("home_services_img_alt")} sizes="(min-width: 1024px) 40vw, 100vw" />
           </div>
         </div>
       </section>
@@ -113,7 +113,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-3/8 mt-6 lg:mt-0">
-            <Image src={Section2Image} alt={t("home_diff_img_alt")} />
+            <Image src={Section2Image} alt={t("home_diff_img_alt")} sizes="(min-width: 1024px) 37.5vw, 100vw" />
           </div>
         </div>
       </section>
