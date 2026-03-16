@@ -117,7 +117,7 @@ function HeaderContent({
       >
         {/* Logo */}
         <div className={`shrink-0 pr-4 `}>
-          <Link href="/">
+          <Link href="/" aria-label="Home page">
             <Logo width={isSticky ? 75 : 90} height={isSticky ? 30 : 36} />
           </Link>
         </div>
