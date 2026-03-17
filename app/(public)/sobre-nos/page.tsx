@@ -132,6 +132,7 @@ export default function page() {
                 className="w-full h-auto"
                 src={LogoICarros}
                 alt={t("about_icarros_alt")}
+                sizes="(min-width: 768px) 160px, 96px"
               />
             </div>
             <div className="w-24 md:w-40">
@@ -139,6 +140,7 @@ export default function page() {
                 className="w-full h-auto"
                 src={LogoCanaltech}
                 alt={t("about_canaltech_alt")}
+                sizes="(min-width: 768px) 160px, 96px"
               />
             </div>
             <div className="w-24 md:w-40">
@@ -146,6 +148,7 @@ export default function page() {
                 className="w-full h-auto"
                 src={LogoGs}
                 alt={t("about_gs_alt")}
+                sizes="(min-width: 768px) 160px, 96px"
               />
             </div>
             <div className="w-24 md:w-40">
@@ -153,6 +156,7 @@ export default function page() {
                 className="w-full h-auto"
                 src={LogoXinhua}
                 alt={t("about_xinhua_alt")}
+                sizes="(min-width: 768px) 160px, 96px"
               />
             </div>
             <div className="w-24 md:w-40">
@@ -160,6 +164,7 @@ export default function page() {
                 className="w-full h-auto"
                 src={LogoEcbr}
                 alt={t("about_ecbr_alt")}
+                sizes="(min-width: 768px) 160px, 96px"
               />
             </div>
           </div>

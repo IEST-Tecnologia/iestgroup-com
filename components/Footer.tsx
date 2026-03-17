@@ -59,7 +59,7 @@ export default function Footer() {
               <li>
                 <Link
                   className="hover:text-foreground/80"
-                  href="www.china2brazil.com.br"
+                  href="https://www.china2brazil.com.br"
                 >
                   {t("footer_link_news")}
                 </Link>
@@ -220,7 +220,7 @@ export default function Footer() {
             <p className="text-sm ">{t("footer_copyright")}</p>
           </div>
           <div className="hidden md:flex flex-row gap-6">
-            <Link href="https://www.linkedin.com/company/">
+            <Link href="https://www.linkedin.com/company/iestgroup">
               <Image
                 src="/linkedin.svg"
                 width={24}
@@ -248,7 +248,7 @@ export default function Footer() {
         </div>
         <div className="w-full  bg-gray-300 h-0.5 my-5 block md:hidden"></div>
         <div className="px-6 flex md:hidden flex-row justify-end w-full  gap-6">
-          <Link href="https://www.linkedin.com/company/">
+          <Link href="https://www.linkedin.com/company/iestgroup">
             <Image
               src="/linkedin.svg"
               width={24}

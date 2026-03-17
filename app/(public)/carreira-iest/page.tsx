@@ -17,7 +17,7 @@ export default function page() {
   return (
     <>
       <section className="hidden md:block w-full">
-        <Image src={BgCarreira} alt="" className="w-full h-auto" />
+        <Image src={BgCarreira} alt="" className="w-full h-auto" sizes="100vw" />
       </section>
       <main className="py-8">
         <div className="max-w-7xl mx-auto flex flex-col gap-6 px-4">
