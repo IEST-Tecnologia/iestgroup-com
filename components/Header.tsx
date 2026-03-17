@@ -259,64 +259,69 @@ function HeaderContent({
       {mobileMenuOpen && renderMobilePanel && (
         <nav className="md:hidden absolute left-0 right-0 top-full z-50 bg-white border-t border-gray-200 shadow-lg">
           <ul className="py-2">
-            {navigationItems.map((item) => {
-              const isExpanded = mobileExpandedItem === item.label;
-              return (
-                <li key={item.label}>
-                  {item.dropdown ? (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setMobileExpandedItem(isExpanded ? null : item.label)
-                        }
-                        className="flex w-full items-center justify-between px-5 py-3 font-montserrat font-semibold uppercase text-gray-600 hover:bg-gray-50 hover:text-primary"
+            {navigationItems
+              .filter((i) => !i.disabled)
+
+              .map((item) => {
+                const isExpanded = mobileExpandedItem === item.label;
+                return (
+                  <li key={item.label}>
+                    {item.dropdown ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setMobileExpandedItem(
+                              isExpanded ? null : item.label,
+                            )
+                          }
+                          className="flex w-full items-center justify-between px-5 py-3 font-montserrat font-semibold uppercase text-gray-600 hover:bg-gray-50 hover:text-primary"
+                        >
+                          {item.label}
+                          <ChevronDown
+                            width={12}
+                            height={12}
+                            className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+                          />
+                        </button>
+                        {isExpanded && (
+                          <ul className="bg-gray-50 border-t border-gray-100">
+                            {item.dropdown.map((dropdownItem) => (
+                              <li key={dropdownItem.label}>
+                                <Link
+                                  href={dropdownItem.href}
+                                  onClick={() =>
+                                    handleMobileNav(dropdownItem.href)
+                                  }
+                                  className={`block px-8 py-2.5 font-montserrat text-[15px] transition-colors duration-200 ${
+                                    activeItem === dropdownItem.href
+                                      ? "text-primary font-semibold"
+                                      : "text-[#2F2F2F] hover:text-primary"
+                                  }`}
+                                >
+                                  {dropdownItem.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    ) : item.href ? (
+                      <Link
+                        href={item.href}
+                        onClick={() => handleMobileNav(item.href!)}
+                        className={`block px-5 py-3 font-montserrat font-semibold uppercase transition-colors duration-200 ${
+                          activeItem === item.href
+                            ? "text-primary"
+                            : "text-gray-600 hover:bg-gray-50 hover:text-primary"
+                        }`}
                       >
                         {item.label}
-                        <ChevronDown
-                          width={12}
-                          height={12}
-                          className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
-                        />
-                      </button>
-                      {isExpanded && (
-                        <ul className="bg-gray-50 border-t border-gray-100">
-                          {item.dropdown.map((dropdownItem) => (
-                            <li key={dropdownItem.label}>
-                              <Link
-                                href={dropdownItem.href}
-                                onClick={() =>
-                                  handleMobileNav(dropdownItem.href)
-                                }
-                                className={`block px-8 py-2.5 font-montserrat text-[15px] transition-colors duration-200 ${
-                                  activeItem === dropdownItem.href
-                                    ? "text-primary font-semibold"
-                                    : "text-[#2F2F2F] hover:text-primary"
-                                }`}
-                              >
-                                {dropdownItem.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </>
-                  ) : item.href ? (
-                    <Link
-                      href={item.href}
-                      onClick={() => handleMobileNav(item.href!)}
-                      className={`block px-5 py-3 font-montserrat font-semibold uppercase transition-colors duration-200 ${
-                        activeItem === item.href
-                          ? "text-primary"
-                          : "text-gray-600 hover:bg-gray-50 hover:text-primary"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                  ) : null}
-                </li>
-              );
-            })}
+                      </Link>
+                    ) : null}
+                  </li>
+                );
+              })}
           </ul>
 
           {/* Social + Language */}
