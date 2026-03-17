@@ -13,6 +13,13 @@ const nextConfig: NextConfig = {
       new URL("https://site-iest.s3.us-east-1.amazonaws.com/**"),
     ],
   },
+  turbopack: {
+    resolveAlias: {
+      "../build/polyfills/polyfill-module": "./src/lib/modern-polyfill.js",
+      "next/dist/build/polyfills/polyfill-module":
+        "./src/lib/modern-polyfill.js",
+    },
+  },
 };
 
 export default nextConfig;
