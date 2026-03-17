@@ -51,7 +51,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-1/4 mt-6 lg:mt-0">
-            <Image src={MainImage} alt={t("home_history_img_alt")} sizes="(min-width: 1024px) 25vw, 100vw" priority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0} fetchPriority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0 ? "high" : "auto"} />
+            <Image src={MainImage} alt={t("home_history_img_alt")} sizes="(min-width: 1280px) 312px, (min-width: 1024px) 25vw, calc(100vw - 2rem)" priority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0} fetchPriority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0 ? "high" : "auto"} />
           </div>
         </div>
       </main>
@@ -92,7 +92,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-2/5 p-2.5 mt-6 lg:mt-0">
-            <Image src={Section1Image} alt={t("home_services_img_alt")} sizes="(min-width: 1024px) 40vw, 100vw" />
+            <Image src={Section1Image} alt={t("home_services_img_alt")} sizes="(min-width: 1280px) 480px, (min-width: 1024px) 40vw, calc(100vw - 2rem)" />
           </div>
         </div>
       </section>
@@ -113,7 +113,7 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-3/8 mt-6 lg:mt-0">
-            <Image src={Section2Image} alt={t("home_diff_img_alt")} sizes="(min-width: 1024px) 37.5vw, 100vw" />
+            <Image src={Section2Image} alt={t("home_diff_img_alt")} sizes="(min-width: 1280px) 468px, (min-width: 1024px) 37.5vw, calc(100vw - 2rem)" />
           </div>
         </div>
       </section>
