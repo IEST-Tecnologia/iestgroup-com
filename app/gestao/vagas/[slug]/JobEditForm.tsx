@@ -5,13 +5,19 @@ import { JSONContent } from "@tiptap/react";
 import RadioGroup from "@/components/RadioGroup";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
-import RichText from "@/components/Tiptap";
 import { updateJob } from "@/lib/admin/actions";
 import type { Job } from "@/lib/admin/types";
 import Link from "next/link";
 import LeftArrow from "@/components/icons/LeftArrow";
 import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
+
+import dynamic from "next/dynamic";
+
+const RichText = dynamic(() => import("@/components/Tiptap"), {
+  ssr: false,
+  loading: () => <p>Carregando editor...</p>,
+});
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },

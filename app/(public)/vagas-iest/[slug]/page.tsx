@@ -9,7 +9,6 @@ import IconRank from "@/assets/vagas/rank.svg";
 import IconMoney from "@/assets/vagas/money.svg";
 import InfoItem from "@/components/InfoItem";
 import JobForm from "@/components/JobForm";
-import TiptapContent from "@/components/TiptapContent";
 import {
   WORK_MODEL_LABELS,
   CONTRACT_TYPE_LABELS,
@@ -20,6 +19,8 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { cidades } from "@/assets/cidades";
 import { estados } from "@/assets/estados";
+
+import TiptapContentClient from "@/components/TiptapContentClient";
 
 export async function generateMetadata({
   params,
@@ -137,7 +138,7 @@ export default async function page({
             <h2 className="text-2xl font-semibold mb-3">
               Sobre a oportunidade
             </h2>
-            <TiptapContent
+            <TiptapContentClient
               content={job.about_opportunity}
               className="prose prose-sm max-w-none font-extralight"
             />
@@ -146,7 +147,7 @@ export default async function page({
             <h2 className="text-2xl font-semibold mb-3">
               Principais responsabilidades
             </h2>
-            <TiptapContent
+            <TiptapContentClient
               content={job.main_responsabilities}
               className="prose prose-sm max-w-none font-extralight"
             />
@@ -155,21 +156,21 @@ export default async function page({
             <h2 className="text-2xl font-semibold mb-3">
               Requisitos obrigatórios
             </h2>
-            <TiptapContent
+            <TiptapContentClient
               content={job.mandatory_requirements}
               className="prose prose-sm max-w-none font-extralight"
             />
           </div>
           <div className="py-8 border-b border-gray-300">
             <h2 className="text-2xl font-semibold mb-3">Diferenciais</h2>
-            <TiptapContent
+            <TiptapContentClient
               content={job.differences}
               className="prose prose-sm max-w-none font-extralight"
             />
           </div>
           <div className="py-8 border-b border-gray-300">
             <h2 className="text-2xl font-semibold mb-3">Benefícios</h2>
-            <TiptapContent
+            <TiptapContentClient
               content={job.benefits}
               className="prose prose-sm max-w-none font-extralight"
             />
