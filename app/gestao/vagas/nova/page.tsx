@@ -7,9 +7,15 @@ import { JSONContent } from "@tiptap/react";
 import RadioGroup from "@/components/RadioGroup";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
-import RichText from "@/components/Tiptap";
 import { createJob } from "@/lib/admin/actions";
 import { useToast } from "@/context/ToastContext";
+
+import dynamic from "next/dynamic";
+
+const RichText = dynamic(() => import("@/components/Tiptap"), {
+  ssr: false,
+  loading: () => <p>Carregando editor...</p>,
+});
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },
