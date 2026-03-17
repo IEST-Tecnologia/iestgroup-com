@@ -90,6 +90,7 @@ export default function page() {
         jobName="Banco de Talentos"
         cidades={cidades}
         estados={estados}
+        disabled={false}
       />
     </>
   );
