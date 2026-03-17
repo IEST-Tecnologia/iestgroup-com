@@ -18,11 +18,12 @@ export default function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-60 min-h-screen bg-primary text-white flex flex-col shrink-0">
-      <div className="px-6 py-5 border-b border-white/20">
+    <aside className="w-60 h-full bg-primary text-white flex flex-col shrink-0">
+      <div className="px-6 py-5 border-b border-white/20 flex flex-col">
         <span className="text-lg font-semibold tracking-wide uppercase">
           Admin
         </span>
+        <Link href="/">{"< Voltar para o site"}</Link>
       </div>
 
       <nav className="flex-1 px-3 py-4">

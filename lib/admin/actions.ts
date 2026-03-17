@@ -11,7 +11,6 @@ import {
 } from "./store";
 import type { Banner, JobResponse, Job } from "./types";
 
-
 export async function requireAdminServer(): Promise<void> {
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized");

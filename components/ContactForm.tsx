@@ -1,27 +1,28 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { submitContact, type ContactState } from "@/app/actions/contact";
 import { Input } from "@/components/Input";
 import { Textarea } from "@/components/TextArea";
 import Button from "@/components/Button";
-import Toast from "@/components/Toast";
+import { useToast } from "@/context/ToastContext";
 import { t } from "@/lib/i18n";
 
 export default function ContactForm() {
+  const { addToast } = useToast();
   const [state, formAction, pending] = useActionState<ContactState, FormData>(
     submitContact,
     null,
   );
-  const [dismissedState, setDismissedState] = useState<ContactState>(null);
-  const showToast = !!state && state !== dismissedState;
+  const toastedState = useRef(state);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (state?.success) {
-      formRef.current?.reset();
-    }
-  }, [state]);
+    if (!state || state === toastedState.current) return;
+    toastedState.current = state;
+    addToast(state.message, state.success ? "success" : "error");
+    if (state.success) formRef.current?.reset();
+  }, [state, addToast]);
 
   return (
     <>
@@ -63,14 +64,6 @@ export default function ContactForm() {
           </Button>
         </div>
       </form>
-
-      {showToast && (
-        <Toast
-          message={state!.message}
-          variant={state!.success ? "success" : "error"}
-          onClose={() => setDismissedState(state)}
-        />
-      )}
     </>
   );
 }
