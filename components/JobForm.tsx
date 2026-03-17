@@ -35,10 +35,12 @@ export default function JobForm({
   jobName,
   cidades,
   estados,
+  disabled,
 }: {
   jobName: string;
   cidades: { [key in string]: string[] };
   estados: { sigla: string; nome: string }[];
+  disabled: boolean;
 }) {
   const [isPending, setIsPending] = useState(false);
   const [feedback, setFeedback] = useState<{
@@ -49,6 +51,7 @@ export default function JobForm({
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
   const [selectedEstado, setSelectedEstado] = useState("");
   const [selectedCidade, setSelectedCidade] = useState("");
+  const [resideBrasil, setResideBrasil] = useState<"sim" | "nao" | "">("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const cidadesFiltradas = selectedEstado
@@ -87,6 +90,31 @@ export default function JobForm({
         <h3 className="text-xl md:text-3xl text-white font-semibold text-center mb-6">
           Quero registrar meu currículo
         </h3>
+        {disabled && (
+          <div className="w-full max-w-full md:max-w-[50vw] mb-4 flex items-center gap-3 bg-white/10 border border-white/30 rounded px-4 py-3 text-white text-sm">
+            <svg
+              className="w-5 h-5 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+              />
+            </svg>
+            <div>
+              Esta vaga está finalizada e não está aceitando novas candidaturas.
+              Mas, você pode se inscrever no nosso{" "}
+              <Link className="underline" href="/carreira-iest">
+                banco de talentos
+              </Link>
+              .
+            </div>
+          </div>
+        )}
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -94,7 +122,9 @@ export default function JobForm({
             const formData = new FormData(e.currentTarget);
             const cidade = formData.get("cidade") as string;
             const estado = formData.get("estado") as string;
-            formData.append("location", `${cidade}, ${estado}`);
+            const location =
+              resideBrasil === "nao" ? cidade : `${cidade}, ${estado}`;
+            formData.append("location", location);
             const curriculum = formData.get("curriculum");
             if (
               curriculum instanceof File &&
@@ -131,6 +161,7 @@ export default function JobForm({
                 setSelectedLanguages([]);
                 setSelectedEstado("");
                 setSelectedCidade("");
+                setResideBrasil("");
               }
             } catch {
               setFeedback({
@@ -141,7 +172,7 @@ export default function JobForm({
               setIsPending(false);
             }
           }}
-          className="w-full max-w-full md:max-w-[50vw] md:w-[50vw] flex flex-wrap flex-col md:flex-row gap-6"
+          className={`w-full max-w-full md:max-w-[50vw] md:w-[50vw] flex flex-wrap flex-col md:flex-row gap-6 ${disabled ? "opacity-50 pointer-events-none select-none" : ""}`}
         >
           <input
             className="p-4 bg-white w-full"
@@ -149,6 +180,7 @@ export default function JobForm({
             id="name"
             name="name"
             placeholder="Nome"
+            disabled={disabled}
             required
           />
           <div className="w-full flex flex-col md:flex-row gap-6">
@@ -158,6 +190,7 @@ export default function JobForm({
               id="email"
               name="email"
               placeholder="E-mail"
+              disabled={disabled}
               required
             />
             <input
@@ -166,29 +199,40 @@ export default function JobForm({
               id="phone"
               name="phone"
               placeholder="Telefone"
+              disabled={disabled}
               required
             />
           </div>
           <div className="w-full flex flex-col md:flex-row gap-6">
             <div className="relative w-full md:w-1/2">
               <select
-                className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
+                className="p-4 bg-white w-full appearance-none invalid:text-gray-400 pr-10 select-none"
                 id="gender"
                 name="gender"
-                required
                 defaultValue=""
+                disabled={disabled}
+                required
               >
                 <option value="" disabled>
-                  Sexo
+                  Como você se identifica?
                 </option>
-                <option value="Masculino" className="text-black">
-                  Masculino
+                <option value="Mulher (Hetero)" className="text-black">
+                  Mulher (Hetero)
                 </option>
-                <option value="Feminino" className="text-black">
-                  Feminino
+                <option value="Homem (Hetero)" className="text-black">
+                  Homem (Hetero)
                 </option>
-                <option value="Prefiro não informar" className="text-black">
-                  Prefiro não informar
+                <option value="Mulher Trans" className="text-black">
+                  Mulher Trans
+                </option>
+                <option value="Homem Trans" className="text-black">
+                  Homem Trans
+                </option>
+                <option value="Não-binário" className="text-black">
+                  Não-binário
+                </option>
+                <option value="Prefiro não responder" className="text-black">
+                  Prefiro não responder
                 </option>
               </select>
               <ChevronDown />
@@ -200,6 +244,7 @@ export default function JobForm({
                   type="hidden"
                   name="languages"
                   value={value}
+                  disabled={disabled}
                 />
               ))}
               <button
@@ -254,63 +299,155 @@ export default function JobForm({
           </div>
 
           <div className="w-full flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col w-full md:w-1/2 gap-1">
+              <input
+                className="p-4 bg-white text-gray-400"
+                type="text"
+                placeholder="Perfil no Linkedin (opcional)"
+                id="linkedin"
+                name="linkedin"
+                disabled={disabled}
+              />
+            </div>
+            <select
+              className="p-4 bg-white w-full md:w-1/2 appearance-none invalid:text-gray-400 pr-10 select-none"
+              value={resideBrasil}
+              onChange={(e) => {
+                setResideBrasil(e.target.value as "sim" | "nao");
+                setSelectedEstado("");
+                setSelectedCidade("");
+              }}
+              required
+            >
+              <option value="" disabled>
+                Você reside no Brasil?
+              </option>
+              <option value="sim" className="text-black">
+                Sim
+              </option>
+              <option value="nao" className="text-black">
+                Não
+              </option>
+            </select>
+            <ChevronDown />
+          </div>
+
+          {resideBrasil === "sim" && (
+            <div className="relative flex flex-col gap-6 md:flex-row w-full">
+              <div className="relative w-full md:w-1/2">
+                <select
+                  className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
+                  id="estado"
+                  name="estado"
+                  required
+                  value={selectedEstado}
+                  onChange={(e) => {
+                    setSelectedEstado(e.target.value);
+                    setSelectedCidade("");
+                  }}
+                >
+                  <option value="" disabled>
+                    Estado
+                  </option>
+                  {estados.map((est) => (
+                    <option
+                      key={est.sigla}
+                      value={est.sigla}
+                      className="text-black"
+                    >
+                      {est.nome}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown />
+              </div>
+              <div className="relative w-full md:w-1/2">
+                <select
+                  className="p-4 bg-white w-full appearance-none pr-10 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400"
+                  id="cidade"
+                  name="cidade"
+                  required
+                  disabled={!selectedEstado}
+                  value={selectedCidade}
+                  onChange={(e) => setSelectedCidade(e.target.value)}
+                >
+                  <option value="" disabled>
+                    {selectedEstado ? "Cidade" : "Selecione um estado primeiro"}
+                  </option>
+                  {cidadesFiltradas.map((cidade) => (
+                    <option key={cidade} value={cidade} className="text-black">
+                      {cidade}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown />
+              </div>
+            </div>
+          )}
+
+          {resideBrasil === "nao" && (
             <input
-              className="p-4 bg-white text-gray-400 w-full md:w-1/2"
+              className="p-4 bg-white w-full"
               type="text"
-              placeholder="Data de nascimento (dia/mes/ano)"
-              id="birthdate"
-              name="birthdate"
+              id="cidade"
+              name="cidade"
+              placeholder="Cidade onde reside"
+              disabled={disabled}
               required
             />
-            <div className="relative w-full md:w-1/2">
+          )}
+
+          <div className="w-full flex flex-col md:flex-row gap-6">
+            <div className="relative w-full">
               <select
-                className="p-4 bg-white w-full appearance-none text-black invalid:text-gray-400 pr-10"
-                id="estado"
-                name="estado"
+                className="p-4 bg-white w-full appearance-none invalid:text-gray-400 pr-10 select-none"
+                id="source"
+                name="source"
+                defaultValue=""
+                disabled={disabled}
                 required
-                value={selectedEstado}
-                onChange={(e) => {
-                  setSelectedEstado(e.target.value);
-                  setSelectedCidade("");
-                }}
               >
                 <option value="" disabled>
-                  Estado
+                  Aonde nos conheceu?
                 </option>
-                {estados.map((est) => (
-                  <option
-                    key={est.sigla}
-                    value={est.sigla}
-                    className="text-black"
-                  >
-                    {est.nome}
-                  </option>
-                ))}
+                <option value="LinkedIn" className="text-black">
+                  LinkedIn
+                </option>
+                <option value="Instagram" className="text-black">
+                  Instagram
+                </option>
+                <option value="Facebook" className="text-black">
+                  Facebook
+                </option>
+                <option value="Grupos de Whatsapp" className="text-black">
+                  Grupos de Whatsapp
+                </option>
+                <option value="Amigos" className="text-black">
+                  Amigos
+                </option>
+                <option value="Catho" className="text-black">
+                  Catho
+                </option>
+                <option value="Feira - ESEG" className="text-black">
+                  Feira - ESEG
+                </option>
+                <option value="Outros" className="text-black">
+                  Outros
+                </option>
               </select>
               <ChevronDown />
             </div>
           </div>
 
-          <div className="relative w-full">
-            <select
-              className="p-4 bg-white w-full appearance-none pr-10 disabled:opacity-50 disabled:cursor-not-allowed disabled:text-gray-400"
-              id="cidade"
-              name="cidade"
-              required
-              disabled={!selectedEstado}
-              value={selectedCidade}
-              onChange={(e) => setSelectedCidade(e.target.value)}
-            >
-              <option value="" disabled>
-                {selectedEstado ? "Cidade" : "Selecione um estado primeiro"}
-              </option>
-              {cidadesFiltradas.map((cidade) => (
-                <option key={cidade} value={cidade} className="text-black">
-                  {cidade}
-                </option>
-              ))}
-            </select>
-            <ChevronDown />
+          <div className="w-full flex flex-col md:flex-row gap-6">
+            <textarea
+              className="p-4 bg-white w-full resize-none"
+              id="observations"
+              name="observations"
+              placeholder="Deseja nos dizer algo?"
+              rows={3}
+              disabled={disabled}
+            />
           </div>
 
           <div className="w-full flex flex-col md:flex-row items-center gap-6">
@@ -323,6 +460,7 @@ export default function JobForm({
                 type="file"
                 accept=".jpg, .jpeg, .png, .pdf, .docx"
                 name="curriculum"
+                disabled={disabled}
                 required
               />
             </div>
@@ -333,6 +471,7 @@ export default function JobForm({
               type="checkbox"
               id="terms"
               name="terms"
+              disabled={disabled}
               required
             />
             <label htmlFor="terms">
@@ -357,7 +496,7 @@ export default function JobForm({
               type="submit"
               variant="inverted"
               className="w-full"
-              disabled={isPending}
+              disabled={isPending || disabled}
             >
               {isPending ? "Enviando..." : "Enviar"}
             </Button>

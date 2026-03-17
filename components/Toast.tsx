@@ -23,7 +23,7 @@ export default function Toast({
 
   return (
     <div
-      className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-lg px-5 py-3 text-white shadow-lg transition-opacity duration-300 ${
+      className={`flex items-center gap-3 rounded-lg px-5 py-3 text-white shadow-lg transition-opacity duration-300 ${
         visible ? "opacity-100" : "opacity-0"
       } ${variant === "success" ? "bg-green-600" : "bg-red-600"}`}
     >

@@ -10,9 +10,8 @@ import { updateJob } from "@/lib/admin/actions";
 import type { Job } from "@/lib/admin/types";
 import Link from "next/link";
 import LeftArrow from "@/components/icons/LeftArrow";
-import { useState } from "react";
+import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
-import Toast from "@/components/Toast";
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },
@@ -44,6 +43,9 @@ const JOB_STATUS_OPTIONS = [
 interface JobFormValues {
   name: string;
   company: string;
+  area1: string;
+  area2: string;
+  area3: string;
   nivel: string;
   locality: string;
   id_job: string;
@@ -80,10 +82,8 @@ function getErrorMsg(error: unknown): string | undefined {
 }
 
 export default function JobEditForm({ job }: { job: Job }) {
+  const { addToast } = useToast();
   const router = useRouter();
-  const [showToast, setShowToast] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
 
   const {
     register,
@@ -94,6 +94,9 @@ export default function JobEditForm({ job }: { job: Job }) {
     defaultValues: {
       name: job.name,
       company: job.company,
+      area1: job.area?.split(",")[0]?.trim() ?? "",
+      area2: job.area?.split(",")[1]?.trim() ?? "",
+      area3: job.area?.split(",")[2]?.trim() ?? "",
       nivel: job.nivel,
       locality: job.locality,
       id_job: job.id_job,
@@ -125,6 +128,10 @@ export default function JobEditForm({ job }: { job: Job }) {
         .replace(/^-+|-+$/g, ""),
     );
     formData.append("company", data.company);
+    formData.append(
+      "area",
+      [data.area1, data.area2, data.area3].filter(Boolean).join(", "),
+    );
     formData.append("nivel", data.nivel);
     formData.append("locality", data.locality);
     formData.append("id_job", data.id_job);
@@ -150,16 +157,11 @@ export default function JobEditForm({ job }: { job: Job }) {
     formData.append("benefits", JSON.stringify(data.benefits));
 
     try {
-      const updated = await updateJob(job.id, formData);
-      setShowToast(true);
-      setSuccess(true);
-      if (updated.slug !== job.slug) {
-        router.replace(`/gestao/vagas/${updated.slug}`);
-      }
+      const newJob = await updateJob(job.id, formData);
+      addToast("Vaga atualizada com sucesso", "success");
+      router.push(`/gestao/vagas/${newJob.slug}`);
     } catch (e) {
-      setShowToast(true);
-      setSuccess(false);
-      setError("Erro ao atualizar a vaga: " + e);
+      addToast("Erro ao atualizar a vaga: " + e, "error");
     }
   };
 
@@ -205,6 +207,38 @@ export default function JobEditForm({ job }: { job: Job }) {
                   {...register("company", { required: REQUIRED_MSG })}
                   error={errors.company?.message}
                 />
+                <div className="w-full flex flex-col">
+                  <span className="block font-medium text-foreground text-sm mb-1">
+                    Área(s) de atuação
+                  </span>
+                  <div className="flex w-full gap-2">
+                    <TextField
+                      placeholder="Ex: Marketing"
+                      type="text"
+                      id="area1"
+                      fullWidth
+                      required
+                      {...register("area1", { required: REQUIRED_MSG })}
+                      error={errors.area1?.message}
+                    />
+                    <TextField
+                      placeholder="Ex: RH"
+                      type="text"
+                      id="area2"
+                      fullWidth
+                      {...register("area2")}
+                    />
+                    <TextField
+                      placeholder="Ex: Financeiro"
+                      type="text"
+                      id="area3"
+                      fullWidth
+                      {...register("area3")}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between gap-4">
                 <TextField
                   label="Nivel de Experiência"
                   placeholder="Especialista, Analista, Sênior..."
@@ -214,8 +248,6 @@ export default function JobEditForm({ job }: { job: Job }) {
                   {...register("nivel", { required: REQUIRED_MSG })}
                   error={errors.nivel?.message}
                 />
-              </div>
-              <div className="flex justify-between gap-4">
                 <TextField
                   label="Local"
                   placeholder="São Paulo, SP"
@@ -465,17 +497,6 @@ export default function JobEditForm({ job }: { job: Job }) {
           </div>
         </div>
       </form>
-      {showToast && (
-        <Toast
-          message={success ? "Vaga atualizada com sucesso" : error}
-          variant={success ? "success" : "error"}
-          onClose={() => {
-            setSuccess(false);
-            setShowToast(false);
-            setError("");
-          }}
-        />
-      )}
     </div>
   );
 }

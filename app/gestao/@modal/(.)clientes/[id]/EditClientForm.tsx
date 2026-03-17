@@ -1,12 +1,12 @@
 "use client";
 
-import { useActionState, useCallback, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import Button from "@/components/Button";
 import { ImageEditor } from "@/components/BannerImageEditor";
-import Toast from "@/components/Toast";
+import { useToast } from "@/context/ToastContext";
 import { updateClientAction } from "./actions";
 
 interface EditClientFormProps {
@@ -16,17 +16,20 @@ interface EditClientFormProps {
 
 export function EditClientForm({ id, logoUrl }: EditClientFormProps) {
   const router = useRouter();
+  const { addToast } = useToast();
   const [state, formAction, isPending] = useActionState(updateClientAction, null);
-  const [toastId, setToastId] = useState(0);
-  const noop = useCallback(() => {}, []);
+  const toastedState = useRef(state);
 
-  // Increment key on every submit so Toast remounts on each new result
-  const handleAction = (formData: FormData) => {
-    setToastId((n) => n + 1);
-    formAction(formData);
-  };
+  useEffect(() => {
+    if (!state || isPending || state === toastedState.current) return;
+    toastedState.current = state;
+    addToast(
+      "error" in state ? state.error : "Cliente atualizado com sucesso!",
+      "error" in state ? "error" : "success",
+    );
+  }, [state, isPending, addToast]);
 
-  // Navigate after success — no setState in this effect
+  // Navigate after success
   useEffect(() => {
     if (!state || !("success" in state)) return;
     const timer = setTimeout(() => router.push("/gestao/clientes"), 1500);
@@ -35,15 +38,7 @@ export function EditClientForm({ id, logoUrl }: EditClientFormProps) {
 
   return (
     <>
-      {state && !isPending && (
-        <Toast
-          key={toastId}
-          message={"error" in state ? state.error : "Cliente atualizado com sucesso!"}
-          variant={"error" in state ? "error" : "success"}
-          onClose={noop}
-        />
-      )}
-      <form action={handleAction} className="space-y-4 p-5">
+      <form action={formAction} className="space-y-4 p-5">
         <input hidden name="id" value={id} readOnly />
         <ImageEditor label="Logo" required name="image" aspect={1} defaultValue={logoUrl} />
         <div className="flex justify-end gap-3 pt-2">

@@ -38,17 +38,28 @@ function JobCard({ job }: { job: Job }) {
       className="rounded-xl shadow-card-job p-4 border border-gray-200 flex flex-col justify-between w-full max-w-full min-h-60 gap-2 transition-transform duration-300 hover:scale-105 hover:shadow-card-job-hover"
     >
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between gap-2">
-          <p className="text-xs text-gray-500">{job.locality}</p>
+        <div className="flex items-start gap-2">
+          <p className="text-xs text-gray-500 line-clamp-1 w-1/2 shrink-0">{job.locality}</p>
           {job.area && (
-            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium shrink-0">
-              {job.area}
-            </span>
+            <div className="flex flex-wrap gap-1 w-1/2 justify-end">
+              {job.area.split(",").map((area) => (
+                <span
+                  key={area.trim()}
+                  className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium"
+                >
+                  {area.trim()}
+                </span>
+              ))}
+            </div>
           )}
         </div>
-        <p className="text-lg font-semibold text-primary">{job.name}</p>
+        <p className="text-lg font-semibold text-primary line-clamp-1">
+          {job.name}
+        </p>
         {job.company && (
-          <p className="text-xs text-gray-500 font-medium">{job.company}</p>
+          <p className="text-xs text-gray-500 font-medium line-clamp-1">
+            {job.company}
+          </p>
         )}
         <div className="flex gap-2 flex-wrap items-center">
           <div className="flex gap-1.5 items-center">
@@ -87,7 +98,9 @@ function JobCard({ job }: { job: Job }) {
         <p className="text-sm text-gray-400">
           {formatRelativeDate(job.created_at)}
         </p>
-        <span className="text-xs font-medium text-primary">{t("vagas_see_job")}</span>
+        <span className="text-xs font-medium text-primary">
+          {job.status === "closed" ? "Finalizada" : t("vagas_see_job")}
+        </span>
       </div>
     </Link>
   );
@@ -106,7 +119,9 @@ function Pagination({
 
   return (
     <div className="flex items-center justify-center gap-2 mt-10">
-      {page > 1 && <PaginationLink page={page - 1} label={t("vagas_pagination_prev")} />}
+      {page > 1 && (
+        <PaginationLink page={page - 1} label={t("vagas_pagination_prev")} />
+      )}
       {pages.map((p) => (
         <PaginationLink
           key={p}
@@ -167,7 +182,6 @@ export default async function page({ searchParams }: PageProps) {
     area: getString(params.area),
     company: getString(params.company),
     nivel: getString(params.nivel),
-    status: "open",
   };
 
   const [{ jobs, total }, filterOptions] = await Promise.all([
@@ -193,7 +207,11 @@ export default async function page({ searchParams }: PageProps) {
               <div className="h-36 animate-pulse bg-gray-100 rounded-xl mb-8" />
             }
           >
-            <JobsFilters filterOptions={filterOptions} totalJobs={total} />
+            <JobsFilters
+              filterOptions={filterOptions}
+              totalJobs={total}
+              type={type}
+            />
           </Suspense>
 
           {jobs.length === 0 ? (
@@ -218,7 +236,7 @@ export default async function page({ searchParams }: PageProps) {
                 {t("vagas_empty_subtitle")}
               </p>
               <Link
-                href="/vagas-iest"
+                href={`/vagas-iest?type=${type}`}
                 className="mt-4 text-sm text-primary hover:underline font-medium"
               >
                 {t("vagas_clear_filters")}
