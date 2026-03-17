@@ -60,6 +60,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                   sizes="100vw"
                   className="w-full h-auto"
                   priority={index === 0}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                 />
               </picture>
             </a>
