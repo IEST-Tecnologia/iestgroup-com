@@ -37,7 +37,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
     <div className="relative w-full">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {banners.map((banner) => (
+          {banners.map((banner, index) => (
             <a
               key={banner.id}
               href={banner.url}
@@ -59,7 +59,8 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                   height={0}
                   sizes="100vw"
                   className="w-full h-auto"
-                  priority
+                  priority={index === 0}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                 />
               </picture>
             </a>

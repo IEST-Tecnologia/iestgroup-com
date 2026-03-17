@@ -117,7 +117,7 @@ function HeaderContent({
       >
         {/* Logo */}
         <div className={`shrink-0 pr-4 `}>
-          <Link href="/">
+          <Link href="/" aria-label="Home page">
             <Logo width={isSticky ? 75 : 90} height={isSticky ? 30 : 36} />
           </Link>
         </div>
@@ -333,6 +333,7 @@ function HeaderContent({
             <Link
               href="/we-chat"
               className="flex h-8.5 w-8.5 items-center justify-center rounded-full border border-primary bg-white text-primary"
+              aria-label="Canal Wechat"
             >
               <WeChatIcon className="h-4.25 w-4.25" />
             </Link>

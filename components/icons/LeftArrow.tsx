@@ -15,7 +15,7 @@ export default function LeftArrow({
       {...props}
       stroke="currentColor"
       fill="currentColor"
-      stroke-width="0"
+      strokeWidth="0"
       viewBox="0 0 448 512"
       height="200px"
       width="200px"

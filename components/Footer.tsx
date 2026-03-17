@@ -1,13 +1,19 @@
 "use client";
 
 import { removeConsentCookie } from "@/app/actions/consent";
+import { subscribeNewsletter } from "@/app/actions/newsletter";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { t } from "@/lib/i18n";
 
 export default function Footer() {
   const pathname = usePathname();
+  const [email, setEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
   return (
     <div className="bg-white flex justify-center">
@@ -31,15 +37,19 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col items-start w-full md:w-2/3">
-                <p className=" text-md font-semibold">{t("footer_cert_title")}</p>
-                <p className=" text-md font-light">{t("footer_cert_subtitle")}</p>
+                <p className=" text-md font-semibold">
+                  {t("footer_cert_title")}
+                </p>
+                <p className=" text-md font-light">
+                  {t("footer_cert_subtitle")}
+                </p>
               </div>
             </div>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className=" text-lg uppercase font-semibold">
+            <p className=" text-lg uppercase font-semibold">
               {t("footer_section_about")}
-            </h5>
+            </p>
             <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link className="hover:text-foreground/80" href="/sobre-nos">
@@ -78,7 +88,9 @@ export default function Footer() {
             </ul>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className=" text-lg uppercase font-semibold">{t("footer_section_services")}</h5>
+            <p className=" text-lg uppercase font-semibold">
+              {t("footer_section_services")}
+            </p>
             <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link
@@ -128,7 +140,9 @@ export default function Footer() {
             </ul>
           </div>
           <div className="w-full md:w-1/4 flex flex-col items-center md:items-start gap-6">
-            <h5 className=" text-lg uppercase font-semibold">{t("footer_section_lgpd")}</h5>
+            <p className=" text-lg uppercase font-semibold">
+              {t("footer_section_lgpd")}
+            </p>
             <ul className="flex flex-col items-center md:items-start  gap-2">
               <li>
                 <Link
@@ -152,6 +166,52 @@ export default function Footer() {
                 </p>
               </li>
             </ul>
+            <div className="flex flex-col items-center md:items-start gap-3 w-full">
+              <p className="text-lg uppercase font-semibold">
+                {t("footer_newsletter_title")}
+              </p>
+              <form
+                className="flex flex-col gap-2 w-full"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setNewsletterStatus("loading");
+                  try {
+                    const res = await subscribeNewsletter(email);
+                    if (!res.success) throw new Error();
+                    setEmail("");
+                    setNewsletterStatus("success");
+                  } catch {
+                    setNewsletterStatus("error");
+                  }
+                }}
+              >
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t("footer_newsletter_placeholder")}
+                  className="border border-gray-300 rounded px-3 py-2 text-sm w-full focus:outline-none focus:border-gray-500"
+                  required
+                />
+                <button
+                  type="submit"
+                  disabled={newsletterStatus === "loading"}
+                  className="bg-primary text-white text-sm font-semibold px-4 py-2 rounded hover:opacity-90 transition-opacity disabled:opacity-60"
+                >
+                  {t("footer_newsletter_submit")}
+                </button>
+                {newsletterStatus === "success" && (
+                  <p className="text-sm text-green-600">
+                    {t("footer_newsletter_success")}
+                  </p>
+                )}
+                {newsletterStatus === "error" && (
+                  <p className="text-sm text-red-500">
+                    {t("footer_newsletter_error")}
+                  </p>
+                )}
+              </form>
+            </div>
           </div>
         </div>
         <div className="w-full  bg-gray-300 h-0.5 my-5"></div>
