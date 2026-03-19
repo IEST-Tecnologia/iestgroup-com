@@ -224,6 +224,7 @@ export default function JobEditForm({ job }: { job: Job }) {
                       id="area1"
                       fullWidth
                       required
+                      maxLength={15}
                       {...register("area1", { required: REQUIRED_MSG })}
                       error={errors.area1?.message}
                     />
@@ -232,6 +233,7 @@ export default function JobEditForm({ job }: { job: Job }) {
                       type="text"
                       id="area2"
                       fullWidth
+                      maxLength={15}
                       {...register("area2")}
                     />
                     <TextField
@@ -239,6 +241,7 @@ export default function JobEditForm({ job }: { job: Job }) {
                       type="text"
                       id="area3"
                       fullWidth
+                      maxLength={15}
                       {...register("area3")}
                     />
                   </div>

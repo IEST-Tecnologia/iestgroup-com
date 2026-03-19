@@ -192,6 +192,7 @@ export default function Page() {
                       id="area1"
                       fullWidth
                       required
+                      maxLength={15}
                       {...register("area1", {
                         required: REQUIRED_MSG,
                         setValueAs: (v) => v.trim(),
@@ -206,12 +207,14 @@ export default function Page() {
                       {...register("area2", {
                         setValueAs: (v) => v.trim(),
                       })}
+                      maxLength={15}
                     />
                     <TextField
                       placeholder="Ex: Financeiro"
                       type="text"
                       id="area3"
                       fullWidth
+                      maxLength={15}
                       {...register("area3", {
                         setValueAs: (v) => v.trim(),
                       })}

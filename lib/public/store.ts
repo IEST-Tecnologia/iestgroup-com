@@ -82,13 +82,19 @@ export async function listJobFilterOptions(): Promise<JobFilterOptions> {
   const jobs = data.jobs ?? [];
   return {
     areas: [
-      ...new Set(jobs.map((j) => j.area).filter(Boolean)),
+      ...new Set(
+        jobs
+          .flatMap((j) =>
+            j.area ? j.area.split(",").map((a) => a.trim()) : [],
+          )
+          .filter(Boolean),
+      ),
     ].sort() as string[],
     companies: [
-      ...new Set(jobs.map((j) => j.company).filter(Boolean)),
+      ...new Set(jobs.map((j) => j.company.trim()).filter(Boolean)),
     ].sort() as string[],
     nivels: [
-      ...new Set(jobs.map((j) => j.nivel).filter(Boolean)),
+      ...new Set(jobs.map((j) => j.nivel.trim()).filter(Boolean)),
     ].sort() as string[],
   };
 }
