@@ -6,11 +6,9 @@ import TextAlign from "@tiptap/extension-text-align";
 import Link from "@tiptap/extension-link";
 import IconBulletList from "@/assets/vagas/bullet-list.svg";
 import IconDecimalList from "@/assets/vagas/decimal-list.svg";
-import IconQuote from "@/assets/vagas/quote.svg";
 import IconAlignLeft from "@/assets/vagas/align-left.svg";
 import IconAlignCenter from "@/assets/vagas/align-center.svg";
 import IconAlignRight from "@/assets/vagas/align-right.svg";
-import IconLink from "@/assets/vagas/link.svg";
 import Image from "next/image";
 
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
@@ -49,12 +47,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
         />
       </p>
       <p
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive("blockquote") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
-      >
-        <Image className="w-5 h-5" src={IconQuote} alt="Ícone de citação" />
-      </p>
-      <p
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive({ textAlign: "left" }) ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
       >
@@ -83,17 +75,6 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
           src={IconAlignRight}
           alt="Ícone de alinhar à direita"
         />
-      </p>
-      <p
-        onClick={() => {
-          const url = window.prompt("URL do link:");
-          if (url) {
-            editor.chain().focus().setLink({ href: url }).run();
-          }
-        }}
-        className={`flex justify-center items-center border border-gray-500 rounded-md font-bold w-8 h-8 ${editor.isActive("link") ? "bg-white hover:bg-gray-200" : "bg-gray-200 hover:bg-white"}`}
-      >
-        <Image className="w-5 h-5" src={IconLink} alt="Ícone de link" />
       </p>
     </div>
   );
