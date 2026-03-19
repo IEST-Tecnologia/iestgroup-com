@@ -14,6 +14,13 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 type RateLimitEntry = { count: number; resetAt: number };
 const rateLimitStore = new Map<string, RateLimitEntry>();
 
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitStore) {
+    if (now > entry.resetAt) rateLimitStore.delete(ip);
+  }
+}, RATE_LIMIT_WINDOW_MS);
+
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
   const entry = rateLimitStore.get(ip);
