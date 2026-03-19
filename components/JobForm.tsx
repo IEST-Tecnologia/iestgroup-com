@@ -52,7 +52,15 @@ export default function JobForm({
   const [selectedEstado, setSelectedEstado] = useState("");
   const [selectedCidade, setSelectedCidade] = useState("");
   const [resideBrasil, setResideBrasil] = useState<"sim" | "nao" | "">("");
+  const [phone, setPhone] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  function formatPhone(value: string) {
+    const digits = value.replace(/\D/g, "").slice(0, 11);
+    if (digits.length <= 2) return digits.length ? `(${digits}` : "";
+    if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  }
 
   const cidadesFiltradas = selectedEstado
     ? (cidades[selectedEstado] ?? [])
@@ -179,6 +187,7 @@ export default function JobForm({
             type="text"
             id="name"
             name="name"
+            maxLength={100}
             placeholder="Nome"
             disabled={disabled}
             required
@@ -190,6 +199,7 @@ export default function JobForm({
               id="email"
               name="email"
               placeholder="E-mail"
+              maxLength={200}
               disabled={disabled}
               required
             />
@@ -198,7 +208,10 @@ export default function JobForm({
               type="tel"
               id="phone"
               name="phone"
-              placeholder="Telefone"
+              placeholder="(11) 99999-9999"
+              value={phone}
+              onChange={(e) => setPhone(formatPhone(e.target.value))}
+              maxLength={15}
               disabled={disabled}
               required
             />
@@ -302,10 +315,11 @@ export default function JobForm({
             <div className="flex flex-col w-full md:w-1/2 gap-1">
               <input
                 className="p-4 bg-white text-gray-400"
-                type="text"
+                type="url"
                 placeholder="Perfil no Linkedin (opcional)"
                 id="linkedin"
                 name="linkedin"
+                maxLength={200}
                 disabled={disabled}
               />
             </div>
@@ -392,6 +406,7 @@ export default function JobForm({
               id="cidade"
               name="cidade"
               placeholder="Cidade onde reside"
+              maxLength={100}
               disabled={disabled}
               required
             />
@@ -446,6 +461,7 @@ export default function JobForm({
               name="observations"
               placeholder="Deseja nos dizer algo?"
               rows={3}
+              maxLength={300}
               disabled={disabled}
             />
           </div>
@@ -478,7 +494,7 @@ export default function JobForm({
               Concorda com os{" "}
               <Link
                 className="underline decoration-1"
-                href="politica-de-privacidade "
+                href="politica-de-privacidade"
               >
                 termos de uso
               </Link>
