@@ -10,13 +10,19 @@ import BannerCarousel from "@/components/BannerCarousel";
 import ClientsMarquee from "@/components/ClientsMarquee";
 import { listBanners, listClients } from "@/lib/admin/store";
 import { Metadata } from "next";
+import { t } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Consultoria Empresarial",
 };
 
 export default async function Home() {
-  const [banners, clients] = await Promise.all([listBanners(), listClients()]);
+  const FEATURE_FLAG_HERO_BANNER =
+    process.env.NEXT_PUBLIC_FEATURE_FLAG_HERO_BANNER === "true";
+  const [banners, clients] = await Promise.all([
+    FEATURE_FLAG_HERO_BANNER ? listBanners(true).catch(() => []) : Promise.resolve([]),
+    listClients().catch(() => []),
+  ]);
 
   const {
     props: { srcSet },
@@ -28,27 +34,24 @@ export default async function Home() {
   });
   const backgroundImage = getBackgroundImage(srcSet);
   const style = { backgroundImage };
-
   return (
     <div>
-      <BannerCarousel banners={banners} />
+      {FEATURE_FLAG_HERO_BANNER && <BannerCarousel banners={banners} />}
       <main className="bg-white">
         <div className="flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
           <div className="w-full lg:w-1/2 p-2.5 flex flex-col gap-5">
             <h2 className="font-bold uppercase leading text-primary text-2xl md:text-[28px] lg:text-[32px]">
-              Nossa história
+              {t("home_history_title")}
             </h2>
             <p className="text-base md:text-lg lg:text-[19px] font-medium">
-              Desde 2012, fornecendo serviços e soluções empresariais completas
-              para multinacionais que buscam ingressar e prosperar no mercado
-              brasileiro.
+              {t("home_history_text")}
             </p>
             <Link href="/sobre-nos">
-              <Button>Saiba mais</Button>
+              <Button>{t("home_history_cta")}</Button>
             </Link>
           </div>
           <div className="w-full lg:w-1/4 mt-6 lg:mt-0">
-            <Image src={MainImage} alt="globo" />
+            <Image src={MainImage} alt={t("home_history_img_alt")} sizes="(min-width: 1280px) 312px, (min-width: 1024px) 25vw, calc(100vw - 2rem)" priority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0} fetchPriority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0 ? "high" : "auto"} />
           </div>
         </div>
       </main>
@@ -56,40 +59,40 @@ export default async function Home() {
         <div className="flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
           <div className="w-full lg:w-1/2 p-2.5 flex flex-col gap-5">
             <h2 className="font-bold uppercase leading text-white text-2xl md:text-[28px] lg:text-[32px]">
-              O que fazemos
+              {t("home_services_title")}
             </h2>
 
             <ul className="text-xl md:text-2xl lg:text-[28px] text-white font-bold *:hover:text-light-primary *:transition-colors *:duration-200 *:leading-[1.7em]">
               <li>
                 <Link href="/consultoria-profissional" className="">
-                  Consultoria Profissional
+                  {t("header_nav_services_consulting")}
                 </Link>
               </li>
 
               <li>
-                <Link href="/bpo">BPO Contábil e Financeiro</Link>
+                <Link href="/bpo-contabil-e-financeiro">{t("header_nav_services_bpo")}</Link>
               </li>
               <li>
-                <Link href="/recursos-humanos">Recursos Humanos</Link>
+                <Link href="/recursos-humanos">{t("header_nav_services_rh")}</Link>
               </li>
               <li>
-                <Link href="/paralegal">Paralegal</Link>
+                <Link href="/paralegal">{t("header_nav_services_paralegal")}</Link>
               </li>
               <li>
                 <Link href="/precos-de-transferencia">
-                  Preços de Transferência
+                  {t("header_nav_services_transfer")}
                 </Link>
               </li>
               <li>
-                <Link href="/servicos-digitais">Serviços Digitais</Link>
+                <Link href="/servico-digital-e-marketing">{t("header_nav_services_digital")}</Link>
               </li>
             </ul>
             <Link href="/contato" className="mt-5">
-              <Button variant="inverted">Saiba Mais</Button>
+              <Button variant="inverted">{t("home_services_cta")}</Button>
             </Link>
           </div>
           <div className="w-full lg:w-2/5 p-2.5 mt-6 lg:mt-0">
-            <Image src={Section1Image} alt="imagem seção 1" />
+            <Image src={Section1Image} alt={t("home_services_img_alt")} sizes="(min-width: 1280px) 480px, (min-width: 1024px) 40vw, calc(100vw - 2rem)" />
           </div>
         </div>
       </section>
@@ -97,32 +100,27 @@ export default async function Home() {
         <div className="flex flex-col lg:flex-row justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
           <div className="w-full lg:w-1/2 p-2.5 flex flex-col gap-5">
             <h2 className="font-bold uppercase leading text-primary text-2xl md:text-[28px] lg:text-[32px]">
-              Nosso diferencial
+              {t("home_diff_title")}
             </h2>
             <p className="text-base md:text-lg lg:text-[19px] font-medium">
-              O <strong className="font-bold">IEST Group</strong> conta com uma
-              equipe altamente experiente e qualificada para atender às demandas
-              em serviços empresariais.
+              {t("home_diff_p1")}
             </p>
             <p className="text-base md:text-lg lg:text-[19px] font-medium">
-              Nossos profissionais, além de possuírem profundo conhecimento
-              técnico, são bilíngues e estão sempre atualizados com as
-              tendências e necessidades do mercado, garantindo um atendimento de
-              excelência.
+              {t("home_diff_p2")}
             </p>
             <Link href="/sobre-nos">
-              <Button>Saiba mais</Button>
+              <Button>{t("home_diff_cta")}</Button>
             </Link>
           </div>
           <div className="w-full lg:w-3/8 mt-6 lg:mt-0">
-            <Image src={Section2Image} alt="imagem seção 2" />
+            <Image src={Section2Image} alt={t("home_diff_img_alt")} sizes="(min-width: 1280px) 468px, (min-width: 1024px) 37.5vw, calc(100vw - 2rem)" />
           </div>
         </div>
       </section>
       <section className="bg-white">
         <div className="flex flex-col justify-between items-center max-w-7xl mx-auto py-6 md:py-10 px-4">
           <h2 className="px-4 font-bold uppercase leading text-primary text-2xl md:text-[28px] lg:text-[32px]">
-            Nossos Clientes
+            {t("home_clients_title")}
           </h2>
           <ClientsMarquee clients={clients} />
         </div>
@@ -133,14 +131,13 @@ export default async function Home() {
       >
         <div className="w-full  max-w-7xl mx-auto md:w-4/5 lg:w-3/5 py-6 md:py-10 p-2.5 flex flex-col gap-6 md:gap-10">
           <p className="font-medium leading-[1.3em] text-white text-2xl md:text-3xl lg:text-[35px]">
-            Inicie seu negócio no Brasil com o IEST Group.
+            {t("home_cta_p1")}
           </p>
           <h1 className="font-medium leading-[1.3em] text-white text-2xl md:text-3xl lg:text-[35px]">
-            Expanda sua empresa para outros mercados com o IEST Group. Nós
-            sabemos o caminho!
+            {t("home_cta_p2")}
           </h1>
           <Link href="/contato" className="">
-            <Button variant="inverted">Saiba mais</Button>
+            <Button variant="inverted">{t("home_cta_button")}</Button>
           </Link>
         </div>
       </section>

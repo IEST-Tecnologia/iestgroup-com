@@ -52,6 +52,7 @@ export default function PageHeroSection({
               className="w-full h-full"
               src={secondBannerImage}
               alt={secondBannerAlt}
+              sizes="(min-width: 768px) 80vw, 100vw"
             />
           </div>
         </div>

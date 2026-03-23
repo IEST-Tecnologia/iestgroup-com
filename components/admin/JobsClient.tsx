@@ -83,7 +83,7 @@ export default function JobsClient({
   const navigate = useCallback(
     (overrides: Record<string, string>) => {
       const params = new URLSearchParams(searchParams.toString());
-      // Reset page to 1 when any filter changes (unless page itself is being set)
+
       if (!("page" in overrides)) {
         params.set("page", "1");
       }
@@ -128,7 +128,6 @@ export default function JobsClient({
 
   const handleColumnSort = (column: SortableColumn) => {
     if (currentSortBy === column) {
-      // Toggle direction
       const newDir = currentSortDir === "asc" ? "desc" : "asc";
       navigate({ sort_by: column, sort_dir: newDir });
     } else {
@@ -167,18 +166,13 @@ export default function JobsClient({
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl font-semibold text-foreground">Vagas</h1>
-        <Link
-          href="/gestao/vagas/nova"
-          className="px-4 py-2 text-sm font-semibold text-white bg-primary rounded hover:bg-secondary transition-colors"
-        >
-          Nova vaga
+        <Link href="/gestao/vagas/nova">
+          <Button size="small">Nova vaga</Button>
         </Link>
       </div>
 
-      {/* Filters bar */}
       <div className="flex flex-wrap items-center gap-4 mb-4">
-        {/* Search */}
-        <div className="relative flex-1 min-w-[200px] max-w-sm">
+        <div className="relative flex-1 min-w-50 max-w-sm">
           <svg
             className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
             fill="none"
@@ -315,11 +309,8 @@ export default function JobsClient({
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex justify-end gap-2">
-                    <Link
-                      href={`/gestao/vagas/${job.slug}`}
-                      className="px-4 py-2 text-sm font-semibold uppercase text-primary border border-primary rounded hover:bg-primary hover:text-white transition-colors"
-                    >
-                      Editar
+                    <Link href={`/gestao/vagas/${job.slug}`}>
+                      <Button size="small" variant="outline">Editar</Button>
                     </Link>
                     <Button
                       size="small"

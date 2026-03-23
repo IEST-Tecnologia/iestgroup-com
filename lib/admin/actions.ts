@@ -6,9 +6,10 @@ import {
   createJob as storeCreateJob,
   getJobBySlug as storeGetJobBySlug,
   updateJob as storeUpdateJob,
+  reorderBanners as storeReorderBanners,
+  deleteBanner as storeDeleteBanner,
 } from "./store";
-import type { Client, JobResponse, Job } from "./types";
-import { redirect } from "next/navigation";
+import type { Banner, JobResponse, Job } from "./types";
 
 export async function requireAdminServer(): Promise<void> {
   const user = await getCurrentUser();
@@ -32,17 +33,26 @@ export async function listJobs(
 
 export async function createJob(formData: FormData): Promise<Job> {
   await requireAdminServer();
-  const job = await storeCreateJob(formData);
-  return redirect(`/gestao/vagas/${job.slug}`);
+  return storeCreateJob(formData);
 }
 
 export async function updateJob(id: number, formData: FormData): Promise<Job> {
   await requireAdminServer();
   const job = await storeUpdateJob(id, formData);
-  return redirect(`/gestao/vagas/${job.slug}`);
+  return job;
 }
 
 export async function getJobBySlug(slug: string): Promise<Job> {
   await requireAdminServer();
   return storeGetJobBySlug(slug);
+}
+
+export async function reorderBanners(ids: string[]): Promise<void> {
+  await requireAdminServer();
+  return storeReorderBanners(ids);
+}
+
+export async function deleteBanner(id: string): Promise<boolean> {
+  await requireAdminServer();
+  return storeDeleteBanner(id);
 }

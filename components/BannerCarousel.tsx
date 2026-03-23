@@ -37,22 +37,32 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
     <div className="relative w-full">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {banners.map((banner) => (
+          {banners.map((banner, index) => (
             <a
               key={banner.id}
               href={banner.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex-[0_0_100%] min-w-0 w-full aspect-video max-h-175"
+              className="flex-[0_0_100%] min-w-0 w-full"
             >
-              <Image
-                src={banner.imageUrl}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="100vw"
-                priority
-              />
+              <picture>
+                {banner.mobileImageUrl && (
+                  <source
+                    media="(max-width: 767px)"
+                    srcSet={banner.mobileImageUrl}
+                  />
+                )}
+                <Image
+                  src={banner.imageUrl}
+                  alt=""
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-full h-auto"
+                  priority={index === 0}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                />
+              </picture>
             </a>
           ))}
         </div>

@@ -2,6 +2,15 @@ import { getBackgroundImage } from "@/lib/utils";
 import { getImageProps } from "next/image";
 import { AddressIcon, EmailIcon, PhoneIcon } from "@/components/icons";
 import ContactForm from "@/components/ContactForm";
+import { Metadata } from "next";
+import { t } from "@/lib/i18n";
+
+export const metadata: Metadata = {
+  title: "Contato",
+  description:
+    "Conte conosco para o que precisar! Sua empresa necessita de auxílio ou consultoria para iniciar o negócio no mercado chinês ou brasileiro? Saiba como nos",
+};
+
 export default async function page() {
   const {
     props: { srcSet },
@@ -24,31 +33,27 @@ export default async function page() {
         <div className="p-7.5 mt-17.5 flex flex-col gap-10">
           <div className="gap-5 flex flex-col">
             <h1 className="text-3xl font-bold text-primary">
-              Entre em contato
+              {t("contact_h1")}
             </h1>
-            <p>
-              Conte conosco para o que precisar! Sua empresa necessita de
-              auxílio ou consultoria para iniciar o negócio no mercado chinês ou
-              brasileiro? Saiba como nos encontrar.
-            </p>
-            <p>Preencha o formulário ao lado e deixe-nos uma mensagem.</p>
+            <p>{t("contact_p1")}</p>
+            <p>{t("contact_p2")}</p>
           </div>
           <div className="flex flex-col gap-2">
             <h2 className="pl-3 border-l border-secondary text-primary text-[23px] font-semibold">
-              Assessoria de imprensa
+              {t("contact_press_title")}
             </h2>
-            <p className="font-bold">Keila Cândido</p>
+            <p className="font-bold">{t("contact_press_name")}</p>
             <p>imprensa@iestgroup.com</p>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="flex flex-col gap-1">
               <EmailIcon className="text-primary w-7.25 h-7.25 mb-4" />
-              <h3 className="font-bold">Email</h3>
+              <h3 className="font-bold">{t("contact_email_label")}</h3>
               <p>br@iestgroup.com</p>
             </div>
             <div className="flex flex-col gap-2">
               <PhoneIcon className="text-primary w-7.25 h-7.25 mb-4" />
-              <h3 className="font-bold">Phone</h3>
+              <h3 className="font-bold">{t("contact_phone_label")}</h3>
               <p>+55 11 2309-5904</p>
             </div>
           </div>
@@ -75,14 +80,14 @@ export default async function page() {
           <div className="p-2.5">
             <div className="flex flex-col mx-10 p-2.5 h-full justify-between">
               <h2 className="text-[59px] leading-[1.3em] font-semibold text-primary ">
-                Onde Estamos
+                {t("contact_location_title")}
               </h2>
               <div className="flex flex-col">
                 <AddressIcon className="w-6 h-6 mb-2 text-primary" />
-                <p className="font-bold">IEST GROUP</p>
-                <p>Rua do Paraíso</p>
-                <p>595 - 11º andar</p>
-                <p>São Paulo/SP</p>
+                <p className="font-bold">{t("contact_location_name")}</p>
+                <p>{t("contact_location_street")}</p>
+                <p>{t("contact_location_floor")}</p>
+                <p>{t("contact_location_city")}</p>
               </div>
             </div>
           </div>

@@ -5,10 +5,19 @@ import { JSONContent } from "@tiptap/react";
 import RadioGroup from "@/components/RadioGroup";
 import TextField from "@/components/TextField";
 import Button from "@/components/Button";
-import RichText from "@/components/Tiptap";
 import { updateJob } from "@/lib/admin/actions";
 import type { Job } from "@/lib/admin/types";
 import Link from "next/link";
+import LeftArrow from "@/components/icons/LeftArrow";
+import { useToast } from "@/context/ToastContext";
+import { useRouter } from "next/navigation";
+
+import dynamic from "next/dynamic";
+
+const RichText = dynamic(() => import("@/components/Tiptap"), {
+  ssr: false,
+  loading: () => <p>Carregando editor...</p>,
+});
 
 const WORK_MODEL_OPTIONS = [
   { label: "Híbrido", value: "hybrid" },
@@ -40,6 +49,9 @@ const JOB_STATUS_OPTIONS = [
 interface JobFormValues {
   name: string;
   company: string;
+  area1: string;
+  area2: string;
+  area3: string;
   nivel: string;
   locality: string;
   id_job: string;
@@ -76,6 +88,9 @@ function getErrorMsg(error: unknown): string | undefined {
 }
 
 export default function JobEditForm({ job }: { job: Job }) {
+  const { addToast } = useToast();
+  const router = useRouter();
+
   const {
     register,
     control,
@@ -85,6 +100,9 @@ export default function JobEditForm({ job }: { job: Job }) {
     defaultValues: {
       name: job.name,
       company: job.company,
+      area1: job.area?.split(",")[0]?.trim() ?? "",
+      area2: job.area?.split(",")[1]?.trim() ?? "",
+      area3: job.area?.split(",")[2]?.trim() ?? "",
       nivel: job.nivel,
       locality: job.locality,
       id_job: job.id_job,
@@ -116,6 +134,10 @@ export default function JobEditForm({ job }: { job: Job }) {
         .replace(/^-+|-+$/g, ""),
     );
     formData.append("company", data.company);
+    formData.append(
+      "area",
+      [data.area1, data.area2, data.area3].filter(Boolean).join(", "),
+    );
     formData.append("nivel", data.nivel);
     formData.append("locality", data.locality);
     formData.append("id_job", data.id_job);
@@ -140,12 +162,23 @@ export default function JobEditForm({ job }: { job: Job }) {
     formData.append("differences", JSON.stringify(data.differences));
     formData.append("benefits", JSON.stringify(data.benefits));
 
-    await updateJob(job.id, formData);
+    try {
+      const newJob = await updateJob(job.id, formData);
+      addToast("Vaga atualizada com sucesso", "success");
+      router.push(`/gestao/vagas/${newJob.slug}`);
+    } catch (e) {
+      addToast("Erro ao atualizar a vaga: " + e, "error");
+    }
   };
 
   return (
     <div className="w-full px-6 py-8">
-      <h1 className="text-xl font-semibold mb-4">Editar Vaga</h1>
+      <div className="flex flex-row items-center gap-2 mb-4">
+        <Link className="hover:text-primary" href="/gestao/vagas">
+          <LeftArrow className="w-4 h-4" />
+        </Link>
+        <h1 className="text-xl font-semibold ">Editar Vaga</h1>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="Nome da vaga"
@@ -180,6 +213,41 @@ export default function JobEditForm({ job }: { job: Job }) {
                   {...register("company", { required: REQUIRED_MSG })}
                   error={errors.company?.message}
                 />
+                <div className="w-full flex flex-col">
+                  <span className="block font-medium text-foreground text-sm mb-1">
+                    Área(s) de atuação
+                  </span>
+                  <div className="flex w-full gap-2">
+                    <TextField
+                      placeholder="Ex: Marketing"
+                      type="text"
+                      id="area1"
+                      fullWidth
+                      required
+                      maxLength={15}
+                      {...register("area1", { required: REQUIRED_MSG })}
+                      error={errors.area1?.message}
+                    />
+                    <TextField
+                      placeholder="Ex: RH"
+                      type="text"
+                      id="area2"
+                      fullWidth
+                      maxLength={15}
+                      {...register("area2")}
+                    />
+                    <TextField
+                      placeholder="Ex: Financeiro"
+                      type="text"
+                      id="area3"
+                      fullWidth
+                      maxLength={15}
+                      {...register("area3")}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between gap-4">
                 <TextField
                   label="Nivel de Experiência"
                   placeholder="Especialista, Analista, Sênior..."
@@ -189,8 +257,6 @@ export default function JobEditForm({ job }: { job: Job }) {
                   {...register("nivel", { required: REQUIRED_MSG })}
                   error={errors.nivel?.message}
                 />
-              </div>
-              <div className="flex justify-between gap-4">
                 <TextField
                   label="Local"
                   placeholder="São Paulo, SP"
@@ -206,7 +272,7 @@ export default function JobEditForm({ job }: { job: Job }) {
                   type="text"
                   id="id_job"
                   fullWidth
-                  {...register("id_job", { required: REQUIRED_MSG })}
+                  {...register("id_job")}
                   error={errors.id_job?.message}
                 />
               </div>
@@ -435,7 +501,7 @@ export default function JobEditForm({ job }: { job: Job }) {
               type="submit"
               disabled={isSubmitting}
             >
-              Salvar
+              {isSubmitting ? "Salvando..." : "Salvar"}
             </Button>
           </div>
         </div>

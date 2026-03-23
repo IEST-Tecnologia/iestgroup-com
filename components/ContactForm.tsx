@@ -1,71 +1,69 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { submitContact, type ContactState } from "@/app/actions/contact";
 import { Input } from "@/components/Input";
 import { Textarea } from "@/components/TextArea";
 import Button from "@/components/Button";
-import Toast from "@/components/Toast";
+import { useToast } from "@/context/ToastContext";
+import { t } from "@/lib/i18n";
 
 export default function ContactForm() {
+  const { addToast } = useToast();
   const [state, formAction, pending] = useActionState<ContactState, FormData>(
     submitContact,
     null,
   );
-  const [toast, setToast] = useState<ContactState>(null);
+  const toastedState = useRef(state);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (!state) return;
-    setToast(state);
-    if (state.success) {
-      formRef.current?.reset();
-    }
-  }, [state]);
+    if (!state || state === toastedState.current) return;
+    toastedState.current = state;
+    addToast(state.message, state.success ? "success" : "error");
+    if (state.success) formRef.current?.reset();
+  }, [state, addToast]);
 
   return (
     <>
       <form ref={formRef} className="flex flex-col gap-4" action={formAction}>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 md:gap-3">
-          <Input label="Nome" name="first_name" required placeholder="Seu nome" />
           <Input
-            label="Sobrenome"
+            label={t("contact_form_name")}
+            name="first_name"
+            required
+            placeholder={t("contact_form_name_placeholder")}
+          />
+          <Input
+            label={t("contact_form_lastname")}
             name="last_name"
             required
-            placeholder="Seu sobrenome"
+            placeholder={t("contact_form_lastname_placeholder")}
           />
         </div>
         <Input
-          label="E-mail"
+          label={t("contact_form_email")}
           name="email"
           required
-          placeholder="seuemail@email.com"
+          placeholder={t("contact_form_email_placeholder")}
         />
         <Input
-          label="Telefone"
+          label={t("contact_form_phone")}
           name="phone"
           required
-          placeholder="(00) 00000-0000"
+          placeholder={t("contact_form_phone_placeholder")}
         />
-        <Textarea label="Mensagem" name="message" />
+        <Textarea label={t("contact_form_message")} name="message" />
         <label>
-          <input className="mr-1" type="checkbox" />
-          Você concorda com nossa politica de privacidade.
+          <input className="mr-1" type="checkbox" required />
+          {t("contact_form_privacy_agree")}
         </label>
         <div>
           <Button disabled={pending}>
-            {pending ? "Enviando..." : "Enviar"}
+            {pending ? t("contact_form_sending") : t("contact_form_send")}
           </Button>
         </div>
       </form>
-
-      {toast && (
-        <Toast
-          message={toast.message}
-          variant={toast.success ? "success" : "error"}
-          onClose={() => setToast(null)}
-        />
-      )}
     </>
   );
 }

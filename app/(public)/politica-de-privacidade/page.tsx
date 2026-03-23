@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import React from "react";
+import { t } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
@@ -29,9 +30,9 @@ export default function page() {
     <main>
       <div className="max-w-7xl mx-auto flex flex-col">
         <div className="mb-6 px-4 md:px-0">
-          <h1 className="text-3xl font-semibold">Política de Privacidade</h1>
+          <h1 className="text-3xl font-semibold">{t("privacy_h1")}</h1>
         </div>
-        <SectionComponent title="I. INTRODUÇÃO E OBJETIVO">
+        <SectionComponent title={t("privacy_s1_title")}>
           <p className="text-md">
             A Política de Segurança da Informação apresentada tem como objetivo
             orientar sobre o gerenciamento, em amplo aspecto, das atividades e
@@ -74,7 +75,7 @@ export default function page() {
             e atualizadas.
           </p>
         </SectionComponent>
-        <SectionComponent title="II. TERMOS E DEFINIÇÕES">
+        <SectionComponent title={t("privacy_s2_title")}>
           <p className="text-md">
             <strong className="font-semibold">DADOS PESSOAIS:</strong>{" "}
             Informação relacionada a pessoa natural identificada ou
@@ -176,7 +177,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="III. ABRANGÊNCIA">
+        <SectionComponent title={t("privacy_s3_title")}>
           <p className="text-md">
             A presente Política de Privacidade e Proteção de Dados Pessoais se
             aplica (i) aos empregados da IEST GROUP; (ii) a todos os terceiros,
@@ -194,7 +195,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="IV. PRINCÍPIOS DE PRIVACIDADE E PROTEÇÃO DE DADOS PESSOAIS">
+        <SectionComponent title={t("privacy_s4_title")}>
           <p className="text-md">
             Nos termos da LGPD, a IEST GROUP cumprirá com os seguintes
             princípios de proteção de dados pessoais quando do tratamento deles:
@@ -264,7 +265,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="V. DIRETRIZES">
+        <SectionComponent title={t("privacy_s5_title")}>
           <p className="text-md font-semibold">1. Disposições iniciais</p>
           <p className="text-md">
             1.1. Esta Política visa demonstrar o compromisso da IEST GROUP em:
@@ -430,7 +431,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="VI. POLÍTICA DE COOKIES">
+        <SectionComponent title={t("privacy_s6_title")}>
           <p className="text-md">
             <strong className="font-semibold">O que são Cookies?</strong>{" "}
             Cookies são pequenos arquivos de texto que são armazenados no
@@ -500,7 +501,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="VII. GESTÃO DE CONSEQUÊNCIAS">
+        <SectionComponent title={t("privacy_s7_title")}>
           <p className="text-md">
             Colaboradores, fornecedores ou outros stakeholders/públicos de
             interesse que observarem quaisquer desvios às diretrizes desta
@@ -515,7 +516,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="VIII. DIREITOS DOS TITULARES">
+        <SectionComponent title={t("privacy_s8_title")}>
           <p className="text-md">
             Você pode sempre solicitar a correção ou remoção de seus dados e
             informações pessoais ou relatar eventual uso indevido por meio do
@@ -528,7 +529,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="IX. RESPONSABILIDADES">
+        <SectionComponent title={t("privacy_s9_title")}>
           <p className="text-md">
             <strong className="font-semibold">
               Cumpre aos administradores, colaboradores e terceiros:
@@ -573,7 +574,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="X. DOCUMENTAÇÃO COMPLEMENTAR">
+        <SectionComponent title={t("privacy_s10_title")}>
           <p className="text-md">
             Artigo 5º da Constituição Federal de 1988; Política Geral de
             Segurança da Informação e Anexos da IEST GROUP; Regimento Interno de
@@ -585,7 +586,7 @@ export default function page() {
           </p>
         </SectionComponent>
 
-        <SectionComponent title="XI. DISPOSIÇÕES GERAIS" last>
+        <SectionComponent title={t("privacy_s11_title")} last>
           <p className="text-md">
             É competência do Comitê Gestor de Proteção de Dados Pessoais alterar
             esta Política sempre que se fizer necessário. Esta Política entra em

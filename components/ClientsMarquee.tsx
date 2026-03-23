@@ -38,7 +38,7 @@ function MarqueeRow({
         {clients.map((client) => (
           <div
             key={client.id}
-            className="flex-[0_0_20%] min-w-0 flex items-center justify-center px-3"
+            className="flex-[0_0_100%] md:flex-[0_0_20%] min-w-0 flex items-center justify-center px-3"
           >
             <Image
               src={client.logoUrl}
