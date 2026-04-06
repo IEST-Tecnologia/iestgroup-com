@@ -9,11 +9,6 @@ import IconRank from "@/assets/vagas/rank.svg";
 import IconMoney from "@/assets/vagas/money.svg";
 import InfoItem from "@/components/InfoItem";
 import JobForm from "@/components/JobForm";
-import {
-  WORK_MODEL_LABELS,
-  CONTRACT_TYPE_LABELS,
-  WORK_SCHEDULE_LABELS,
-} from "@/lib/mocks/jobs";
 import { getJobBySlug } from "@/lib/public/actions";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
@@ -21,6 +16,11 @@ import { cidades } from "@/assets/cidades";
 import { estados } from "@/assets/estados";
 
 import TiptapContentClient from "@/components/TiptapContentClient";
+import {
+  CONTRACT_TYPE_LABELS,
+  WORK_MODEL_LABELS,
+  WORK_SCHEDULE_LABELS,
+} from "@/lib/admin/types";
 
 export async function generateMetadata({
   params,
@@ -100,7 +100,9 @@ export default async function page({
                 icon={IconBriefcase}
                 iconAlt="Icone de maleta"
                 label="Tipo de contrato"
-                value={CONTRACT_TYPE_LABELS[job.contract_type]}
+                value={job.contract_type
+                  .map((job) => CONTRACT_TYPE_LABELS[job])
+                  .join(" e ")}
               />
               <InfoItem
                 icon={IconTimer}
