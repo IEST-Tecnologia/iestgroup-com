@@ -2,13 +2,31 @@ import type { JSONContent } from "@tiptap/react";
 
 export type WorkModelType = "in_office" | "hybrid" | "remote";
 
-export type ContractType = "clt" | "pj" | "temporary";
+export type ContractType = "clt" | "pj" | "temporary" | "internship";
 
 export type WorkScheduleType = "full_time" | "part_time";
 
 export type StatusType = "open" | "closed";
 
 export type JobType = "internal" | "external";
+
+export const WORK_MODEL_LABELS: Record<string, string> = {
+  in_office: "Presencial",
+  hybrid: "Híbrido",
+  remote: "Remoto",
+};
+
+export const CONTRACT_TYPE_LABELS: Record<string, string> = {
+  clt: "CLT",
+  pj: "PJ",
+  internship: "Estágio",
+  temporary: "Temporário",
+};
+
+export const WORK_SCHEDULE_LABELS: Record<string, string> = {
+  full_time: "Integral",
+  part_time: "Parcial",
+};
 
 export interface Job {
   id: number;
@@ -19,7 +37,7 @@ export interface Job {
   locality: string;
   nivel: string;
   work_model: WorkModelType;
-  contract_type: ContractType;
+  contract_type: ContractType[];
   work_schedule: WorkScheduleType;
   area: string;
   status: StatusType;

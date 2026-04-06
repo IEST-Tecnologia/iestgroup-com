@@ -28,6 +28,7 @@ const WORK_MODEL_OPTIONS = [
 const CONTRACT_TYPE_OPTIONS = [
   { label: "CLT", value: "clt" },
   { label: "PJ", value: "pj" },
+  { label: "Estágio", value: "internship" },
   { label: "Temporário", value: "temporary" },
 ];
 
@@ -62,7 +63,7 @@ interface JobFormValues {
   differences: JSONContent;
   benefits: JSONContent;
   work_model: string;
-  contract_type: string;
+  contract_type: string[];
   work_schedule: string;
   job_type: string;
   status: string;
@@ -113,7 +114,9 @@ export default function JobEditForm({ job }: { job: Job }) {
       differences: job.differences,
       benefits: job.benefits,
       work_model: job.work_model,
-      contract_type: job.contract_type,
+      contract_type: Array.isArray(job.contract_type)
+        ? job.contract_type
+        : [job.contract_type].filter(Boolean),
       work_schedule: job.work_schedule,
       job_type: job.type,
       status: job.status,
@@ -142,7 +145,7 @@ export default function JobEditForm({ job }: { job: Job }) {
     formData.append("locality", data.locality);
     formData.append("id_job", data.id_job);
     formData.append("work_model", data.work_model);
-    formData.append("contract_type", data.contract_type);
+    data.contract_type.forEach((ct) => formData.append("contract_type", ct));
     formData.append("work_schedule", data.work_schedule);
     formData.append("type", data.job_type);
     formData.append("status", data.status);
@@ -433,9 +436,13 @@ export default function JobEditForm({ job }: { job: Job }) {
               <Controller
                 name="contract_type"
                 control={control}
-                rules={{ required: REQUIRED_MSG }}
+                rules={{
+                  validate: (v) =>
+                    (Array.isArray(v) && v.length > 0) || REQUIRED_MSG,
+                }}
                 render={({ field }) => (
                   <RadioGroup
+                    multiple={true}
                     name="contract_type"
                     legend="Tipo de contrato"
                     direction="vertical"

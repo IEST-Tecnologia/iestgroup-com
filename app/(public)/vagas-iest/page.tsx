@@ -39,7 +39,9 @@ function JobCard({ job }: { job: Job }) {
     >
       <div className="flex flex-col gap-2">
         <div className="flex items-start gap-2">
-          <p className="text-xs text-gray-500 line-clamp-1 w-1/2 shrink-0">{job.locality}</p>
+          <p className="text-xs text-gray-500 line-clamp-1 w-1/2 shrink-0">
+            {job.locality}
+          </p>
           {job.area && (
             <div className="flex flex-wrap gap-1 w-1/2 justify-end">
               {job.area.split(",").map((area) => (
@@ -69,7 +71,7 @@ function JobCard({ job }: { job: Job }) {
               alt={t("vagas_contract_type_alt")}
             />
             <p className="text-sm">
-              {CONTRACT_TYPE_LABELS[job.contract_type] ?? job.contract_type}
+              {CONTRACT_TYPE_LABELS[job.contract_type[0]]}
             </p>
           </div>
           <div className="w-px h-4 bg-gray-200" />
