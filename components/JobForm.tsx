@@ -53,6 +53,7 @@ export default function JobForm({
   const [selectedCidade, setSelectedCidade] = useState("");
   const [resideBrasil, setResideBrasil] = useState<"sim" | "nao" | "">("");
   const [phone, setPhone] = useState("");
+  const [selectedGender, setSelectedGender] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   function formatPhone(value: string) {
@@ -170,6 +171,7 @@ export default function JobForm({
                 setSelectedEstado("");
                 setSelectedCidade("");
                 setResideBrasil("");
+                setSelectedGender("");
               }
             } catch {
               setFeedback({
@@ -221,10 +223,11 @@ export default function JobForm({
               <select
                 className="p-4 bg-white w-full appearance-none invalid:text-gray-400 pr-10 select-none"
                 id="gender"
-                name="gender"
-                defaultValue=""
+                name={selectedGender === "Outro" ? undefined : "gender"}
+                value={selectedGender}
+                onChange={(e) => setSelectedGender(e.target.value)}
                 disabled={disabled}
-                required
+                required={selectedGender !== "Outro"}
               >
                 <option value="" disabled>
                   Como você se identifica?
@@ -247,9 +250,13 @@ export default function JobForm({
                 <option value="Prefiro não responder" className="text-black">
                   Prefiro não responder
                 </option>
+                <option value="Outro" className="text-black">
+                  Outro
+                </option>
               </select>
               <ChevronDown />
             </div>
+
             <div className="relative w-full md:w-1/2" ref={dropdownRef}>
               {selectedLanguages.map((value) => (
                 <input
@@ -310,6 +317,19 @@ export default function JobForm({
               )}
             </div>
           </div>
+
+          {selectedGender === "Outro" && (
+            <input
+              className="p-4 bg-white w-full"
+              type="text"
+              id="gender-custom"
+              name="gender"
+              placeholder="Como você se identifica?"
+              maxLength={100}
+              disabled={disabled}
+              required
+            />
+          )}
 
           <div className="w-full flex flex-col md:flex-row gap-6">
             <div className="flex flex-col w-full md:w-1/2 gap-1">
