@@ -39,13 +39,6 @@ export async function generateMetadata({
       url: `https://iestgroup.com/vagas-iest/${slug}`,
       siteName: "IEST Group",
       type: "website",
-      images: [
-        {
-          url: "https://iestgroup.com.br/wp-content/uploads/2021/09/portrait-successful-handsome-executive-businessman-smart-casual-wear-looking-camera-smiling-arms-crossed-modern-office-workplace-young-asia-guy-standing-contemporary-meeting-room-1024x576.jpg",
-          width: 1024,
-          height: 576,
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
