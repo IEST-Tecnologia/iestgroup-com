@@ -49,7 +49,13 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                 {banner.mobileImageUrl && (
                   <source
                     media="(max-width: 767px)"
-                    srcSet={banner.mobileImageUrl}
+                    srcSet={[640, 750, 828]
+                      .map(
+                        (w) =>
+                          `/_next/image?url=${encodeURIComponent(banner.mobileImageUrl!)}&w=${w}&q=75 ${w}w`,
+                      )
+                      .join(", ")}
+                    sizes="100vw"
                   />
                 )}
                 <Image
@@ -57,7 +63,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                   alt=""
                   width={0}
                   height={0}
-                  sizes="100vw"
+                  sizes={banner.mobileImageUrl ? "(max-width: 767px) 0px, 100vw" : "100vw"}
                   className="w-full h-auto"
                   priority={index === 0}
                   fetchPriority={index === 0 ? "high" : "auto"}
