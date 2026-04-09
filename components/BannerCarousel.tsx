@@ -45,30 +45,32 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
               rel="noopener noreferrer"
               className="flex-[0_0_100%] min-w-0 w-full"
             >
-              <picture>
-                {banner.mobileImageUrl && (
-                  <source
-                    media="(max-width: 767px)"
-                    srcSet={[640, 750, 828]
-                      .map(
-                        (w) =>
-                          `/_next/image?url=${encodeURIComponent(banner.mobileImageUrl!)}&w=${w}&q=75 ${w}w`,
-                      )
-                      .join(", ")}
-                    sizes="100vw"
+              {/* aspect-ratio reserva o espaço antes da imagem carregar, evitando CLS */}
+              <div className="relative w-full aspect-768/853 md:aspect-512/171">
+                <picture className="contents">
+                  {banner.mobileImageUrl && (
+                    <source
+                      media="(max-width: 767px)"
+                      srcSet={[640, 750, 828]
+                        .map(
+                          (w) =>
+                            `/_next/image?url=${encodeURIComponent(banner.mobileImageUrl!)}&w=${w}&q=75 ${w}w`,
+                        )
+                        .join(", ")}
+                      sizes="100vw"
+                    />
+                  )}
+                  <Image
+                    src={banner.imageUrl}
+                    alt=""
+                    fill
+                    sizes={banner.mobileImageUrl ? "(max-width: 767px) 0px, 100vw" : "100vw"}
+                    className="object-cover"
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : "auto"}
                   />
-                )}
-                <Image
-                  src={banner.imageUrl}
-                  alt=""
-                  width={0}
-                  height={0}
-                  sizes={banner.mobileImageUrl ? "(max-width: 767px) 0px, 100vw" : "100vw"}
-                  className="w-full h-auto"
-                  priority={index === 0}
-                  fetchPriority={index === 0 ? "high" : "auto"}
-                />
-              </picture>
+                </picture>
+              </div>
             </a>
           ))}
         </div>
