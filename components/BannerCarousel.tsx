@@ -44,6 +44,7 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex-[0_0_100%] min-w-0 w-full"
+              aria-label={"Entenda melhor sobre este banner"}
             >
               {/* aspect-ratio reserva o espaço antes da imagem carregar, evitando CLS */}
               <div className="relative w-full aspect-768/853 md:aspect-512/171">
@@ -64,7 +65,11 @@ export default function BannerCarousel({ banners }: { banners: Banner[] }) {
                     src={banner.imageUrl}
                     alt=""
                     fill
-                    sizes={banner.mobileImageUrl ? "(max-width: 767px) 0px, 100vw" : "100vw"}
+                    sizes={
+                      banner.mobileImageUrl
+                        ? "(max-width: 767px) 0px, 100vw"
+                        : "100vw"
+                    }
                     className="object-cover"
                     priority={index === 0}
                     fetchPriority={index === 0 ? "high" : "auto"}
