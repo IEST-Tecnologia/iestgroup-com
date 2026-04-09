@@ -19,8 +19,11 @@ export const metadata: Metadata = {
 export default async function Home() {
   const FEATURE_FLAG_HERO_BANNER =
     process.env.NEXT_PUBLIC_FEATURE_FLAG_HERO_BANNER === "true";
+
   const [banners, clients] = await Promise.all([
-    FEATURE_FLAG_HERO_BANNER ? listBanners(true).catch(() => []) : Promise.resolve([]),
+    FEATURE_FLAG_HERO_BANNER
+      ? listBanners(true).catch(() => [])
+      : Promise.resolve([]),
     listClients().catch(() => []),
   ]);
 
@@ -51,7 +54,17 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-1/4 mt-6 lg:mt-0">
-            <Image src={MainImage} alt={t("home_history_img_alt")} sizes="(min-width: 1280px) 312px, (min-width: 1024px) 25vw, calc(100vw - 2rem)" priority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0} fetchPriority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0 ? "high" : "auto"} />
+            <Image
+              src={MainImage}
+              alt={t("home_history_img_alt")}
+              sizes="(min-width: 1280px) 312px, (min-width: 1024px) 25vw, calc(100vw - 2rem)"
+              priority={!FEATURE_FLAG_HERO_BANNER || banners.length === 0}
+              fetchPriority={
+                !FEATURE_FLAG_HERO_BANNER || banners.length === 0
+                  ? "high"
+                  : "auto"
+              }
+            />
           </div>
         </div>
       </main>
@@ -70,13 +83,19 @@ export default async function Home() {
               </li>
 
               <li>
-                <Link href="/bpo-contabil-e-financeiro">{t("header_nav_services_bpo")}</Link>
+                <Link href="/bpo-contabil-e-financeiro">
+                  {t("header_nav_services_bpo")}
+                </Link>
               </li>
               <li>
-                <Link href="/recursos-humanos">{t("header_nav_services_rh")}</Link>
+                <Link href="/recursos-humanos">
+                  {t("header_nav_services_rh")}
+                </Link>
               </li>
               <li>
-                <Link href="/paralegal">{t("header_nav_services_paralegal")}</Link>
+                <Link href="/paralegal">
+                  {t("header_nav_services_paralegal")}
+                </Link>
               </li>
               <li>
                 <Link href="/precos-de-transferencia">
@@ -84,7 +103,9 @@ export default async function Home() {
                 </Link>
               </li>
               <li>
-                <Link href="/servico-digital-e-marketing">{t("header_nav_services_digital")}</Link>
+                <Link href="/servico-digital-e-marketing">
+                  {t("header_nav_services_digital")}
+                </Link>
               </li>
             </ul>
             <Link href="/contato" className="mt-5">
@@ -92,7 +113,11 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-2/5 p-2.5 mt-6 lg:mt-0">
-            <Image src={Section1Image} alt={t("home_services_img_alt")} sizes="(min-width: 1280px) 480px, (min-width: 1024px) 40vw, calc(100vw - 2rem)" />
+            <Image
+              src={Section1Image}
+              alt={t("home_services_img_alt")}
+              sizes="(min-width: 1280px) 480px, (min-width: 1024px) 40vw, calc(100vw - 2rem)"
+            />
           </div>
         </div>
       </section>
@@ -113,7 +138,11 @@ export default async function Home() {
             </Link>
           </div>
           <div className="w-full lg:w-3/8 mt-6 lg:mt-0">
-            <Image src={Section2Image} alt={t("home_diff_img_alt")} sizes="(min-width: 1280px) 468px, (min-width: 1024px) 37.5vw, calc(100vw - 2rem)" />
+            <Image
+              src={Section2Image}
+              alt={t("home_diff_img_alt")}
+              sizes="(min-width: 1280px) 468px, (min-width: 1024px) 37.5vw, calc(100vw - 2rem)"
+            />
           </div>
         </div>
       </section>
