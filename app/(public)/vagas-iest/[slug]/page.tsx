@@ -60,8 +60,18 @@ export default async function page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const job = await getJobBySlug(slug);
-  if (!job) redirect("/vagas-iest");
+  let job;
+  try {
+    const result = await getJobBySlug(slug);
+
+    if (!result) {
+      return redirect("/vagas-iest");
+    }
+
+    job = result;
+  } catch {
+    return redirect("/vagas-iest");
+  }
   return (
     <>
       <section
