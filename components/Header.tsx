@@ -222,7 +222,7 @@ function HeaderContent({
           {/* Language Switcher */}
           <div className="flex items-center gap-3 border-l border-gray-300 pl-4">
             <Link
-              href="#"
+              href="https://iestgroup.com.br"
               className="transition-opacity hover:opacity-70"
               aria-label="Português"
             >
