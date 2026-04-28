@@ -514,7 +514,7 @@ export default function JobForm({
               Concorda com os{" "}
               <Link
                 className="underline decoration-1"
-                href="politica-de-privacidade"
+                href="/politica-de-privacidade"
               >
                 termos de uso
               </Link>
