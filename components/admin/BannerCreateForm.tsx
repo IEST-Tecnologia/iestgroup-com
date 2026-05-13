@@ -23,8 +23,8 @@ export default function BannerCreateForm({
     const formData = new FormData(e.currentTarget);
 
     const newErrors: Errors = {};
-    if (!formData.has("image")) newErrors.image = "Campo obrigatório";
-    if (!formData.has("mobile_image"))
+    if (!formData.has("image_url")) newErrors.image = "Campo obrigatório";
+    if (!formData.has("mobile_image_url"))
       newErrors.mobileImage = "Campo obrigatório";
 
     if (Object.keys(newErrors).length > 0) {
