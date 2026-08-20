@@ -25,6 +25,7 @@ export async function listJobs(
     status?: string;
     sort_by?: string;
     sort_dir?: string;
+    archived?: boolean;
   },
 ): Promise<JobResponse> {
   await requireAdminServer();

@@ -9,6 +9,7 @@ import Button from "../Button";
 interface JobsClientProps {
   initialJobs: JobResponse;
   totalPages: number;
+  showArchived: boolean;
 }
 
 const SORT_OPTIONS = [
@@ -36,6 +37,11 @@ const STATUS_OPTIONS = [
   { label: "Fechados", value: "closed" },
 ] as const;
 
+const ARCHIVE_OPTIONS = [
+  { label: "Ativas", value: "" },
+  { label: "Arquivadas", value: "true" },
+] as const;
+
 type SortableColumn = "name" | "status" | "updated_at" | "area";
 
 const COLUMN_SORT_MAP: Record<string, SortableColumn> = {
@@ -61,6 +67,7 @@ function SortIcon({ direction }: { direction: "asc" | "desc" | null }) {
 export default function JobsClient({
   initialJobs,
   totalPages,
+  showArchived,
 }: JobsClientProps) {
   const [jobs, setJobs] = useState<Job[]>(initialJobs.jobs);
 
@@ -162,6 +169,30 @@ export default function JobsClient({
     }
   }, []);
 
+  // Archiving (or restoring) moves the job out of the list currently on screen,
+  // so the row is dropped either way.
+  const handleArchive = useCallback(async (id: number, archived: boolean) => {
+    const confirmMessage = archived
+      ? "Tem certeza que deseja arquivar esta vaga? Ela deixará de aparecer no site."
+      : "Tem certeza que deseja restaurar esta vaga? Ela voltará a aparecer no site.";
+    if (!confirm(confirmMessage)) return;
+    try {
+      const res = await fetch(`/api/admin/jobs/${id}/archive`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ archived }),
+      });
+      if (!res.ok && res.status !== 204) {
+        const body = (await res.json()) as { error?: string };
+        alert(body.error ?? (archived ? "Erro ao arquivar" : "Erro ao restaurar"));
+        return;
+      }
+      setJobs((prev) => prev.filter((c) => c.id !== id));
+    } catch {
+      alert(archived ? "Erro de rede ao arquivar" : "Erro de rede ao restaurar");
+    }
+  }, []);
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -216,6 +247,23 @@ export default function JobsClient({
               </svg>
             </button>
           )}
+        </div>
+
+        {/* Active / archived view */}
+        <div className="flex rounded border border-gray-300 overflow-hidden">
+          {ARCHIVE_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => navigate({ archived: opt.value })}
+              className={`px-3 py-2 text-sm transition-colors ${
+                (showArchived ? "true" : "") === opt.value
+                  ? "bg-primary text-white"
+                  : "bg-white text-gray-600 hover:bg-gray-50"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
         </div>
 
         {/* Status filter */}
@@ -278,7 +326,9 @@ export default function JobsClient({
             {jobs.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
-                  Nenhuma vaga encontrada
+                  {showArchived
+                    ? "Nenhuma vaga arquivada"
+                    : "Nenhuma vaga encontrada"}
                 </td>
               </tr>
             )}
@@ -312,6 +362,13 @@ export default function JobsClient({
                     <Link href={`/gestao/vagas/${job.slug}`}>
                       <Button size="small" variant="outline">Editar</Button>
                     </Link>
+                    <Button
+                      size="small"
+                      variant="outline"
+                      onClick={() => handleArchive(job.id, !showArchived)}
+                    >
+                      {showArchived ? "Restaurar" : "Arquivar"}
+                    </Button>
                     <Button
                       size="small"
                       variant="destructive"

@@ -48,6 +48,8 @@ export interface Job {
   mandatory_requirements: JSONContent;
   differences: JSONContent;
   benefits: JSONContent;
+  /** Null while the job is active; an ISO timestamp once it has been archived. */
+  archived_at: string | null;
   created_at: string;
   updated_at: string;
 }

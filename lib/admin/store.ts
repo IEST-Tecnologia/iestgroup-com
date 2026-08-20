@@ -66,12 +66,14 @@ export async function listJobs(
     status?: string;
     sort_by?: string;
     sort_dir?: string;
+    archived?: boolean;
   },
 ): Promise<JobResponse> {
   const params = new URLSearchParams({
     page: String(page),
     page_size: String(pageSize),
   });
+  if (filters?.archived) params.set("archived", "true");
   if (filters?.search) params.set("search", filters.search);
   if (filters?.status) params.set("status", filters.status);
   if (filters?.sort_by) params.set("sort_by", filters.sort_by);
@@ -87,6 +89,25 @@ export async function updateJob(id: number, formData: FormData): Promise<Job> {
     body: formData,
   });
   return unwrap<Job>(res);
+}
+
+/**
+ * Archives or restores a job. Archived jobs stay in the database but drop out of
+ * the public listing and out of the default admin listing.
+ * Returns false when no job with that id exists.
+ */
+export async function setJobArchived(
+  id: string,
+  archived: boolean,
+): Promise<boolean> {
+  const res = await apiFetch(`/api/v1/jobs/${id}/archive`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ archived }),
+  });
+  if (res.status === 404) return false;
+  await unwrap<unknown>(res);
+  return true;
 }
 
 export async function deleteJob(id: string): Promise<boolean> {
