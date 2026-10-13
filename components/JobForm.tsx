@@ -155,7 +155,7 @@ export default function JobForm({
               let data: { error?: string } = {};
               try {
                 data = await res.json();
-              } catch {}
+              } catch { }
               if (!res.ok) {
                 setFeedback({
                   success: false,
@@ -232,11 +232,11 @@ export default function JobForm({
                 <option value="" disabled>
                   Como você se identifica?
                 </option>
-                <option value="Mulher (Hetero)" className="text-black">
-                  Mulher (Hetero)
+                <option value="Mulher (cis)" className="text-black">
+                  Mulher (cis)
                 </option>
-                <option value="Homem (Hetero)" className="text-black">
-                  Homem (Hetero)
+                <option value="Homem (cis)" className="text-black">
+                  Homem (cis)
                 </option>
                 <option value="Mulher Trans" className="text-black">
                   Mulher Trans
