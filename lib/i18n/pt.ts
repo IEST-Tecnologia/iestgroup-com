@@ -510,6 +510,7 @@ const pt = {
   vagas_contract_clt: "CLT",
   vagas_contract_pj: "PJ",
   vagas_contract_temporary: "Temporário",
+  vagas_contract_outsourcing: "Terceirizado",
   vagas_contract_type_alt: "Tipo de contrato",
   vagas_work_model_alt: "Modelo de trabalho",
   vagas_see_job: "Ver vaga →",
