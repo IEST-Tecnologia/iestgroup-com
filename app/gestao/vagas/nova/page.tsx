@@ -27,6 +27,7 @@ const CONTRACT_TYPE_OPTIONS = [
   { label: "CLT", value: "clt" },
   { label: "PJ", value: "pj" },
   { label: "Estágio", value: "internship" },
+  { label: "Terceirizado", value: "outsourcing" },
   { label: "Temporário", value: "temporary" },
 ];
 

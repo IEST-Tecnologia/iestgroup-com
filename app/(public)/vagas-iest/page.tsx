@@ -23,6 +23,7 @@ const CONTRACT_TYPE_LABELS: Record<string, string> = {
   clt: t("vagas_contract_clt"),
   pj: t("vagas_contract_pj"),
   temporary: t("vagas_contract_temporary"),
+  outsourcing: t("vagas_contract_outsourcing"),
 };
 
 export const metadata: Metadata = {

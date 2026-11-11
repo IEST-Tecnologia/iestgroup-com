@@ -420,6 +420,7 @@ const zh: Record<keyof Translations, string> = {
   vagas_contract_clt: "",
   vagas_contract_pj: "",
   vagas_contract_temporary: "",
+  vagas_contract_outsourcing: "",
   vagas_contract_type_alt: "",
   vagas_work_model_alt: "",
   vagas_see_job: "",

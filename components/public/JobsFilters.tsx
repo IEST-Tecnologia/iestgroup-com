@@ -25,6 +25,7 @@ const CONTRACT_TYPE_OPTIONS = [
   { label: "CLT", value: "clt" },
   { label: "PJ", value: "pj" },
   { label: "Temporário", value: "temporary" },
+  { label: "Terceirizado", value: "outsourcing" },
 ];
 
 const WORK_SCHEDULE_OPTIONS = [
